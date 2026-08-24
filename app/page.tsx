@@ -155,12 +155,12 @@ export default function HomePage() {
   return (
     <main className="bg-bg-base">
       {/* Offer */}
-      <section className="mx-auto grid max-w-container grid-cols-1 gap-10 px-4 pt-16 md:grid-cols-2">
+      <section className="mx-auto grid max-w-container grid-cols-1 gap-10 px-4 pt-16 pb-16 md:grid-cols-2 md:pt-24 md:pb-20">
         <div>
-          <h1 className="mb-4 text-3xl font-bold text-dark md:text-5xl">
+          <h1 className="mb-6 text-3xl font-bold text-dark md:text-5xl">
             Дизайн Освіти
           </h1>
-          <p className="mb-6 text-2xl">Сучасна система освітнього проєктування, 
+          <p className="mb-8 text-2xl">Сучасна система освітнього проєктування,
             <br/>
             профільне тестування</p>
           <Image
@@ -168,7 +168,7 @@ export default function HomePage() {
             alt="Дизайн Освіти"
             width={64}
             height={64}
-            className="mb-6"
+            className="mb-8"
           />
           <p className="max-w-[500px] text-base leading-6">
             <span className="font-medium">Мар&apos;яна Калабухова</span>
@@ -189,7 +189,7 @@ export default function HomePage() {
       </section>
 
       {/* Profits */}
-      <section className="mt-16 bg-gradient-to-br from-primary to-secondary py-12">
+      <section className="bg-gradient-to-br from-primary to-secondary py-12">
         <div className="mx-auto grid max-w-container grid-cols-1 gap-10 px-4 sm:grid-cols-2 lg:grid-cols-4">
           {PROFITS.map((item) => (
             <div key={item.text} className="flex flex-col items-center">
@@ -225,12 +225,15 @@ export default function HomePage() {
               />
             </div>
           </div>
-          <div className="mt-8 max-w-[350px]">
+          <div className="mx-auto mt-8 max-w-[320px]">
             <Link
               href="/feedback"
-              className="flex h-[50px] items-center justify-center rounded-[20px] bg-primary text-lg text-white"
+              className="flex h-14 w-full items-center justify-center gap-2.5 rounded-[32px] bg-[#266AF6] px-6 text-base text-white transition hover:opacity-60 lg:h-12"
             >
               Відгуки
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+              </svg>
             </Link>
           </div>
         </div>
@@ -320,12 +323,15 @@ export default function HomePage() {
                   </div>
                 ))}
               </div>
-              <div className="mt-8 max-w-[350px]">
+              <div className="mx-auto mt-8 max-w-[320px]">
                 <Link
                   href="/feedback"
-                  className="flex h-[50px] items-center justify-center rounded-[20px] bg-primary text-lg text-white"
+                  className="flex h-14 w-full items-center justify-center gap-2.5 rounded-[32px] bg-[#266AF6] px-6 text-base text-white transition hover:opacity-60 lg:h-12"
                 >
                   Відгуки
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                  </svg>
                 </Link>
               </div>
             </div>
