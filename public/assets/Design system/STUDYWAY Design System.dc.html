@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style>
+@font-face { font-family: 'Inter Tight'; src: url('wp-content/themes/studyway/assets/fonts/InterTight/InterTight-Regular.woff2') format('woff2'); font-weight: 400; font-display: swap; }
+@font-face { font-family: 'Inter Tight'; src: url('wp-content/themes/studyway/assets/fonts/InterTight/InterTight-Medium.woff2') format('woff2'); font-weight: 500; font-display: swap; }
+@font-face { font-family: 'Inter Tight'; src: url('wp-content/themes/studyway/assets/fonts/InterTight/InterTight-SemiBold.woff2') format('woff2'); font-weight: 600; font-display: swap; }
+@font-face { font-family: 'Inter Tight'; src: url('wp-content/themes/studyway/assets/fonts/InterTight/InterTight-Bold.woff2') format('woff2'); font-weight: 700; font-display: swap; }
+@font-face { font-family: 'Futura PT'; src: url('uploads/FuturaPTBook.woff2') format('woff2'), url('uploads/FuturaPTBook.woff') format('woff'); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Futura PT'; src: url('uploads/FuturaPTMedium.woff2') format('woff2'), url('uploads/FuturaPTMedium.woff') format('woff'); font-weight: 500; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Futura PT'; src: url('uploads/FuturaPTMedium.woff2') format('woff2'), url('uploads/FuturaPTMedium.woff') format('woff'); font-weight: 600; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Futura PT'; src: url('uploads/FuturaPTMedium.woff2') format('woff2'), url('uploads/FuturaPTMedium.woff') format('woff'); font-weight: 700; font-style: normal; font-display: swap; }
+@font-face { font-family: 'fontello'; src: url('wp-content/themes/studyway/assets/fonts/fontello/fontello.woff2') format('woff2'); font-weight: normal; font-style: normal; font-display: block; }
+html, body { margin: 0; padding: 0; background: #fff; }
+body { font-family: 'Futura PT', 'Inter Tight', system-ui, sans-serif; font-synthesis: none; color: #000; -webkit-font-smoothing: antialiased; }
+* { box-sizing: border-box; }
+a { color: #266AF6; text-decoration: none; transition: all ease .25s; }
+a:hover { color: #9D9D9D; }
+@keyframes sw-spin { to { transform: rotate(360deg); } }
+@keyframes sw-pulse { 0% { box-shadow: 0 0 5px 4px rgba(38,106,246,0); } 10% { box-shadow: 0 0 5px 4px rgba(38,106,246,.5); } 100% { box-shadow: 0 0 0 20px rgba(38,106,246,0); } }
+@keyframes sw-slide-in-bottom { 0% { opacity: 0; transform: translateY(20%); } 100% { opacity: 1; transform: none; } }
+@keyframes sw-fade-in { 0% { opacity: 0; } 100% { opacity: 1; } }
+</style>
+</helmet>
+
+<div style="max-width: 1180px; margin: 0 auto; padding: 40px 20px 96px; font-size: 16px; line-height: 1.5; text-wrap: pretty;">
+
+  <header style="display: flex; flex-direction: column; gap: 24px; padding-bottom: 40px; border-bottom: 1px solid rgba(0,0,0,.08);">
+    <div style="display: flex; align-items: center; gap: 12px;">
+      <span style="width: 10px; height: 10px; border-radius: 100%; background: #266AF6; display: block;"></span>
+      <span style="font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: #757474;">Studyway · Design System v1.0</span>
+    </div>
+    <h1 style="margin: 0; font-size: 44px; line-height: 1.05; font-weight: 600; letter-spacing: -.02em;">Дизайн-система<br />Studyway</h1>
+    <p style="margin: 0; max-width: 620px; font-size: 18px; color: #757474;">Єдина мова інтерфейсу для сайту та лендингів: токени, компоненти й правила використання. Mobile-first — усі значення нижче задані для мобільної ширини, десктопні варіації позначені окремо.</p>
+    <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+      <a href="#colors" style="display: inline-flex; align-items: center; height: 40px; padding: 0 16px; border-radius: 32px; border: 1px solid rgba(0,0,0,.08); color: #000; font-size: 14px;" style-hover="border-color: #000;">Кольори</a>
+      <a href="#type" style="display: inline-flex; align-items: center; height: 40px; padding: 0 16px; border-radius: 32px; border: 1px solid rgba(0,0,0,.08); color: #000; font-size: 14px;" style-hover="border-color: #000;">Типографіка</a>
+      <a href="#grid" style="display: inline-flex; align-items: center; height: 40px; padding: 0 16px; border-radius: 32px; border: 1px solid rgba(0,0,0,.08); color: #000; font-size: 14px;" style-hover="border-color: #000;">Сітка</a>
+      <a href="#buttons" style="display: inline-flex; align-items: center; height: 40px; padding: 0 16px; border-radius: 32px; border: 1px solid rgba(0,0,0,.08); color: #000; font-size: 14px;" style-hover="border-color: #000;">Кнопки</a>
+      <a href="#forms" style="display: inline-flex; align-items: center; height: 40px; padding: 0 16px; border-radius: 32px; border: 1px solid rgba(0,0,0,.08); color: #000; font-size: 14px;" style-hover="border-color: #000;">Форми</a>
+      <a href="#nav" style="display: inline-flex; align-items: center; height: 40px; padding: 0 16px; border-radius: 32px; border: 1px solid rgba(0,0,0,.08); color: #000; font-size: 14px;" style-hover="border-color: #000;">Навігація</a>
+      <a href="#feedback" style="display: inline-flex; align-items: center; height: 40px; padding: 0 16px; border-radius: 32px; border: 1px solid rgba(0,0,0,.08); color: #000; font-size: 14px;" style-hover="border-color: #000;">Стани</a>
+      <a href="#motion" style="display: inline-flex; align-items: center; height: 40px; padding: 0 16px; border-radius: 32px; border: 1px solid rgba(0,0,0,.08); color: #000; font-size: 14px;" style-hover="border-color: #000;">Motion</a>
+    </div>
+  </header>
+
+  <section id="principles" style="padding: 56px 0 0;">
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px;">
+      <div style="display: flex; flex-direction: column; gap: 8px;">
+        <span style="font-size: 13px; color: #266AF6; font-weight: 500;">01</span>
+        <h3 style="margin: 0; font-size: 20px; font-weight: 500;">Спокійна основа, один акцент</h3>
+        <p style="margin: 0; color: #757474; font-size: 15px;">Чорний текст на білому, сірі поверхні. Синій — тільки для дії та статусу, ніколи як фон великих блоків.</p>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 8px;">
+        <span style="font-size: 13px; color: #266AF6; font-weight: 500;">02</span>
+        <h3 style="margin: 0; font-size: 20px; font-weight: 500;">Повітря замість рамок</h3>
+        <p style="margin: 0; color: #757474; font-size: 15px;">Блоки розділяємо відступами й радіусами, а не обведеннями. Межа — 1px rgba(0,0,0,.04), майже непомітна.</p>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 8px;">
+        <span style="font-size: 13px; color: #266AF6; font-weight: 500;">03</span>
+        <h3 style="margin: 0; font-size: 20px; font-weight: 500;">Палець перший</h3>
+        <p style="margin: 0; color: #757474; font-size: 15px;">Мінімальна ціль дотику — 48px, на мобільному кнопки та поля вищі, ніж на десктопі.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="colors" style="padding: 72px 0 0;">
+    <div style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 32px;">
+      <span style="font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: #9D9D9D;">Токени</span>
+      <h2 style="margin: 0; font-size: 32px; font-weight: 500; letter-spacing: -.01em;">Кольори</h2>
+      <p style="margin: 0; max-width: 620px; color: #757474;">Дев'ять кольорів на весь продукт. Ключові — з поточної теми сайту; статусні кольори замінюють службові ключові слова <code style="font-family: ui-monospace, monospace; font-size: 13px; background: #F5F5F5; padding: 2px 6px; border-radius: 4px;">green / red / yellow</code>, які були в коді.</p>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px;">
+      <sc-for list="{{ colors }}" as="c" hint-placeholder-count="9">
+        <div style="display: flex; flex-direction: column; gap: 12px; padding: 16px; border-radius: 20px; background: #fff; border: 1px solid rgba(0,0,0,.06);">
+          <div style="height: 72px; border-radius: 12px; border: 1px solid rgba(0,0,0,.06); background: {{ c.hex }};"></div>
+          <div style="display: flex; flex-direction: column; gap: 2px;">
+            <span style="font-size: 15px; font-weight: 500;">{{ c.name }}</span>
+            <span style="font-size: 13px; font-family: ui-monospace, monospace; color: #757474;">{{ c.hex }}</span>
+            <span style="font-size: 13px; color: #9D9D9D; margin-top: 4px;">{{ c.use }}</span>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+    <div style="margin-top: 24px; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px;">
+      <div style="padding: 20px; border-radius: 20px; background: #F5F5F5;">
+        <span style="font-size: 13px; font-weight: 600; color: #12A150;">Роби</span>
+        <p style="margin: 8px 0 0; font-size: 15px; color: #757474;">Синій — на кнопці дії, активному пункті меню, маркерах списку, лічильниках. Один синій елемент на екран у полі зору.</p>
+      </div>
+      <div style="padding: 20px; border-radius: 20px; background: #F5F5F5;">
+        <span style="font-size: 13px; font-weight: 600; color: #E5484D;">Не роби</span>
+        <p style="margin: 8px 0 0; font-size: 15px; color: #757474;">Не використовуй чистий #000 для великих площ фону — для темних секцій є #1A1A1A. Не додавай нових відтінків синього.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="type" style="padding: 72px 0 0;">
+    <div style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 32px;">
+      <span style="font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: #9D9D9D;">Токени</span>
+      <h2 style="margin: 0; font-size: 32px; font-weight: 500; letter-spacing: -.01em;">Типографіка</h2>
+      <p style="margin: 0; max-width: 620px; color: #757474;">Futura PT, два накреслення: Book (400) для тексту і Medium (500) для заголовків та акцентів. Ваги 600 і 700 у системі мапляться на Medium — псевдожирний вимкнено. Базовий текст 14px на мобільному, 16px від 992px. Через відкриті форми Futura міжлітерний інтервал заголовків тримаємо на -.01em, а капслок-надзаголовки — на .12em.</p>
+    </div>
+    <div style="display: flex; flex-direction: column; border-radius: 24px; overflow: hidden; border: 1px solid rgba(0,0,0,.06);">
+      <sc-for list="{{ typeScale }}" as="t" hint-placeholder-count="7">
+        <div style="display: flex; flex-direction: column; gap: 12px; padding: 24px 20px; border-bottom: 1px solid rgba(0,0,0,.06);">
+          <div style="display: flex; flex-wrap: wrap; gap: 12px; font-size: 13px; font-family: ui-monospace, monospace; color: #9D9D9D;">
+            <span style="color: #266AF6;">{{ t.token }}</span>
+            <span>{{ t.mobile }}</span>
+            <span>{{ t.desktop }}</span>
+            <span>{{ t.weight }}</span>
+          </div>
+          <div style="line-height: 1.15; letter-spacing: -.01em; font-size: {{ t.preview }}; font-weight: {{ t.w }};">{{ t.sample }}</div>
+        </div>
+      </sc-for>
+    </div>
+    <div style="margin-top: 24px; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; font-size: 15px; color: #757474;">
+      <div style="padding: 20px; border-radius: 20px; background: #F5F5F5;">Міжрядковий інтервал: 1.15 для H1–H2, 1.2 для H3–H4, 1.5 для тексту, 1 для кнопок і полів.</div>
+      <div style="padding: 20px; border-radius: 20px; background: #F5F5F5;">Довжина рядка — до 70 символів. Абзац у контенті обмежуємо 620–720px незалежно від ширини екрана.</div>
+      <div style="padding: 20px; border-radius: 20px; background: #F5F5F5;">Капслок — тільки для надзаголовків 13px із letter-spacing .12em. У заголовках не використовуємо.</div>
+    </div>
+  </section>
+
+  <section id="grid" style="padding: 72px 0 0;">
+    <div style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 32px;">
+      <span style="font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: #9D9D9D;">Токени</span>
+      <h2 style="margin: 0; font-size: 32px; font-weight: 500; letter-spacing: -.01em;">Сітка й відступи</h2>
+      <p style="margin: 0; max-width: 620px; color: #757474;">12 колонок, ґатер 30px (по 15px з боку — як у поточному Bootstrap-контейнері). Крок відступів кратний 8, з двома винятками для дрібної типографіки (4, 12).</p>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(12, 1fr); gap: 8px; margin-bottom: 32px;">
+      <sc-for list="{{ cols }}" as="n" hint-placeholder-count="12">
+        <div style="height: 64px; border-radius: 8px; background: rgba(38,106,246,.10); display: flex; align-items: flex-end; justify-content: center; font-size: 10px; color: #266AF6; padding-bottom: 6px;">{{ n }}</div>
+      </sc-for>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px;">
+      <div>
+        <h4 style="margin: 0 0 16px; font-size: 18px; font-weight: 600;">Брейкпоінти</h4>
+        <div style="display: flex; flex-direction: column; gap: 1px; background: rgba(0,0,0,.06); border-radius: 16px; overflow: hidden;">
+          <sc-for list="{{ breakpoints }}" as="b" hint-placeholder-count="5">
+            <div style="display: flex; justify-content: space-between; gap: 16px; padding: 14px 16px; background: #fff; font-size: 15px;">
+              <span style="font-family: ui-monospace, monospace; color: #266AF6;">{{ b.name }}</span>
+              <span style="color: #757474;">{{ b.value }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+      <div>
+        <h4 style="margin: 0 0 16px; font-size: 18px; font-weight: 600;">Крок відступів</h4>
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          <sc-for list="{{ spacing }}" as="s" hint-placeholder-count="8">
+            <div style="display: flex; align-items: center; gap: 12px;">
+              <span style="width: 52px; font-size: 13px; font-family: ui-monospace, monospace; color: #757474;">{{ s.label }}</span>
+              <span style="height: 16px; border-radius: 4px; background: #266AF6; display: block; width: {{ s.px }};"></span>
+              <span style="font-size: 13px; color: #9D9D9D;">{{ s.use }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top: 24px; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px;">
+      <sc-for list="{{ radii }}" as="r" hint-placeholder-count="5">
+        <div style="padding: 20px; background: #F5F5F5; display: flex; flex-direction: column; gap: 10px; border-radius: {{ r.css }};">
+          <span style="font-size: 15px; font-weight: 500;">{{ r.css }}</span>
+          <span style="font-size: 13px; color: #757474;">{{ r.use }}</span>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section id="icons" style="padding: 72px 0 0;">
+    <div style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 32px;">
+      <span style="font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: #9D9D9D;">Компоненти</span>
+      <h2 style="margin: 0; font-size: 32px; font-weight: 500; letter-spacing: -.01em;">Іконки</h2>
+      <p style="margin: 0; max-width: 620px; color: #757474;">Іконковий шрифт fontello з теми. Розміри 16 / 20 / 24px, колір успадковується від тексту. Іконка ніколи не стоїть сама — або в парі з текстом, або з aria-label.</p>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(104px, 1fr)); gap: 8px;">
+      <sc-for list="{{ icons }}" as="i" hint-placeholder-count="18">
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 18px 8px; border-radius: 16px; background: #F5F5F5;">
+          <span style="font-family: fontello; font-size: 24px; line-height: 1;">{{ i.glyph }}</span>
+          <span style="font-size: 11px; color: #757474; text-align: center; word-break: break-all;">{{ i.name }}</span>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section id="buttons" style="padding: 72px 0 0;">
+    <div style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 32px;">
+      <span style="font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: #9D9D9D;">Компоненти</span>
+      <h2 style="margin: 0; font-size: 32px; font-weight: 500; letter-spacing: -.01em;">Кнопки</h2>
+      <p style="margin: 0; max-width: 620px; color: #757474;">Висота 56px на мобільному, 48px від 992px. Радіус 32px, шрифт 14/16px, вага 400. Одна первинна кнопка на екран.</p>
+    </div>
+    <div style="display: flex; flex-wrap: wrap; gap: 32px; padding: 32px 24px; border-radius: 24px; background: #F5F5F5;">
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        <span style="font-size: 13px; color: #9D9D9D;">Primary</span>
+        <button style="height: 56px; padding: 0 24px; border: none; border-radius: 32px; background: #266AF6; color: #fff; font-family: inherit; font-size: 16px; cursor: pointer; transition: all ease .3s;" style-hover="opacity: .6;">Залишити заявку</button>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        <span style="font-size: 13px; color: #9D9D9D;">Bordered</span>
+        <button style="height: 56px; padding: 0 24px; border: 1px solid rgba(0,0,0,.12); border-radius: 32px; background: transparent; color: #000; font-family: inherit; font-size: 16px; cursor: pointer; transition: all ease .3s;" style-hover="border-color: #000;">Детальніше</button>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        <span style="font-size: 13px; color: #9D9D9D;">Black</span>
+        <button style="height: 56px; padding: 0 24px; border: 2px solid #000; border-radius: 32px; background: #000; color: #fff; font-family: inherit; font-size: 16px; cursor: pointer; transition: all ease .3s;" style-hover="background: #fff; color: #000;">Підібрати університет</button>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        <span style="font-size: 13px; color: #9D9D9D;">Disabled</span>
+        <button disabled="disabled" style="height: 56px; padding: 0 24px; border: none; border-radius: 32px; background: #266AF6; color: #fff; font-family: inherit; font-size: 16px; opacity: .35; cursor: not-allowed;">Надіслати</button>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        <span style="font-size: 13px; color: #9D9D9D;">З іконкою</span>
+        <button style="height: 56px; padding: 0 24px; border: none; border-radius: 32px; background: #266AF6; color: #fff; font-family: inherit; font-size: 16px; cursor: pointer; display: inline-flex; align-items: center; gap: 10px; transition: all ease .3s;" style-hover="opacity: .6;"><span style="font-family: fontello; font-size: 18px;">&#xe801;</span>Написати нам</button>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        <span style="font-size: 13px; color: #9D9D9D;">Icon only 48×48</span>
+        <button aria-label="Пошук" style="width: 48px; height: 48px; border: 1px solid rgba(0,0,0,.12); border-radius: 100%; background: #fff; color: #000; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; transition: all ease .3s;" style-hover="border-color: #000;"><span style="font-family: fontello; font-size: 18px;">&#xe80a;</span></button>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        <span style="font-size: 13px; color: #9D9D9D;">Pulse (акційна)</span>
+        <button style="height: 56px; padding: 0 24px; border: none; border-radius: 32px; background: #266AF6; color: #fff; font-family: inherit; font-size: 16px; cursor: pointer; animation: sw-pulse 1.6s infinite;">Знижка до 30.09</button>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        <span style="font-size: 13px; color: #9D9D9D;">Текстова</span>
+        <a href="#buttons" style="height: 56px; display: inline-flex; align-items: center; gap: 8px; font-size: 16px;">Усі програми <span style="font-family: fontello; font-size: 14px;">&#xf105;</span></a>
+      </div>
+    </div>
+    <div style="margin-top: 24px; font-size: 15px; color: #757474;">Стан <b style="color: #000; font-weight: 500;">hover</b> — прозорість .6 для заповнених, зміна кольору межі для контурних. <b style="color: #000; font-weight: 500;">Focus</b> — обведення 2px #266AF6 з відступом 2px, обов'язкове для клавіатури.</div>
+  </section>
+
+  <section id="forms" style="padding: 72px 0 0;">
+    <div style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 32px;">
+      <span style="font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: #9D9D9D;">Компоненти</span>
+      <h2 style="margin: 0; font-size: 32px; font-weight: 500; letter-spacing: -.01em;">Форми й інпути</h2>
+      <p style="margin: 0; max-width: 620px; color: #757474;">Поля 48px заввишки, фон #F5F5F5, радіус 32px (textarea — 16px), внутрішній відступ 24px. Лейбл над полем, підказка під ним.</p>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 32px; padding: 32px 24px; border-radius: 32px; border: 1px solid rgba(0,0,0,.06);">
+      <div style="display: flex; flex-direction: column; gap: 20px;">
+        <label style="display: flex; flex-direction: column; gap: 8px;">
+          <span style="font-size: 14px; font-weight: 500;">Ім'я</span>
+          <input type="text" placeholder="Як до вас звертатися" style="height: 48px; border: 1px solid rgba(0,0,0,.04); border-radius: 32px; background: #F5F5F5; padding: 0 24px; font-family: inherit; font-size: 16px; outline: none; width: 100%;" style-focus="border-color: #266AF6; background: #fff;" />
+        </label>
+        <label style="display: flex; flex-direction: column; gap: 8px;">
+          <span style="font-size: 14px; font-weight: 500;">Телефон</span>
+          <input type="tel" value="+380 67 000 00 00" style="height: 48px; border: 1px solid rgba(0,0,0,.04); border-radius: 32px; background: #F5F5F5; padding: 0 24px; font-family: inherit; font-size: 16px; outline: none; width: 100%;" style-focus="border-color: #266AF6; background: #fff;" />
+          <span style="font-size: 13px; color: #9D9D9D; padding-left: 24px;">Формат вводу застосовується автоматично</span>
+        </label>
+        <label style="display: flex; flex-direction: column; gap: 8px;">
+          <span style="font-size: 14px; font-weight: 500;">Email</span>
+          <input type="email" value="anna@" style="height: 48px; border: 1px solid #E5484D; border-radius: 32px; background: #fff; padding: 0 24px; font-family: inherit; font-size: 16px; outline: none; width: 100%;" />
+          <span style="font-size: 13px; color: #E5484D; padding-left: 24px;">Перевірте адресу — бракує домену</span>
+        </label>
+        <label style="display: flex; flex-direction: column; gap: 8px;">
+          <span style="font-size: 14px; font-weight: 500;">Країна навчання</span>
+          <select style="height: 48px; border: 1px solid rgba(0,0,0,.04); border-radius: 32px; background: #F5F5F5; padding: 0 20px; font-family: inherit; font-size: 16px; color: #000; outline: none; width: 100%; appearance: none;">
+            <option>Польща</option>
+            <option>Німеччина</option>
+            <option>Чехія</option>
+          </select>
+        </label>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 20px;">
+        <label style="display: flex; flex-direction: column; gap: 8px;">
+          <span style="font-size: 14px; font-weight: 500;">Коментар</span>
+          <textarea placeholder="Що вам важливо знати?" style="height: 120px; border: 1px solid rgba(0,0,0,.04); border-radius: 16px; background: #F5F5F5; padding: 16px 20px; font-family: inherit; font-size: 16px; outline: none; width: 100%; resize: vertical;" style-focus="border-color: #266AF6; background: #fff;"></textarea>
+        </label>
+        <div style="display: flex; flex-direction: column; gap: 14px;">
+          <button type="button" onClick="{{ toggleAgree }}" style="display: flex; align-items: flex-start; gap: 12px; background: none; border: none; padding: 0; cursor: pointer; text-align: left; font-family: inherit;">
+            <span style="width: 20px; height: 20px; flex: 0 0 20px; border-radius: 5px; display: inline-flex; align-items: center; justify-content: center; font-family: fontello; font-size: 11px; margin-top: 2px; transition: all ease .2s; border: {{ agreeBorder }}; color: {{ agreeColor }};">{{ agreeMark }}</span>
+            <span style="font-size: 15px; color: #757474;">Погоджуюсь з <a href="#forms">політикою конфіденційності</a></span>
+          </button>
+          <div style="display: flex; flex-direction: column; gap: 12px;">
+            <sc-for list="{{ radioOptions }}" as="r" hint-placeholder-count="3">
+              <button type="button" onClick="{{ r.pick }}" style="display: flex; align-items: center; gap: 12px; background: none; border: none; padding: 0; cursor: pointer; font-family: inherit;">
+                <span style="width: 18px; height: 18px; border-radius: 100%; display: inline-block; transition: all ease .2s; border: {{ r.border }}; background: {{ r.fill }}; box-shadow: {{ r.inner }};"></span>
+                <span style="font-size: 15px;">{{ r.label }}</span>
+              </button>
+            </sc-for>
+          </div>
+        </div>
+        <button style="height: 56px; padding: 0 24px; border: none; border-radius: 32px; background: #266AF6; color: #fff; font-family: inherit; font-size: 16px; cursor: pointer; transition: all ease .3s;" style-hover="opacity: .6;">Надіслати заявку</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="nav" style="padding: 72px 0 0;">
+    <div style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 32px;">
+      <span style="font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: #9D9D9D;">Компоненти</span>
+      <h2 style="margin: 0; font-size: 32px; font-weight: 500; letter-spacing: -.01em;">Навігація</h2>
+      <p style="margin: 0; max-width: 620px; color: #757474;">Хедер 60px на мобільному, 100px від 992px; при скролі стискається до 60px і отримує білий фон. Активний стан — синій, не жирний.</p>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 24px;">
+      <div style="border-radius: 24px; border: 1px solid rgba(0,0,0,.06); overflow: hidden;">
+        <div style="height: 60px; display: flex; align-items: center; justify-content: space-between; padding: 0 20px; background: #fff; border-bottom: 1px solid rgba(0,0,0,.06);">
+          <span style="font-weight: 600; font-size: 18px; letter-spacing: -.01em;">STUDYWAY</span>
+          <div style="display: flex; align-items: center; gap: 16px;">
+            <span style="font-family: fontello; font-size: 20px;">&#xe80a;</span>
+            <span style="font-family: fontello; font-size: 20px;">&#xf0c9;</span>
+          </div>
+        </div>
+        <div style="height: 100px; display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 0 32px; background: #fff;">
+          <span style="font-weight: 600; font-size: 20px; letter-spacing: -.01em;">STUDYWAY</span>
+          <div style="display: flex; align-items: center; gap: 28px; font-size: 16px;">
+            <a href="#nav" style="color: #266AF6;">Університети</a>
+            <a href="#nav" style="color: #000;" style-hover="color: #266AF6;">Програми</a>
+            <a href="#nav" style="color: #000;" style-hover="color: #266AF6;">Блог</a>
+            <a href="#nav" style="color: #000;" style-hover="color: #266AF6;">Про нас</a>
+          </div>
+          <button style="height: 48px; padding: 0 20px; border: none; border-radius: 32px; background: #266AF6; color: #fff; font-family: inherit; font-size: 16px; cursor: pointer;">Консультація</button>
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px;">
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+          <span style="font-size: 13px; color: #9D9D9D;">Таби</span>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+            <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="3">
+              <button type="button" onClick="{{ t.pick }}" style="height: 40px; padding: 0 16px; border-radius: 20px; border: none; font-family: inherit; font-size: 15px; cursor: pointer; transition: all ease .25s; background: {{ t.bg }}; color: {{ t.color }};">{{ t.label }}</button>
+            </sc-for>
+          </div>
+          <div style="padding: 20px; border-radius: 20px; background: #F5F5F5; font-size: 15px; color: #757474; min-height: 96px;">{{ tabBody }}</div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 20px;">
+          <div style="display: flex; flex-direction: column; gap: 12px;">
+            <span style="font-size: 13px; color: #9D9D9D;">Хлібні крихти</span>
+            <div style="display: flex; align-items: center; gap: 8px; font-size: 14px; color: #757474;">
+              <a href="#nav">Головна</a><span>/</span><a href="#nav">Країни</a><span>/</span><span style="color: #000;">Польща</span>
+            </div>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 12px;">
+            <span style="font-size: 13px; color: #9D9D9D;">Пагінація</span>
+            <div style="display: flex; gap: 8px;">
+              <sc-for list="{{ pages }}" as="p" hint-placeholder-count="5">
+                <span style="width: 40px; height: 40px; border-radius: 100%; display: inline-flex; align-items: center; justify-content: center; font-size: 15px; background: {{ p.bg }}; color: {{ p.color }}; font-family: {{ p.font }};">{{ p.label }}</span>
+              </sc-for>
+            </div>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 12px;">
+            <span style="font-size: 13px; color: #9D9D9D;">Теги категорій</span>
+            <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+              <sc-for list="{{ tagList }}" as="tag" hint-placeholder-count="3">
+                <span style="display: inline-flex; align-items: center; height: 32px; padding: 0 16px; border-radius: 16px; background: #F5F5F5; font-size: 14px;"><span style="color: #266AF6; margin-right: 8px;">#</span>{{ tag }}</span>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="tables" style="padding: 72px 0 0;">
+    <div style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 32px;">
+      <span style="font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: #9D9D9D;">Компоненти</span>
+      <h2 style="margin: 0; font-size: 32px; font-weight: 500; letter-spacing: -.01em;">Таблиці</h2>
+      <p style="margin: 0; max-width: 620px; color: #757474;">Без вертикальних ліній: рядки розділяє межа rgba(0,0,0,.06), заголовок — 13px капслоком. На мобільному таблиця горизонтально прокручується, перша колонка не липне.</p>
+    </div>
+    <div style="border-radius: 24px; border: 1px solid rgba(0,0,0,.06); overflow: hidden;">
+      <div style="display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 16px; padding: 16px 24px; background: #F5F5F5; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: #757474;">
+        <span>Університет</span><span>Країна</span><span>Вартість</span><span>Статус</span>
+      </div>
+      <sc-for list="{{ rows }}" as="row" hint-placeholder-count="4">
+        <div style="display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 16px; padding: 20px 24px; border-top: 1px solid rgba(0,0,0,.06); font-size: 15px; align-items: center;">
+          <span style="font-weight: 500;">{{ row.uni }}</span>
+          <span style="color: #757474;">{{ row.country }}</span>
+          <span style="color: #757474;">{{ row.price }}</span>
+          <span style="display: inline-flex; align-items: center; height: 28px; padding: 0 12px; border-radius: 14px; font-size: 13px; width: fit-content; background: {{ row.badgeBg }}; color: {{ row.badgeColor }};">{{ row.status }}</span>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section id="feedback" style="padding: 72px 0 0;">
+    <div style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 32px;">
+      <span style="font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: #9D9D9D;">Компоненти</span>
+      <h2 style="margin: 0; font-size: 32px; font-weight: 500; letter-spacing: -.01em;">Стани й нотифікації</h2>
+      <p style="margin: 0; max-width: 620px; color: #757474;">Чотири типи повідомлень, однакова структура: іконка 20px, заголовок 15px/500, пояснення 14px. Тон — спокійний, без вигуків.</p>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px;">
+      <sc-for list="{{ alerts }}" as="a" hint-placeholder-count="4">
+        <div style="display: flex; gap: 12px; padding: 20px; border-radius: 20px; background: {{ a.bg }};">
+          <span style="font-family: fontello; font-size: 20px; line-height: 1.2; color: {{ a.color }};">{{ a.glyph }}</span>
+          <div style="display: flex; flex-direction: column; gap: 4px;">
+            <span style="font-size: 15px; font-weight: 500;">{{ a.title }}</span>
+            <span style="font-size: 14px; color: #757474;">{{ a.text }}</span>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+    <div style="margin-top: 24px; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px;">
+      <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; padding: 40px 20px; border-radius: 24px; border: 1px solid rgba(0,0,0,.06); min-height: 200px;">
+        <span style="width: 50px; height: 50px; border-radius: 100%; border: 6px solid; border-color: #266AF6 transparent #266AF6 transparent; animation: sw-spin 1.2s linear infinite; display: block;"></span>
+        <span style="font-size: 14px; color: #9D9D9D;">Завантаження</span>
+      </div>
+      <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; padding: 40px 20px; border-radius: 24px; background: #F5F5F5; min-height: 200px; text-align: center;">
+        <span style="font-family: fontello; font-size: 28px; color: #9D9D9D;">&#xe806;</span>
+        <span style="font-size: 16px; font-weight: 500;">Нічого не знайдено</span>
+        <span style="font-size: 14px; color: #757474; max-width: 260px;">Спробуйте змінити фільтри або скинути пошук</span>
+        <button style="height: 40px; padding: 0 16px; border-radius: 20px; border: 1px solid rgba(0,0,0,.12); background: #fff; font-family: inherit; font-size: 14px; cursor: pointer;">Скинути</button>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 12px; padding: 24px; border-radius: 24px; border: 1px solid rgba(0,0,0,.06); min-height: 200px;">
+        <span style="font-size: 13px; color: #9D9D9D;">Скелетон</span>
+        <span style="height: 16px; width: 70%; border-radius: 8px; background: #F5F5F5; display: block; animation: sw-fade-in 1s ease infinite alternate;"></span>
+        <span style="height: 16px; width: 90%; border-radius: 8px; background: #F5F5F5; display: block; animation: sw-fade-in 1.2s ease infinite alternate;"></span>
+        <span style="height: 16px; width: 50%; border-radius: 8px; background: #F5F5F5; display: block; animation: sw-fade-in 1.4s ease infinite alternate;"></span>
+        <span style="height: 96px; border-radius: 16px; background: #F5F5F5; display: block; margin-top: 8px;"></span>
+      </div>
+    </div>
+  </section>
+
+  <section id="modals" style="padding: 72px 0 0;">
+    <div style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 32px;">
+      <span style="font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: #9D9D9D;">Компоненти</span>
+      <h2 style="margin: 0; font-size: 32px; font-weight: 500; letter-spacing: -.01em;">Модалки й оверлеї</h2>
+      <p style="margin: 0; max-width: 620px; color: #757474;">Радіус 30px, ширина до 400px на мобільному і до 800px від 992px, підложка #000 з прозорістю .5. Вхід — зсув на 50px угору за .3s ease-out.</p>
+    </div>
+    <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 24px;">
+      <button onClick="{{ openModal }}" style="height: 48px; padding: 0 20px; border: none; border-radius: 32px; background: #266AF6; color: #fff; font-family: inherit; font-size: 16px; cursor: pointer;">Показати модалку</button>
+      <button onClick="{{ openToast }}" style="height: 48px; padding: 0 20px; border: 1px solid rgba(0,0,0,.12); border-radius: 32px; background: #fff; color: #000; font-family: inherit; font-size: 16px; cursor: pointer;">Показати тост</button>
+    </div>
+    <div style="border-radius: 30px; overflow: hidden; border: 1px solid rgba(0,0,0,.06); display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));">
+      <div style="background: #1A1A1A; color: #fff; padding: 40px 32px; display: flex; flex-direction: column; justify-content: flex-end; gap: 8px; min-height: 200px;">
+        <span style="font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.5);">Ілюстративна колонка</span>
+        <span style="font-size: 24px; font-weight: 500; line-height: 1.15;">Безкоштовна консультація</span>
+      </div>
+      <div style="padding: 32px; display: flex; flex-direction: column; gap: 16px;">
+        <span style="font-size: 20px; font-weight: 500;">Залиште контакти</span>
+        <span style="font-size: 15px; color: #757474;">Менеджер зателефонує впродовж робочого дня.</span>
+        <input type="tel" placeholder="+380" style="height: 48px; border: 1px solid rgba(0,0,0,.04); border-radius: 32px; background: #F5F5F5; padding: 0 24px; font-family: inherit; font-size: 16px; outline: none; width: 100%;" />
+        <button style="height: 56px; border: none; border-radius: 32px; background: #266AF6; color: #fff; font-family: inherit; font-size: 16px; cursor: pointer;">Замовити дзвінок</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="charts" style="padding: 72px 0 0;">
+    <div style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 32px;">
+      <span style="font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: #9D9D9D;">Компоненти</span>
+      <h2 style="margin: 0; font-size: 32px; font-weight: 500; letter-spacing: -.01em;">Графіки</h2>
+      <p style="margin: 0; max-width: 620px; color: #757474;">Дані показуємо синім і сірим — не більше двох рядів на графік. Сітка й підписи 12px #9D9D9D, значення підписуємо прямо на елементі, легенду не використовуємо, якщо рядів менше трьох.</p>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px;">
+      <div style="padding: 24px; border-radius: 24px; border: 1px solid rgba(0,0,0,.06); display: flex; flex-direction: column; gap: 20px;">
+        <span style="font-size: 15px; font-weight: 500;">Вступники за країнами</span>
+        <div style="display: flex; align-items: flex-end; gap: 12px; height: 160px;">
+          <sc-for list="{{ bars }}" as="b" hint-placeholder-count="5">
+            <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 8px; height: 100%; justify-content: flex-end;">
+              <span style="font-size: 12px; color: #757474;">{{ b.value }}</span>
+              <span style="width: 100%; border-radius: 8px 8px 0 0; display: block; transition: all ease .4s; height: {{ b.h }}; background: {{ b.bg }};"></span>
+              <span style="font-size: 12px; color: #9D9D9D;">{{ b.label }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+      <div style="padding: 24px; border-radius: 24px; border: 1px solid rgba(0,0,0,.06); display: flex; flex-direction: column; gap: 20px;">
+        <span style="font-size: 15px; font-weight: 500;">Заявки, 12 місяців</span>
+        {{ lineChart }}
+      </div>
+      <div style="padding: 24px; border-radius: 24px; border: 1px solid rgba(0,0,0,.06); display: flex; flex-direction: column; gap: 20px;">
+        <span style="font-size: 15px; font-weight: 500;">Конверсія заявок</span>
+        <div style="display: flex; align-items: center; gap: 24px;">
+          <span style="width: 120px; height: 120px; border-radius: 100%; display: block; flex: 0 0 120px; background: {{ donut }};"></span>
+          <div style="display: flex; flex-direction: column; gap: 10px; font-size: 14px;">
+            <span style="display: flex; align-items: center; gap: 8px;"><span style="width: 10px; height: 10px; border-radius: 100%; background: #266AF6; display: block;"></span>Оформлені — 62%</span>
+            <span style="display: flex; align-items: center; gap: 8px;"><span style="width: 10px; height: 10px; border-radius: 100%; background: #E5E5E5; display: block;"></span>У процесі — 38%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="motion" style="padding: 72px 0 0;">
+    <div style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 32px;">
+      <span style="font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: #9D9D9D;">Токени</span>
+      <h2 style="margin: 0; font-size: 32px; font-weight: 500; letter-spacing: -.01em;">Motion</h2>
+      <p style="margin: 0; max-width: 620px; color: #757474;">Три тривалості й одна крива. Рух завжди підпорядкований змісту: поява знизу на 20%, зникнення — тільки прозорістю.</p>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px;">
+      <sc-for list="{{ motions }}" as="m" hint-placeholder-count="4">
+        <div style="padding: 20px; border-radius: 20px; background: #F5F5F5; display: flex; flex-direction: column; gap: 6px;">
+          <span style="font-size: 15px; font-weight: 500;">{{ m.name }}</span>
+          <span style="font-size: 13px; font-family: ui-monospace, monospace; color: #266AF6;">{{ m.value }}</span>
+          <span style="font-size: 14px; color: #757474;">{{ m.use }}</span>
+        </div>
+      </sc-for>
+    </div>
+    <div style="margin-top: 16px; display: flex; flex-wrap: wrap; gap: 12px; align-items: center;">
+      <button onClick="{{ replayMotion }}" style="height: 40px; padding: 0 16px; border-radius: 20px; border: 1px solid rgba(0,0,0,.12); background: #fff; font-family: inherit; font-size: 14px; cursor: pointer;">Програти ще раз</button>
+      <span style="font-size: 14px; color: #9D9D9D;">slide-in-bottom із затримкою .2s між елементами</span>
+    </div>
+    <div style="margin-top: 16px; display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 16px;">
+      {{ motionDemo }}
+    </div>
+  </section>
+
+  <section id="rules" style="padding: 72px 0 0;">
+    <div style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 32px;">
+      <span style="font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: #9D9D9D;">Практика</span>
+      <h2 style="margin: 0; font-size: 32px; font-weight: 500; letter-spacing: -.01em;">Гайдлайни використання</h2>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 1px; background: rgba(0,0,0,.06); border-radius: 24px; overflow: hidden;">
+      <sc-for list="{{ guidelines }}" as="g" hint-placeholder-count="6">
+        <div style="background: #fff; padding: 24px 20px; display: grid; grid-template-columns: 1fr; gap: 12px;">
+          <span style="font-size: 17px; font-weight: 500;">{{ g.topic }}</span>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px;">
+            <div style="display: flex; gap: 10px; font-size: 15px; color: #757474;"><span style="color: #12A150; font-family: fontello; font-size: 14px; line-height: 1.5;">&#xe807;</span><span>{{ g.do }}</span></div>
+            <div style="display: flex; gap: 10px; font-size: 15px; color: #757474;"><span style="color: #E5484D; font-family: fontello; font-size: 14px; line-height: 1.5;">&#xe802;</span><span>{{ g.dont }}</span></div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <footer style="margin-top: 72px; padding-top: 32px; border-top: 1px solid rgba(0,0,0,.08); display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; font-size: 14px; color: #9D9D9D;">
+    <span>Studyway Design System — джерело: тема WordPress <code style="font-family: ui-monospace, monospace;">wp-content/themes/studyway</code></span>
+    <span>Оновлено 24.08.2026</span>
+  </footer>
+
+  <sc-if value="{{ modalOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeModal }}" style="position: fixed; inset: 0; background: rgba(0,0,0,.5); z-index: 100000; display: flex; align-items: center; justify-content: center; padding: 16px; animation: sw-fade-in .3s ease;">
+      <div style="background: #fff; border-radius: 30px; max-width: 400px; width: 100%; overflow: hidden; position: relative; animation: sw-slide-in-bottom .3s ease-out;">
+        <button onClick="{{ closeModal }}" aria-label="Закрити" style="position: absolute; right: 20px; top: 20px; width: 24px; height: 24px; border: none; background: transparent; cursor: pointer; font-family: fontello; font-size: 16px; color: #000;">&#xe802;</button>
+        <div style="background: #1A1A1A; color: #fff; padding: 32px 24px; display: flex; flex-direction: column; gap: 6px;">
+          <span style="font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.5);">Модалка</span>
+          <span style="font-size: 24px; font-weight: 500;">Безкоштовна консультація</span>
+        </div>
+        <div style="padding: 24px; display: flex; flex-direction: column; gap: 16px;">
+          <span style="font-size: 15px; color: #757474;">Менеджер зателефонує впродовж робочого дня.</span>
+          <input type="tel" placeholder="+380" style="height: 48px; border: 1px solid rgba(0,0,0,.04); border-radius: 32px; background: #F5F5F5; padding: 0 24px; font-family: inherit; font-size: 16px; outline: none; width: 100%;" />
+          <button onClick="{{ closeModal }}" style="height: 56px; border: none; border-radius: 32px; background: #266AF6; color: #fff; font-family: inherit; font-size: 16px; cursor: pointer;">Замовити дзвінок</button>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ toastOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="position: fixed; left: 16px; right: 16px; bottom: 24px; z-index: 100001; display: flex; justify-content: center;">
+      <div style="display: flex; align-items: center; gap: 12px; background: #1A1A1A; color: #fff; padding: 16px 20px; border-radius: 20px; max-width: 420px; animation: sw-slide-in-bottom .3s ease-out;">
+        <span style="font-family: fontello; font-size: 18px; color: #12A150;">&#xe807;</span>
+        <span style="font-size: 15px;">Заявку надіслано. Ми на зв'язку.</span>
+      </div>
+    </div>
+  </sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;accentColor&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#266AF6&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;options&quot;:[&quot;#266AF6&quot;,&quot;#1B54C9&quot;,&quot;#0F172A&quot;,&quot;#FF8436&quot;],&quot;section&quot;:&quot;Бренд&quot;}}">
+class Component extends DCLogic {
+  state = { agree: true, radio: 0, tab: 0, modalOpen: false, toastOpen: false, motionKey: 0 };
+
+  componentWillUnmount() { clearTimeout(this._t); }
+
+  renderVals() {
+    const accent = this.props.accentColor ?? '#266AF6';
+    const s = this.state;
+    const tabBodies = [
+      'Бакалаврські програми в 6 країнах: подача документів, нострифікація, супровід до зарахування.',
+      'Магістратура англійською або мовою країни. Перевірка диплома й підбір спеціальності.',
+      'Мовні курси перед вступом: від 3 до 12 місяців, із проживанням.'
+    ];
+    const radioLabels = ['Бакалавр', 'Магістратура', 'Мовний курс'];
+    const line = [22, 30, 26, 41, 38, 52, 47, 60, 55, 72, 68, 84];
+    const maxLine = 90;
+    const pts = line.map((v, i) => `${(i / (line.length - 1)) * 280},${120 - (v / maxLine) * 100}`).join(' ');
+
+    return {
+      colors: [
+        { name: 'Primary', hex: accent, use: 'Кнопки, посилання, активні стани' },
+        { name: 'Ink', hex: '#000000', use: 'Основний текст, заголовки' },
+        { name: 'Ink Soft', hex: '#1A1A1A', use: 'Темні секції та модалки' },
+        { name: 'Gray', hex: '#757474', use: 'Вторинний текст, плейсхолдери' },
+        { name: 'Secondary', hex: '#9D9D9D', use: 'Підписи, службові мітки' },
+        { name: 'Surface', hex: '#F5F5F5', use: 'Поля вводу, картки, чипи' },
+        { name: 'Success', hex: '#12A150', use: 'Підтвердження, статус «готово»' },
+        { name: 'Warning', hex: '#FF8436', use: 'Дедлайни, увага' },
+        { name: 'Error', hex: '#E5484D', use: 'Помилки валідації' }
+      ],
+      typeScale: [
+        { token: 'H1', mobile: '56px', desktop: '→ 96px', weight: '600', preview: '44px', w: 600, sample: 'Освіта за кордоном' },
+        { token: 'H2', mobile: '32px', desktop: '→ 40px', weight: '500', preview: '32px', w: 500, sample: 'Університети Польщі' },
+        { token: 'H3', mobile: '24px', desktop: '24px', weight: '500', preview: '24px', w: 500, sample: 'Як подати документи' },
+        { token: 'H4', mobile: '20px', desktop: '20px', weight: '700', preview: '20px', w: 700, sample: 'Вартість навчання' },
+        { token: 'Body L', mobile: '16px', desktop: '→ 18px', weight: '400', preview: '18px', w: 400, sample: 'Вступний абзац сторінки або опис програми.' },
+        { token: 'Body', mobile: '14px', desktop: '→ 16px', weight: '400', preview: '16px', w: 400, sample: 'Основний текст статей, карток і форм.' },
+        { token: 'Caption', mobile: '13px', desktop: '13px', weight: '400', preview: '13px', w: 400, sample: 'Підказки під полями, службові підписи.' }
+      ],
+      cols: [1,2,3,4,5,6,7,8,9,10,11,12],
+      breakpoints: [
+        { name: 'xs', value: '< 576px — базовий мобільний' },
+        { name: 'sm', value: '≥ 576px' },
+        { name: 'md', value: '≥ 768px — планшет' },
+        { name: 'lg', value: '≥ 992px — десктоп, зміна типографіки' },
+        { name: 'xl', value: '≥ 1200px, контейнер 1140px' }
+      ],
+      spacing: [
+        { label: '4', px: '4px', use: 'між лейблом і підказкою' },
+        { label: '8', px: '8px', use: 'іконка + текст' },
+        { label: '12', px: '12px', use: 'всередині чипів' },
+        { label: '16', px: '16px', use: 'між полями форми' },
+        { label: '24', px: '24px', use: 'падінг карток' },
+        { label: '32', px: '32px', use: 'між групами' },
+        { label: '40', px: '40px', use: 'секція на мобільному' },
+        { label: '80', px: '80px', use: 'секція на десктопі' }
+      ],
+      radii: [
+        { css: '8px', use: 'дрібні елементи, бейджі' },
+        { css: '16px', use: 'textarea, малі картки' },
+        { css: '24px', use: 'картки, таблиці' },
+        { css: '32px', use: 'кнопки, інпути (pill)' },
+        { css: '40px', use: 'великі блоки й форми' }
+      ],
+      icons: [
+        { glyph: '\ue800', name: 'phone' }, { glyph: '\ue801', name: 'mail' },
+        { glyph: '\ue802', name: 'cancel' }, { glyph: '\ue803', name: 'location' },
+        { glyph: '\ue805', name: 'star' }, { glyph: '\ue806', name: 'list' },
+        { glyph: '\ue807', name: 'ok' }, { glyph: '\ue80a', name: 'search' },
+        { glyph: '\ue80f', name: 'clock' }, { glyph: '\ue811', name: 'eye' },
+        { glyph: '\ue812', name: 'home' }, { glyph: '\ue817', name: 'play' },
+        { glyph: '\uf0c9', name: 'menu' }, { glyph: '\uf104', name: 'angle-left' },
+        { glyph: '\uf105', name: 'angle-right' }, { glyph: '\uf107', name: 'angle-down' },
+        { glyph: '\uf2c0', name: 'user' }, { glyph: '\uf1d8', name: 'send' },
+        { glyph: '\uf09a', name: 'facebook' }, { glyph: '\uf16d', name: 'instagram' },
+        { glyph: '\uf232', name: 'whatsapp' }, { glyph: '\ue818', name: 'tiktok' }
+      ],
+      agreeMark: s.agree ? '\ue807' : '',
+      agreeBorder: s.agree ? `1px solid ${accent}` : '1px solid rgba(0,0,0,.15)',
+      agreeColor: accent,
+      toggleAgree: () => this.setState(p => ({ agree: !p.agree })),
+      radioOptions: radioLabels.map((label, i) => ({
+        label,
+        border: s.radio === i ? `1px solid ${accent}` : '1px solid rgba(0,0,0,.15)',
+        fill: s.radio === i ? accent : 'transparent',
+        inner: s.radio === i ? 'inset 0 0 0 3px #fff' : 'none',
+        pick: () => this.setState({ radio: i })
+      })),
+      tabs: ['Бакалаврат', 'Магістратура', 'Мовні курси'].map((label, i) => ({
+        label,
+        bg: s.tab === i ? accent : '#F5F5F5',
+        color: s.tab === i ? '#fff' : '#000',
+        pick: () => this.setState({ tab: i })
+      })),
+      tabBody: tabBodies[s.tab],
+      pages: [
+        { label: '1', bg: accent, color: '#fff', font: 'inherit' },
+        { label: '2', bg: '#F5F5F5', color: '#000', font: 'inherit' },
+        { label: '3', bg: '#F5F5F5', color: '#000', font: 'inherit' },
+        { label: '…', bg: 'transparent', color: '#9D9D9D', font: 'inherit' },
+        { label: '\uf105', bg: '#F5F5F5', color: '#000', font: 'fontello' }
+      ],
+      tagList: ['вступ2026', 'Польща', 'стипендії'],
+      rows: [
+        { uni: 'Uniwersytet Jagielloński', country: 'Польща', price: '€2 400 / рік', status: 'Відкрито', badgeBg: 'rgba(18,161,80,.1)', badgeColor: '#12A150' },
+        { uni: 'TU Dresden', country: 'Німеччина', price: '€0 / рік', status: 'Дедлайн', badgeBg: 'rgba(255,132,54,.14)', badgeColor: '#C25A16' },
+        { uni: 'Univerzita Karlova', country: 'Чехія', price: '€1 800 / рік', status: 'Відкрито', badgeBg: 'rgba(18,161,80,.1)', badgeColor: '#12A150' },
+        { uni: 'Vilniaus universitetas', country: 'Литва', price: '€3 100 / рік', status: 'Закрито', badgeBg: '#F5F5F5', badgeColor: '#757474' }
+      ],
+      alerts: [
+        { glyph: '\ue807', color: '#12A150', bg: 'rgba(18,161,80,.08)', title: 'Заявку прийнято', text: 'Менеджер зв\u2019яжеться протягом дня.' },
+        { glyph: '\ue800', color: accent, bg: 'rgba(38,106,246,.08)', title: 'Потрібен документ', text: 'Додайте скан атестата, щоб продовжити.' },
+        { glyph: '\ue80f', color: '#C25A16', bg: 'rgba(255,132,54,.12)', title: 'Дедлайн за 5 днів', text: 'Подача на осінній семестр — до 30 вересня.' },
+        { glyph: '\ue802', color: '#E5484D', bg: 'rgba(229,72,77,.08)', title: 'Не вдалося надіслати', text: 'Перевірте з\u2019єднання і спробуйте ще раз.' }
+      ],
+      modalOpen: s.modalOpen,
+      toastOpen: s.toastOpen,
+      openModal: () => this.setState({ modalOpen: true }),
+      closeModal: () => this.setState({ modalOpen: false }),
+      openToast: () => {
+        this.setState({ toastOpen: true });
+        clearTimeout(this._t);
+        this._t = setTimeout(() => this.setState({ toastOpen: false }), 2600);
+      },
+      bars: [
+        { label: 'PL', value: '412', h: '100%', bg: accent },
+        { label: 'DE', value: '268', h: '65%', bg: accent },
+        { label: 'CZ', value: '190', h: '46%', bg: '#C9D9FB' },
+        { label: 'LT', value: '120', h: '29%', bg: '#C9D9FB' },
+        { label: 'IT', value: '74', h: '18%', bg: '#E5E5E5' }
+      ],
+      lineChart: React.createElement('svg', { viewBox: '0 0 280 130', width: '100%', height: 140, key: 'line' }, [
+        React.createElement('line', { key: 'g1', x1: 0, y1: 20, x2: 280, y2: 20, stroke: 'rgba(0,0,0,.06)' }),
+        React.createElement('line', { key: 'g2', x1: 0, y1: 70, x2: 280, y2: 70, stroke: 'rgba(0,0,0,.06)' }),
+        React.createElement('line', { key: 'g3', x1: 0, y1: 120, x2: 280, y2: 120, stroke: 'rgba(0,0,0,.06)' }),
+        React.createElement('polyline', { key: 'p', points: pts, fill: 'none', stroke: accent, strokeWidth: 2.5, strokeLinejoin: 'round', strokeLinecap: 'round' })
+      ]),
+      donut: `conic-gradient(${accent} 0 62%, #E5E5E5 62% 100%)`,
+      motions: [
+        { name: 'Instant', value: '150ms', use: 'зміна кольору, hover іконки' },
+        { name: 'Base', value: '250–300ms ease', use: 'кнопки, посилання, поля' },
+        { name: 'Enter', value: '1s ease', use: 'поява секцій при скролі' },
+        { name: 'Stagger', value: '200ms крок', use: 'затримка між елементами списку' }
+      ],
+      motionDemo: [0, 1, 2, 3].map(i => React.createElement('div', {
+        key: `${s.motionKey}-${i}`,
+        style: {
+          padding: 20, borderRadius: 20, background: '#F5F5F5', fontSize: 15,
+          opacity: 0, animation: `sw-slide-in-bottom 1s ease ${i * 0.2}s forwards`
+        }
+      }, `Картка ${i + 1}`)),
+      replayMotion: () => this.setState(p => ({ motionKey: p.motionKey + 1 })),
+      guidelines: [
+        { topic: 'Кнопки', do: 'Одна первинна дія на екран, дієслово в тексті: «Залишити заявку».', dont: 'Дві сині кнопки поруч або текст «Клікніть тут».' },
+        { topic: 'Форми', do: 'Лейбл над полем, помилка під полем конкретним текстом.', dont: 'Плейсхолдер замість лейбла і червона рамка без пояснення.' },
+        { topic: 'Кольори', do: 'Статусні кольори тільки зі шкали Success / Warning / Error.', dont: 'CSS-ключові слова red, green, yellow — вони поза системою.' },
+        { topic: 'Відступи', do: 'Значення з кроку 8 (4 і 12 — виняток для дрібного тексту).', dont: 'Довільні 15px, 35px, 78px, що накопичилися в темі.' },
+        { topic: 'Мобільна версія', do: 'Спочатку макет на 375px, потім розширення до 1140px.', dont: 'Десктопні таблиці, які на телефоні стискаються до нечитабельного.' },
+        { topic: 'Motion', do: 'Анімувати появу контенту один раз при вході в екран.', dont: 'Постійний pulse на кількох елементах одночасно.' }
+      ]
+    };
+  }
+}
+</script>
+<template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#266AF6"/><circle cx="38" cy="50" r="12" fill="#fff"/><rect x="56" y="38" width="24" height="24" rx="8" fill="#F5F5F5"/></svg></template>
+</body>
+</html>

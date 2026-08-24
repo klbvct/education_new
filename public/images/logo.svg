@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="300" height="64" viewBox="0 0 300 64">
+  <defs>
+    <style>
+      .cls-1 {
+        font-size: 133.333px;
+        font-family: "Futura PT";
+      }
+    </style>
+  </defs>
+  <image id="Слой_2" data-name="Слой 2" x="138" y="4" width="2" height="52" xlink:href="data:img/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAA0CAYAAACglemUAAAANUlEQVQYlWOMLbx7moGBQZKJgYFBmIGBQQzE+MPAwPAbxACDEc8Y9AwWBgYGVhDxloGBgQ0AvQ4GFUWoctwAAAAASUVORK5CYII="/>
+  <text id="Освіти" class="cls-1" transform="translate(46.363 55.11) scale(0.21)">Освіти</text>
+  <text id="Дизайн" class="cls-1" transform="translate(35.666 22.809) scale(0.21)">Дизайн</text>
+  <text id="Education" class="cls-1" transform="translate(155.434 21.97) scale(0.21)">Education</text>
+  <text id="Design" class="cls-1" transform="translate(155.434 55.949) scale(0.21)">Design</text>
+</svg>
