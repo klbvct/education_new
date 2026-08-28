@@ -281,7 +281,7 @@ export default function HomePage() {
             Про проєкт
           </h2>
           <div className="grid grid-cols-1 gap-10 md:grid-cols-2">
-            <div className="space-y-4 text-lg leading-6">
+            <div className="space-y-4 text-base leading-6">
               {ABOUT_PARAGRAPHS.map((p) => (
                 <p key={p}>{p}</p>
               ))}
