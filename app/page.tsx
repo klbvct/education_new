@@ -380,13 +380,13 @@ export default function HomePage() {
                 {step.number}
               </div>
               <h3 className="mb-2 text-2xl font-medium text-dark">{step.title}</h3>
-              <p className="mb-4 leading-6 text-dark/70">{step.intro}</p>
+              <p className="mb-4 leading-6">{step.intro}</p>
 
               {step.combo && <ChipRow items={step.combo} connector="+" />}
 
               {step.quote && (
                 <div className="mb-4 flex flex-wrap items-center gap-3">
-                  <span className="rounded-lg bg-primary/[0.06] px-4 py-2 text-sm italic text-dark/70">
+                  <span className="rounded-lg bg-primary/[0.06] px-4 py-2 text-sm text-gray-500">
                     «{step.quote.from}»
                   </span>
                   <span className="text-primary" aria-hidden="true">
@@ -410,7 +410,7 @@ export default function HomePage() {
                         className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-primary"
                         aria-hidden="true"
                       />
-                      <p className="text-sm leading-6 text-dark/80">{item}</p>
+                      <p className="text-sm leading-6">{item}</p>
                     </div>
                   ))}
                 </div>
@@ -423,7 +423,7 @@ export default function HomePage() {
               {step.flow && <ChipRow items={step.flow} connector="→" />}
 
               {step.note && (
-                <p className="mt-4 text-sm italic text-dark/60">{step.note}</p>
+                <p className="mt-4 leading-6">{step.note}</p>
               )}
             </div>
           ))}
