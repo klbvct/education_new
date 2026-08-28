@@ -51,22 +51,108 @@ const TASKS = [
   'Хочете спланувати навчання дитини заздалегідь',
 ]
 
-const WAY = [
-  { icon: '/images/1.svg', text: 'Проводимо діагностику здібностей' },
+type Step = {
+  number: string
+  title: string
+  intro: string
+  combo?: string[]
+  quote?: { from: string; to: string }
+  listIntro?: string
+  items?: string[]
+  flowIntro?: string
+  flow?: string[]
+  note?: string
+}
+
+const STEPS: Step[] = [
   {
-    icon: '/images/2.svg',
-    text: 'Визначаємо коло інтересів і можливості їх застосування в професії',
+    number: '01',
+    title: 'Діагностика',
+    intro:
+      'Авторська діагностична система є внутрішнім інструментом методології Дизайну Освіти. Вона допомагає комплексно дослідити:',
+    items: [
+      'цінності',
+      'мотивацію',
+      'інтереси',
+      'сильні сторони',
+      'типи мислення',
+      'професійні інтереси',
+      'здібності',
+      'тип сприйняття інформації',
+      'особливості інтелектуального профілю',
+      'рівень абстрактного мислення',
+      'потенційні професійні напрями',
+    ],
   },
-  { icon: '/images/3.svg', text: 'Виділяємо напрямок майбутньої професії' },
   {
-    icon: '/images/4.svg',
-    text: 'Будуємо індивідуальний освітній трек',
+    number: '02',
+    title: 'Індивідуальний профіль',
+    intro:
+      "Результати діагностики аналізуються не ізольовано. Ми досліджуємо взаємозв'язок між:",
+    combo: ['здібності', 'інтереси', 'мислення', 'мотивація', 'цінності', 'професійні середовища'],
+    listIntro: 'Це дозволяє визначити:',
+    items: [
+      'найбільш перспективні галузі навчання',
+      'альтернативні напрями',
+      'сильні сторони',
+      'можливі точки розвитку',
+      'компетенції, які варто посилити',
+      'потенційні міждисциплінарні комбінації',
+    ],
   },
   {
-    icon: '/images/5.svg',
-    text: 'Формуємо ефективний маршрут навчання',
+    number: '03',
+    title: 'Освітня архітектура',
+    intro: 'Перетворити схильності і напрями на конкретний освітній маршрут.',
+    quote: { from: 'Що мені підходить?', to: 'Що саме мені потрібно вивчати?' },
+    listIntro: 'Ми визначаємо:',
+    items: [
+      'напрям освіти',
+      'можливі спеціальності',
+      'тип освітньої програми',
+      'необхідний рівень освіти',
+      'ключові компетенції',
+      'додаткові знання та навички',
+      'можливості комбінування різних напрямів',
+      'логіку послідовності навчання',
+    ],
+    note: 'Освіта складається як архітектура, а не вибирається одним рішенням.',
+  },
+  {
+    number: '04',
+    title: 'Освітня траєкторія',
+    intro: 'Що? Де? У якій послідовності? Навіщо?',
+    flowIntro: 'Ми допомагаємо побудувати персональну траєкторію:',
+    flow: [
+      'Базова освіта',
+      'Спеціалізація',
+      'Додаткові компетенції',
+      'Практичний досвід',
+      'Міжнародний досвід',
+      'Наступний освітній крок',
+    ],
+    note: 'Для кожної людини ця комбінація може бути різною. Дизайн Освіти допомагає побачити всю систему цілком.',
   },
 ]
+
+function ChipRow({ items, connector }: { items: string[]; connector: string }) {
+  return (
+    <div className="mb-4 flex flex-wrap items-center gap-2">
+      {items.map((label, i) => (
+        <span key={label} className="flex items-center gap-2">
+          <span className="rounded-full bg-primary/[0.06] px-4 py-2 text-sm font-medium text-primary">
+            {label}
+          </span>
+          {i < items.length - 1 && (
+            <span className="text-primary/40" aria-hidden="true">
+              {connector}
+            </span>
+          )}
+        </span>
+      ))}
+    </div>
+  )
+}
 
 const ABOUT_ME = [
   'Понад 15 років працюю у сфері освіти, міжнародного навчання та освітнього консалтингу.',
@@ -280,15 +366,65 @@ export default function HomePage() {
       </section>
 
       {/* Way */}
-      <section className="mx-auto max-w-container px-4 py-12">
-        <h2 className="mb-4 text-3xl font-bold text-dark md:text-5xl">
+      <section className="mx-auto max-w-container px-4 py-16">
+        <h2 className="mb-12 text-3xl font-bold text-dark md:text-5xl">
           З чого складається Дизайн Освіти
         </h2>
-        <div className="grid grid-cols-1 gap-10 py-8 sm:grid-cols-2 lg:grid-cols-5">
-          {WAY.map((step) => (
-            <div key={step.text} className="flex flex-col items-center gap-3 text-center">
-              <Image src={step.icon} alt="" width={56} height={56} />
-              <p className="text-base leading-6">{step.text}</p>
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
+          {STEPS.map((step) => (
+            <div
+              key={step.number}
+              className="flex flex-col rounded-3xl border border-black/5 bg-white p-8 shadow-[0_38px_56px_rgba(191,204,225,0.2)]"
+            >
+              <div className="mb-5 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 text-2xl font-bold text-primary">
+                {step.number}
+              </div>
+              <h3 className="mb-2 text-2xl font-medium text-dark">{step.title}</h3>
+              <p className="mb-4 leading-6 text-dark/70">{step.intro}</p>
+
+              {step.combo && <ChipRow items={step.combo} connector="+" />}
+
+              {step.quote && (
+                <div className="mb-4 flex flex-wrap items-center gap-3">
+                  <span className="rounded-lg bg-primary/[0.06] px-4 py-2 text-sm italic text-dark/70">
+                    «{step.quote.from}»
+                  </span>
+                  <span className="text-primary" aria-hidden="true">
+                    →
+                  </span>
+                  <span className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white">
+                    «{step.quote.to}»
+                  </span>
+                </div>
+              )}
+
+              {step.listIntro && (
+                <p className="mb-3 font-medium text-dark">{step.listIntro}</p>
+              )}
+
+              {step.items && (
+                <div className="space-y-2.5">
+                  {step.items.map((item) => (
+                    <div key={item} className="flex items-start gap-3">
+                      <span
+                        className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-primary"
+                        aria-hidden="true"
+                      />
+                      <p className="text-sm leading-6 text-dark/80">{item}</p>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {step.flowIntro && (
+                <p className="mb-3 font-medium text-dark">{step.flowIntro}</p>
+              )}
+
+              {step.flow && <ChipRow items={step.flow} connector="→" />}
+
+              {step.note && (
+                <p className="mt-4 text-sm italic text-dark/60">{step.note}</p>
+              )}
             </div>
           ))}
         </div>
