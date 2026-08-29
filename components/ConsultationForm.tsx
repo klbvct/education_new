@@ -79,7 +79,7 @@ export default function ConsultationForm({ service }: { service: ServiceId }) {
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <div>
           <label className="mb-2 block text-sm font-medium" htmlFor="firstName">
-            Ім&apos;я
+            Ім&apos;я <span className="text-primary">*</span>
           </label>
           <input
             id="firstName"
@@ -91,7 +91,7 @@ export default function ConsultationForm({ service }: { service: ServiceId }) {
         </div>
         <div>
           <label className="mb-2 block text-sm font-medium" htmlFor="lastName">
-            Прізвище
+            Прізвище <span className="text-primary">*</span>
           </label>
           <input
             id="lastName"
@@ -105,7 +105,7 @@ export default function ConsultationForm({ service }: { service: ServiceId }) {
 
       <div>
         <label className="mb-2 block text-sm font-medium" htmlFor="email">
-          Email
+          Email <span className="text-primary">*</span>
         </label>
         <input
           id="email"
@@ -119,7 +119,7 @@ export default function ConsultationForm({ service }: { service: ServiceId }) {
 
       <div>
         <label className="mb-2 block text-sm font-medium" htmlFor="phone">
-          Телефон
+          Телефон <span className="text-primary">*</span>
         </label>
         <input
           id="phone"
@@ -132,7 +132,9 @@ export default function ConsultationForm({ service }: { service: ServiceId }) {
       </div>
 
       <div>
-        <span className="mb-2 block text-sm font-medium">Зручний месенджер</span>
+        <span className="mb-2 block text-sm font-medium">
+          Зручний месенджер <span className="text-primary">*</span>
+        </span>
         <div className="flex flex-wrap gap-2">
           {MESSENGERS.map((m) => (
             <button
@@ -150,6 +152,20 @@ export default function ConsultationForm({ service }: { service: ServiceId }) {
             </button>
           ))}
         </div>
+      </div>
+
+      <div>
+        <label className="mb-2 block text-sm font-medium" htmlFor="message">
+          Повідомлення{' '}
+          <span className="font-normal text-gray-500">(необов&apos;язково)</span>
+        </label>
+        <textarea
+          id="message"
+          name="message"
+          rows={3}
+          className="w-full resize-none rounded-2xl border border-transparent bg-bg-secondary px-5 py-4 text-base outline-none transition focus:border-primary focus:bg-white"
+          placeholder="Коротко опишіть свій запит"
+        />
       </div>
 
       <button
