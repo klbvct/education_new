@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import ConsultationForm from '../components/ConsultationForm'
 
 const PROFITS = [
   {
@@ -261,7 +262,7 @@ export default function HomePage() {
       </section>
 
       {/* Profits */}
-      <section className="bg-gradient-to-br from-primary to-secondary py-12">
+      <section className="bg-gradient-to-br from-[#0a4fc4] to-primary py-12">
         <div className="mx-auto grid max-w-container grid-cols-1 gap-10 px-4 sm:grid-cols-2 lg:grid-cols-4">
           {PROFITS.map((item) => (
             <div key={item.text} className="flex flex-col items-center">
@@ -519,7 +520,7 @@ export default function HomePage() {
                   </ul>
                   <Link
                     href="/contacts"
-                    className={`mt-8 flex h-[50px] items-center justify-center rounded-[20px] text-lg ${
+                    className={`mt-8 flex h-14 items-center justify-center rounded-[32px] text-base transition hover:opacity-60 lg:h-12 ${
                       isAccent ? 'bg-white text-primary' : 'bg-primary text-white'
                     }`}
                   >
@@ -553,7 +554,7 @@ export default function HomePage() {
       </section>
 
       {/* CTA */}
-      <section className="bg-gradient-to-br from-primary to-secondary py-16">
+      <section className="bg-gradient-to-br from-[#0a4fc4] to-primary py-16">
         <div className="mx-auto grid max-w-container grid-cols-1 items-center gap-10 px-4 md:grid-cols-2">
           <div>
             <h2 className="mb-4 text-3xl font-medium leading-tight text-white md:text-4xl">
@@ -566,19 +567,13 @@ export default function HomePage() {
               модель навчання, розвитку та кар&apos;єри!
             </p>
           </div>
-          <div className="rounded-2xl bg-white p-10">
-            <h2 className="mb-5 text-2xl font-medium">
-              Отримай індивідуальну профорієнтаційну діагностику
-            </h2>
-            <p className="mb-2 text-xl font-semibold text-primary">
-              1&nbsp;700 грн <span className="text-sm font-normal text-gray-500">/ повний доступ</span>
+          <div className="rounded-2xl bg-white p-6 md:p-10">
+            <h2 className="mb-2 text-2xl font-medium">Замовити консультацію</h2>
+            <p className="mb-6 leading-6">
+              Оберіть послугу і залиште контакти — ми зв&apos;яжемось і узгодимо
+              деталі.
             </p>
-            <Link
-              href="/contacts"
-              className="mt-6 flex h-[50px] items-center justify-center rounded-[20px] bg-primary text-lg text-white"
-            >
-              Почати тестування
-            </Link>
+            <ConsultationForm />
           </div>
         </div>
       </section>
