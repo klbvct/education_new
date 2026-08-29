@@ -329,7 +329,7 @@ export default function HomePage() {
             <div className="aspect-video overflow-hidden rounded-2xl">
               <iframe
                 className="h-full w-full"
-                src="https://www.youtube.com/embed/vayiliOI0RI?controls=0"
+                src="https://www.youtube.com/embed/j9enEB92tLM?controls=0"
                 title="Дизайн Освіти"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 referrerPolicy="strict-origin-when-cross-origin"
