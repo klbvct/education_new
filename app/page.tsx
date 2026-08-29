@@ -553,7 +553,7 @@ export default function HomePage() {
       </section>
 
       {/* CTA */}
-      <section className="bg-primary py-16">
+      <section className="bg-gradient-to-br from-primary to-secondary py-16">
         <div className="mx-auto grid max-w-container grid-cols-1 items-center gap-10 px-4 md:grid-cols-2">
           <div>
             <h2 className="mb-4 text-3xl font-medium leading-tight text-white md:text-4xl">
