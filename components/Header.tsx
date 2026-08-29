@@ -31,13 +31,18 @@ export default function Header() {
         isScrolled ? 'shadow-[0_1px_12px_rgba(0,0,0,0.08)]' : ''
       }`}
     >
-      <div className="mx-auto flex max-w-container items-center justify-between px-4 py-2">
+      <div
+        className={`mx-auto flex max-w-container items-center justify-between px-4 transition-[padding] duration-300 ${
+          isScrolled ? 'py-1' : 'py-2'
+        }`}
+      >
         <Link href="/" className="block max-w-[56%] p-2" onClick={() => setIsOpen(false)}>
           <Image
             src="/images/logo.svg"
             alt="Education Design — Дизайн Освіти"
-            width={180}
-            height={48}
+            width={isScrolled ? 131 : 180}
+            height={isScrolled ? 35 : 48}
+            className="transition-all duration-300"
             priority
           />
         </Link>
