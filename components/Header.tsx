@@ -5,6 +5,7 @@ const NAV_ITEMS = [
   { href: '/', label: 'Головна' },
   { href: '/academy', label: 'Для спеціалістів' },
   { href: '/abroad', label: 'Освіта за кордоном' },
+  { href: '/abroad', label: 'Блог' },
   { href: '/feedback', label: 'Відгуки' },
   { href: '/contacts', label: 'Контакти' },
   { href: '#', label: 'RU' },

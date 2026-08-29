@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import ConsultationModal from '../components/ConsultationModal'
+import PricingOrderButton from '../components/PricingOrderButton'
 
 const PROFITS = [
   {
@@ -227,6 +228,7 @@ const BASICS = [
 
 const PRICING = [
   {
+    id: 'design' as const,
     price: '7200',
     title: 'Дизайн Освіти',
     tag: 'Коли потрібна діогностика + індивідуальна освітня стратегія',
@@ -244,6 +246,7 @@ const PRICING = [
     variant: 'accent' as const,
   },
   {
+    id: 'consultation' as const,
     price: '5500',
     title: 'Консультація',
     tag: 'Коли напрям уже визначений, але потрібно зрозуміти, як рухатися далі',
@@ -554,14 +557,13 @@ export default function HomePage() {
                       </li>
                     ))}
                   </ul>
-                  <Link
-                    href="/contacts"
+                  <PricingOrderButton
+                    service={plan.id}
+                    label={plan.cta}
                     className={`mt-8 flex h-14 items-center justify-center rounded-[32px] text-base transition hover:opacity-60 lg:h-12 ${
                       isAccent ? 'bg-white text-primary' : 'bg-primary text-white'
                     }`}
-                  >
-                    {plan.cta}
-                  </Link>
+                  />
                 </div>
               )
             })}
