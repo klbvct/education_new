@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 
@@ -16,9 +16,21 @@ const NAV_ITEMS = [
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false)
+  const [isScrolled, setIsScrolled] = useState(false)
+
+  useEffect(() => {
+    const onScroll = () => setIsScrolled(window.scrollY > 10)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
   return (
-    <header className="relative bg-white">
+    <header
+      className={`sticky top-0 z-40 bg-white transition-shadow ${
+        isScrolled ? 'shadow-[0_1px_12px_rgba(0,0,0,0.08)]' : ''
+      }`}
+    >
       <div className="mx-auto flex max-w-container items-center justify-between px-4 py-2">
         <Link href="/" className="block max-w-[56%] p-2" onClick={() => setIsOpen(false)}>
           <Image
@@ -62,7 +74,7 @@ export default function Header() {
       </div>
 
       {isOpen && (
-        <nav className="flex flex-col border-t border-black/5 px-4 py-2 md:hidden">
+        <nav className="flex flex-col border-t border-black/5 bg-bg-secondary px-4 py-2 md:hidden">
           {NAV_ITEMS.map((item, i) => (
             <Link
               key={`${item.href}-${i}`}
