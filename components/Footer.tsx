@@ -3,16 +3,18 @@ import Image from 'next/image'
 
 const NAV_ITEMS = [
   { href: '/', label: 'Головна' },
-  { href: '/abroad', label: 'За кордоном' },
+  { href: '/academy', label: 'Для спеціалістів' },
+  { href: '/abroad', label: 'Освіта за кордоном' },
+  { href: '/abroad', label: 'Блог' },
   { href: '/feedback', label: 'Відгуки' },
   { href: '/contacts', label: 'Контакти' },
 ]
 
 export default function Footer() {
   return (
-    <footer className="bg-bg-secondary py-10">
+    <footer className="bg-[#1A1A1A] py-10">
       <div className="mx-auto flex max-w-container flex-col items-center px-4">
-        <Link href="/" className="mb-8 block w-48">
+        <Link href="/" className="mb-8 block w-48 invert">
           <Image
             src="/images/logo.svg"
             alt="Логотип Дизайн Освіти"
@@ -25,14 +27,14 @@ export default function Footer() {
             <Link
               key={item.href}
               href={item.href}
-              className="text-lg text-dark transition-colors hover:text-primary"
+              className="text-lg text-white/80 transition-colors hover:text-white"
             >
               {item.label}
             </Link>
           ))}
         </nav>
-        <small className="text-sm text-dark">
-          &copy; Усі права захищені ТОВ &quot;ОТЦ &quot;Європа&quot;
+        <small className="text-sm text-white/50">
+          &copy; Усі права захищені ТОВ &quot;ОТЦ &quot;ЄВРОПА&quot;
         </small>
       </div>
     </footer>
