@@ -163,8 +163,7 @@ export default function ConsultationForm({ service }: { service: ServiceId }) {
         <textarea
           id="message"
           name="message"
-          rows={2}
-          className="w-full resize-none rounded-2xl border border-transparent bg-bg-secondary px-5 py-3 text-base outline-none transition focus:border-primary focus:bg-white"
+          className="h-12 w-full resize-none rounded-2xl border border-transparent bg-bg-secondary px-5 py-3 text-base outline-none transition focus:border-primary focus:bg-white sm:h-20"
           placeholder="Коротко опишіть свій запит"
         />
       </div>
