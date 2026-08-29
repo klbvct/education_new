@@ -166,24 +166,60 @@ const ABOUT_ME = [
   'Моя мета: Допомогти людинi навчитися проєктувати власне майбутнє через освiту.'
 ]
 
+function IconGlobe({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden="true">
+      <circle cx="12" cy="12" r="9" />
+      <ellipse cx="12" cy="12" rx="4" ry="9" />
+      <path d="M3 12h18" />
+    </svg>
+  )
+}
+
+function IconInfinity({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden="true">
+      <path d="M18.178 8c5.096 0 5.096 8 0 8-5.095 0-7.133-8-12.739-8-4.585 0-4.585 8 0 8 5.606 0 7.644-8 12.74-8z" />
+    </svg>
+  )
+}
+
+function IconLayers({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden="true">
+      <path d="M12 3l9 5-9 5-9-5 9-5z" />
+      <path d="M3 13l9 5 9-5" />
+    </svg>
+  )
+}
+
+function IconForesight({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden="true">
+      <path d="M3 17l6-6 4 4 8-8" />
+      <path d="M15 7h6v6" />
+    </svg>
+  )
+}
+
 const BASICS = [
   {
-    icon: '/images/shield.svg',
+    icon: IconGlobe,
     title: 'Контекст',
     text: 'Освіта невіддільна від того, що відбувається у світі. Промислова революція 4.0, стрімке зростання кількості інформації, цифрові екосистеми, штучний інтелект, онлайн-навчання. Середовище диктує свої умови для навчання й адаптації. Старі освітні системи занадто масивні для швидкого реагування, тому шлях нашого навчання в наших руках.',
   },
   {
-    icon: '/images/gear.svg',
+    icon: IconInfinity,
     title: 'Lifelong learning',
     text: 'Освіта й навчання більше не скуті віковими рамками. Наш освітній потенціал може зростати й розвиватися все життя. Найцінніша навичка сьогодні — самонавчання.',
   },
   {
-    icon: '/images/bagage.svg',
+    icon: IconLayers,
     title: 'Мультипрофесіоналізм',
     text: 'Поняття «професія» сьогодні розмивається. Розвиваються гібридні та міждисциплінарні спеціалізації. Монопрофесій стає все менше, або вони зовсім зникають. Сучасний фахівець володіє широким набором компетенцій і навичок, які часто можуть належати до абсолютно різних галузей знань.',
   },
   {
-    icon: '/images/pencile.svg',
+    icon: IconForesight,
     title: 'Освітній Форсайт',
     text: 'Форсайт — здатність дивитися вперед і планувати. Майбутнє — не низка випадкових подій, а спланований досвід. Освітній Форсайт — уміння планувати своє навчання й освіту на роки вперед. Так підвищується ефективність навчання й зникає проблема нестачі мотивації: ви чітко розумієте, навіщо ви це вчите.',
   },
@@ -541,7 +577,7 @@ export default function HomePage() {
         <div className="grid grid-cols-1 gap-16 md:grid-cols-2">
           {BASICS.map((item) => (
             <div key={item.title} className="flex flex-col items-center gap-4 text-center md:flex-row md:items-start md:text-left">
-              <Image src={item.icon} alt="" width={80} height={80} className="shrink-0" />
+              <item.icon className="h-14 w-14 shrink-0 text-primary" />
               <div>
                 <h3 className="mb-2 text-2xl font-medium text-primary">
                   {item.title}
