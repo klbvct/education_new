@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import ConsultationForm from '../components/ConsultationForm'
+import ConsultationModal from '../components/ConsultationModal'
 
 const PROFITS = [
   {
@@ -604,12 +604,7 @@ export default function HomePage() {
             </p>
           </div>
           <div className="rounded-2xl bg-white p-6 md:p-10">
-            <h2 className="mb-2 text-2xl font-medium">Замовити консультацію</h2>
-            <p className="mb-6 leading-6">
-              Оберіть послугу і залиште контакти — ми зв&apos;яжемось і узгодимо
-              деталі.
-            </p>
-            <ConsultationForm />
+            <ConsultationModal />
           </div>
         </div>
       </section>

@@ -4,21 +4,50 @@ import { useState } from 'react'
 
 const MESSENGERS = ['Telegram', 'WhatsApp', 'Viber'] as const
 
-const SERVICES = [
+export const SERVICES = [
   { id: 'design', title: 'Дизайн Освіти', price: '7 200' },
   { id: 'consultation', title: 'Консультація', price: '5 500' },
 ] as const
 
 type Messenger = (typeof MESSENGERS)[number]
-type ServiceId = (typeof SERVICES)[number]['id']
+export type ServiceId = (typeof SERVICES)[number]['id']
 
 const inputClass =
   'h-12 w-full rounded-[32px] border border-transparent bg-bg-secondary px-6 text-base outline-none transition focus:border-primary focus:bg-white'
 
-export default function ConsultationForm() {
+export function ServicePicker({
+  value,
+  onChange,
+}: {
+  value: ServiceId
+  onChange: (id: ServiceId) => void
+}) {
+  return (
+    <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+      {SERVICES.map((s) => (
+        <button
+          key={s.id}
+          type="button"
+          onClick={() => onChange(s.id)}
+          aria-pressed={value === s.id}
+          className={`flex flex-col items-start rounded-2xl border p-4 text-left transition ${
+            value === s.id
+              ? 'border-primary bg-primary/5'
+              : 'border-black/10 hover:border-primary/40'
+          }`}
+        >
+          <span className="text-sm font-medium">{s.title}</span>
+          <span className="font-semibold text-primary">{s.price} грн</span>
+        </button>
+      ))}
+    </div>
+  )
+}
+
+export default function ConsultationForm({ service }: { service: ServiceId }) {
   const [messenger, setMessenger] = useState<Messenger>('Telegram')
-  const [service, setService] = useState<ServiceId>('design')
   const [submitted, setSubmitted] = useState(false)
+  const selectedService = SERVICES.find((s) => s.id === service)!
 
   if (submitted) {
     return (
@@ -27,7 +56,7 @@ export default function ConsultationForm() {
           ✓
         </div>
         <h3 className="text-xl font-medium">Заявку надіслано</h3>
-        <p className="leading-6">Ми зв&apos;яжемось з вами найближчим часом.</p>
+        <p className="leading-6">Ми зв&apos;яжемось з вами найближчим часом на обраний месенджер.</p>
       </div>
     )
   }
@@ -40,6 +69,13 @@ export default function ConsultationForm() {
       }}
       className="flex flex-col gap-4"
     >
+      <div className="">
+        <span className="text-sm font-medium mr-2">{selectedService.title}</span>
+        <span className="font-semibold text-primary">
+          {selectedService.price} грн
+        </span>
+      </div>
+
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <div>
           <label className="mb-2 block text-sm font-medium" htmlFor="firstName">
@@ -111,28 +147,6 @@ export default function ConsultationForm() {
               }`}
             >
               {m}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      <div>
-        <span className="mb-2 block text-sm font-medium">Послуга</span>
-        <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
-          {SERVICES.map((s) => (
-            <button
-              key={s.id}
-              type="button"
-              onClick={() => setService(s.id)}
-              aria-pressed={service === s.id}
-              className={`flex flex-col items-start rounded-2xl border p-4 text-left transition ${
-                service === s.id
-                  ? 'border-primary bg-primary/5'
-                  : 'border-black/10 hover:border-primary/40'
-              }`}
-            >
-              <span className="text-sm font-medium">{s.title}</span>
-              <span className="font-semibold text-primary">{s.price} грн</span>
             </button>
           ))}
         </div>
