@@ -48,7 +48,7 @@ export default function ConsultationModal() {
           onClick={() => setIsOpen(false)}
         >
           <div
-            className="relative max-h-[90vh] w-full max-w-[560px] overflow-y-auto rounded-[30px] bg-white p-6 animate-fade-up md:p-10"
+            className="relative max-h-[92vh] w-full max-w-[560px] overflow-y-auto rounded-[30px] bg-white p-6 animate-fade-up md:p-8"
             onClick={(e) => e.stopPropagation()}
           >
             <button
@@ -62,7 +62,7 @@ export default function ConsultationModal() {
               </svg>
             </button>
 
-            <h2 className="mb-2 pr-8 text-2xl font-medium">Замовити консультацію</h2>
+            <h2 className="mb-4 pr-8 text-xl font-medium">Замовити консультацію</h2>
 
             <ConsultationForm service={service} />
           </div>

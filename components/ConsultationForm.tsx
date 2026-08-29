@@ -67,7 +67,7 @@ export default function ConsultationForm({ service }: { service: ServiceId }) {
         e.preventDefault()
         setSubmitted(true)
       }}
-      className="flex flex-col gap-4"
+      className="flex flex-col gap-3"
     >
       <div className="">
         <span className="text-sm font-medium mr-2">{selectedService.title}</span>
@@ -76,7 +76,7 @@ export default function ConsultationForm({ service }: { service: ServiceId }) {
         </span>
       </div>
 
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
         <div>
           <label className="mb-2 block text-sm font-medium" htmlFor="firstName">
             Ім&apos;я <span className="text-primary">*</span>
@@ -103,32 +103,33 @@ export default function ConsultationForm({ service }: { service: ServiceId }) {
         </div>
       </div>
 
-      <div>
-        <label className="mb-2 block text-sm font-medium" htmlFor="email">
-          Email <span className="text-primary">*</span>
-        </label>
-        <input
-          id="email"
-          name="email"
-          type="email"
-          required
-          className={inputClass}
-          placeholder="you@example.com"
-        />
-      </div>
-
-      <div>
-        <label className="mb-2 block text-sm font-medium" htmlFor="phone">
-          Телефон <span className="text-primary">*</span>
-        </label>
-        <input
-          id="phone"
-          name="phone"
-          type="tel"
-          required
-          className={inputClass}
-          placeholder="+380"
-        />
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+        <div>
+          <label className="mb-2 block text-sm font-medium" htmlFor="email">
+            Email <span className="text-primary">*</span>
+          </label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            required
+            className={inputClass}
+            placeholder="you@example.com"
+          />
+        </div>
+        <div>
+          <label className="mb-2 block text-sm font-medium" htmlFor="phone">
+            Телефон <span className="text-primary">*</span>
+          </label>
+          <input
+            id="phone"
+            name="phone"
+            type="tel"
+            required
+            className={inputClass}
+            placeholder="+380"
+          />
+        </div>
       </div>
 
       <div>
@@ -162,8 +163,8 @@ export default function ConsultationForm({ service }: { service: ServiceId }) {
         <textarea
           id="message"
           name="message"
-          rows={3}
-          className="w-full resize-none rounded-2xl border border-transparent bg-bg-secondary px-5 py-4 text-base outline-none transition focus:border-primary focus:bg-white"
+          rows={2}
+          className="w-full resize-none rounded-2xl border border-transparent bg-bg-secondary px-5 py-3 text-base outline-none transition focus:border-primary focus:bg-white"
           placeholder="Коротко опишіть свій запит"
         />
       </div>
