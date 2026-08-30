@@ -20,6 +20,10 @@ yarn-error.log*
 # local env files
 .env*.local
 
+# live, mutable review store — bootstrapped from data/reviews.seed.json
+# at runtime; never overwrite it via git
+/data/reviews.json
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
