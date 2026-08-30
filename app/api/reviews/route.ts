@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import { addReview } from '../../../lib/reviews'
+import { sendAdminNotification } from '../../../lib/mailer'
 
 export async function POST(request: Request) {
   let body: { name?: string; text?: string; rating?: number }
@@ -30,5 +31,21 @@ export async function POST(request: Request) {
   }
 
   const review = await addReview({ name, text, rating })
+
+  await sendAdminNotification({
+    subject: 'Новий відгук опубліковано — Дизайн Освіти',
+    text: [
+      `Ім'я: ${name || 'Анонімно'}`,
+      rating ? `Оцінка: ${rating}/5` : null,
+      '',
+      text,
+      '',
+      'Відгук уже видно на сторінці /feedback.',
+      'Видалити за потреби: /admin/reviews',
+    ]
+      .filter((line) => line !== null)
+      .join('\n'),
+  })
+
   return NextResponse.json({ id: review.id }, { status: 201 })
 }

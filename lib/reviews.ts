@@ -2,15 +2,12 @@ import { promises as fs } from 'fs'
 import path from 'path'
 import { randomUUID } from 'crypto'
 
-export type ReviewStatus = 'pending' | 'approved'
-
 export type Review = {
   id: string
   name: string
   rating: number | null
   text: string
   createdAt: string
-  status: ReviewStatus
 }
 
 const DATA_FILE = path.join(process.cwd(), 'data', 'reviews.json')
@@ -27,10 +24,10 @@ function withLock<T>(fn: () => Promise<T>): Promise<T> {
 }
 
 // data/reviews.json is the live, mutable store and is gitignored on
-// purpose: it diverges from the repo as soon as anyone submits or a
-// review gets moderated. It's bootstrapped from the committed seed
-// file on first run so a fresh deploy still ships with real content,
-// without a later `git pull` ever overwriting live submissions.
+// purpose: it diverges from the repo as soon as anyone submits a new
+// review. It's bootstrapped from the committed seed file on first run
+// so a fresh deploy still ships with real content, without a later
+// `git pull` ever overwriting live submissions.
 async function ensureDataFile(): Promise<void> {
   try {
     await fs.access(DATA_FILE)
@@ -56,18 +53,12 @@ async function writeAll(reviews: Review[]): Promise<void> {
   await fs.writeFile(DATA_FILE, JSON.stringify(reviews, null, 2), 'utf-8')
 }
 
-export async function getApprovedReviews(): Promise<Review[]> {
+// Reviews publish immediately on submission — there is no moderation
+// queue. /admin/reviews is a cleanup tool (delete anything unwanted
+// after the fact), not a publish gate.
+export async function getReviews(): Promise<Review[]> {
   const reviews = await readAll()
-  return reviews
-    .filter((r) => r.status === 'approved')
-    .sort((a, b) => b.createdAt.localeCompare(a.createdAt))
-}
-
-export async function getPendingReviews(): Promise<Review[]> {
-  const reviews = await readAll()
-  return reviews
-    .filter((r) => r.status === 'pending')
-    .sort((a, b) => a.createdAt.localeCompare(b.createdAt))
+  return reviews.sort((a, b) => b.createdAt.localeCompare(a.createdAt))
 }
 
 export async function addReview(input: {
@@ -83,23 +74,8 @@ export async function addReview(input: {
       text: input.text.trim(),
       rating: input.rating ?? null,
       createdAt: new Date().toISOString(),
-      status: 'pending',
     }
     reviews.push(review)
-    await writeAll(reviews)
-    return review
-  })
-}
-
-export async function setReviewStatus(
-  id: string,
-  status: ReviewStatus,
-): Promise<Review | null> {
-  return withLock(async () => {
-    const reviews = await readAll()
-    const review = reviews.find((r) => r.id === id)
-    if (!review) return null
-    review.status = status
     await writeAll(reviews)
     return review
   })

@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { getApprovedReviews } from '../../lib/reviews'
+import { getReviews } from '../../lib/reviews'
 import ReviewForm from '../../components/ReviewForm'
 import ReviewsList from '../../components/ReviewsList'
 
@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 }
 
 export default async function FeedbackPage() {
-  const reviews = await getApprovedReviews()
+  const reviews = await getReviews()
 
   return (
     <main className="bg-bg-base">

@@ -1,22 +1,23 @@
-import { getPendingReviews } from '../../../lib/reviews'
+import { getReviews } from '../../../lib/reviews'
 import AdminReviewActions from '../../../components/AdminReviewActions'
 
 export const dynamic = 'force-dynamic'
 
 export default async function AdminReviewsPage() {
-  const pending = await getPendingReviews()
+  const reviews = await getReviews()
 
   return (
     <main className="mx-auto max-w-container px-4 py-16">
-      <h1 className="mb-8 text-3xl font-bold text-dark">
-        Модерація відгуків
-      </h1>
+      <h1 className="mb-2 text-3xl font-bold text-dark">Відгуки</h1>
+      <p className="mb-8 leading-6 text-gray-500">
+        Нові відгуки публікуються одразу. Тут можна видалити небажані.
+      </p>
 
-      {pending.length === 0 ? (
-        <p className="leading-6">Немає відгуків на модерації.</p>
+      {reviews.length === 0 ? (
+        <p className="leading-6">Відгуків ще немає.</p>
       ) : (
         <div className="flex flex-col gap-4">
-          {pending.map((review) => (
+          {reviews.map((review) => (
             <div
               key={review.id}
               className="rounded-2xl border border-black/10 bg-white p-6"
