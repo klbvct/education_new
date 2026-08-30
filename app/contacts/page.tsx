@@ -44,7 +44,7 @@ export default function ContactsPage() {
       <section className="mx-auto max-w-container px-4 py-16 md:px-16 lg:px-28">
         <h1 className="sr-only">Контакти</h1>
         <div className="grid grid-cols-1 gap-10 md:grid-cols-2">
-          <div>
+          <div className="pl-6 md:pl-10 md:pt-10">
             <h2 className="mb-6 text-2xl font-medium">Контактна інформація</h2>
 
             <a
