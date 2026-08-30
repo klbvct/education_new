@@ -8,7 +8,7 @@ const NAV_ITEMS = [
   { href: '/', label: 'Головна' },
   { href: '/academy', label: 'Для спеціалістів' },
   { href: '/abroad', label: 'Освіта за кордоном' },
-  { href: '/abroad', label: 'Блог' },
+  { href: '/blog', label: 'Блог' },
   { href: '/feedback', label: 'Відгуки' },
   { href: '/contacts', label: 'Контакти' },
   { href: '#', label: 'RU' },
@@ -48,9 +48,9 @@ export default function Header() {
         </Link>
 
         <nav className="hidden items-center gap-10 md:flex">
-          {NAV_ITEMS.map((item, i) => (
+          {NAV_ITEMS.map((item) => (
             <Link
-              key={`${item.href}-${i}`}
+              key={item.href}
               href={item.href}
               className="text-lg text-dark transition-colors hover:text-primary"
             >
@@ -80,9 +80,9 @@ export default function Header() {
 
       {isOpen && (
         <nav className="flex flex-col border-t border-black/5 bg-bg-secondary px-4 py-2 md:hidden">
-          {NAV_ITEMS.map((item, i) => (
+          {NAV_ITEMS.map((item) => (
             <Link
-              key={`${item.href}-${i}`}
+              key={item.href}
               href={item.href}
               onClick={() => setIsOpen(false)}
               className="border-b border-black/5 py-3 text-lg text-dark transition-colors last:border-b-0 hover:text-primary"
