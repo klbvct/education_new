@@ -145,10 +145,23 @@ function formatDate(iso: string) {
   })
 }
 
+const EXCERPT_LENGTH = 150
+// The accent tile spans 2 card-rows on desktop (roughly double the height
+// plus the gap between them), so it can fit a longer excerpt before truncating.
+const ACCENT_EXCERPT_LENGTH = 320
+
+function truncateExcerpt(text: string, maxLength: number = EXCERPT_LENGTH) {
+  if (text.length <= maxLength) return text
+  return `${text.slice(0, maxLength).trimEnd()}…`
+}
+
 function AccentCard({ post }: { post: BlogPost }) {
   return (
     <article className="flex h-full flex-col gap-3 rounded-3xl bg-primary p-6 text-white">
       <h2 className="text-xl font-medium leading-tight">{post.title}</h2>
+      <p className="leading-6 text-white/90">
+        {truncateExcerpt(post.excerpt, ACCENT_EXCERPT_LENGTH)}
+      </p>
       <span className="mt-auto text-sm text-white/70">
         {formatDate(post.date)}
       </span>
@@ -160,7 +173,7 @@ function RegularCard({ post }: { post: BlogPost }) {
   return (
     <article className="flex h-full flex-col gap-3 rounded-3xl border border-black/5 bg-white p-6 shadow-[0_38px_56px_rgba(191,204,225,0.2)]">
       <h2 className="text-xl font-medium leading-tight">{post.title}</h2>
-      <p className="leading-6 text-gray-500">{post.excerpt}</p>
+      <p className="leading-6 text-gray-500">{truncateExcerpt(post.excerpt)}</p>
       <span className="mt-auto text-sm text-gray-500">
         {formatDate(post.date)}
       </span>
