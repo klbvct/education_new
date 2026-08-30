@@ -1,149 +1,14 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import BlogPagination from '../../components/BlogPagination'
+import { BLOG_POSTS, formatBlogDate, type BlogPost } from '../../lib/blog-posts'
 
 export const metadata: Metadata = {
   title: 'Блог — Дизайн Освіти',
   description: 'Статті та поради про освіту за кордоном і кар’єрне консультування.',
 }
 
-type BlogPost = {
-  id: string
-  title: string
-  excerpt: string
-  date: string
-}
-
-const BLOG_POSTS: BlogPost[] = [
-  {
-    id: 'post-1',
-    title: 'Як обрати країну для навчання: покроковий гід',
-    excerpt:
-      'Розповідаємо, на що звернути увагу під час вибору країни та університету — від вартості життя до визнання диплома в Україні.',
-    date: '2026-08-20',
-  },
-  {
-    id: 'post-2',
-    title: '5 навичок, які варто розвивати ще під час навчання',
-    excerpt:
-      'Які soft і hard skills найчастіше запитують роботодавці та як почати прокачувати їх, не чекаючи диплома.',
-    date: '2026-08-12',
-  },
-  {
-    id: 'post-3',
-    title: 'Як підтримати дитину у виборі майбутньої професії',
-    excerpt:
-      'Практичні поради для батьків: як говорити про кар’єру без тиску та допомогти дитині прийняти власне рішення.',
-    date: '2026-07-30',
-  },
-  {
-    id: 'post-4',
-    title: 'Типові помилки під час підготовки документів для вступу',
-    excerpt:
-      'Розбираємо, чому вступники найчастіше отримують відмову і як цього уникнути ще на етапі підготовки.',
-    date: '2026-07-18',
-  },
-  {
-    id: 'post-5',
-    title: 'Стипендії та гранти: де шукати та як подаватися',
-    excerpt:
-      'Огляд програм фінансової підтримки для українських студентів і покрокова інструкція подачі заявки.',
-    date: '2026-07-05',
-  },
-  {
-    id: 'post-6',
-    title: 'Мотиваційний лист: як написати так, щоб запам’ятали',
-    excerpt:
-      'Структура сильного мотиваційного листа та приклади фраз, яких краще уникати у заявці на навчання.',
-    date: '2026-06-22',
-  },
-  {
-    id: 'post-7',
-    title: 'IELTS чи TOEFL: який іспит обрати',
-    excerpt:
-      'Порівнюємо формати іспитів, вимоги університетів і терміни підготовки, щоб обрати оптимальний варіант.',
-    date: '2026-06-10',
-  },
-  {
-    id: 'post-8',
-    title: 'Як не перегоріти під час підготовки до вступу',
-    excerpt:
-      'Поради щодо планування часу та підтримки ресурсного стану на довгому шляху до вступу.',
-    date: '2026-05-28',
-  },
-  {
-    id: 'post-9',
-    title: 'Освітні виставки 2026: варто йти чи ні',
-    excerpt:
-      'Що можна отримати від відвідування освітніх виставок і як підготуватися, щоб час не був змарнований.',
-    date: '2026-05-15',
-  },
-  {
-    id: 'post-10',
-    title: 'Різниця між бакалавратом і магістратурою за кордоном',
-    excerpt:
-      'Пояснюємо відмінності у вимогах до вступу, тривалості навчання та вартості на кожному з рівнів освіти.',
-    date: '2026-05-02',
-  },
-  {
-    id: 'post-11',
-    title: 'Як розповісти про свій досвід у резюме без прикрас',
-    excerpt:
-      'Формулювання досягнень так, щоб вони звучали переконливо, але залишалися чесними.',
-    date: '2026-04-20',
-  },
-  {
-    id: 'post-12',
-    title: '5 запитань, які варто поставити консультанту з освіти',
-    excerpt:
-      'Як перевірити компетентність консультанта ще на першій зустрічі та зрозуміти, чи підходить він вам.',
-    date: '2026-04-08',
-  },
-  {
-    id: 'post-13',
-    title: 'Чому варто почати підготовку до вступу за рік',
-    excerpt:
-      'Розкладаємо процес підготовки на етапи та показуємо, чому пізній старт часто коштує дорожче.',
-    date: '2026-03-26',
-  },
-  {
-    id: 'post-14',
-    title: 'Академічна доброчесність: що варто знати студенту',
-    excerpt:
-      'Основні правила, яких дотримуються університети за кордоном, і як їх не порушити ненавмисно.',
-    date: '2026-03-14',
-  },
-  {
-    id: 'post-15',
-    title: 'Стажування під час навчання: де шукати та як податися',
-    excerpt:
-      'Ресурси для пошуку стажувань і поради щодо оформлення заявки, яка виділятиметься серед інших.',
-    date: '2026-03-02',
-  },
-  {
-    id: 'post-16',
-    title: 'Онлайн чи офлайн навчання: що обрати у 2026',
-    excerpt:
-      'Зважуємо переваги й обмеження обох форматів залежно від цілей та можливостей студента.',
-    date: '2026-02-18',
-  },
-  {
-    id: 'post-17',
-    title: 'Як адаптуватися в новій країні у перші місяці навчання',
-    excerpt:
-      'Практичні кроки для швидшої адаптації: від побуту до нових соціальних зв’язків.',
-    date: '2026-02-05',
-  },
-]
-
 const PAGE_SIZE = 8
-
-function formatDate(iso: string) {
-  return new Date(iso).toLocaleDateString('uk-UA', {
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric',
-  })
-}
 
 const EXCERPT_LENGTH = 150
 // The accent tile spans 2 card-rows on desktop (roughly double the height
@@ -157,27 +22,33 @@ function truncateExcerpt(text: string, maxLength: number = EXCERPT_LENGTH) {
 
 function AccentCard({ post }: { post: BlogPost }) {
   return (
-    <article className="flex h-full flex-col gap-3 rounded-3xl bg-primary p-6 text-white">
+    <Link
+      href={`/blog/${post.id}`}
+      className="flex h-full flex-col gap-3 rounded-3xl bg-primary p-6 text-white transition hover:opacity-90"
+    >
       <h2 className="text-xl font-medium leading-tight">{post.title}</h2>
       <p className="leading-6 text-white/90">
         {truncateExcerpt(post.excerpt, ACCENT_EXCERPT_LENGTH)}
       </p>
       <span className="mt-auto text-sm text-white/70">
-        {formatDate(post.date)}
+        {formatBlogDate(post.date)}
       </span>
-    </article>
+    </Link>
   )
 }
 
 function RegularCard({ post }: { post: BlogPost }) {
   return (
-    <article className="flex h-full flex-col gap-3 rounded-3xl border border-black/5 bg-white p-6 shadow-[0_38px_56px_rgba(191,204,225,0.2)]">
+    <Link
+      href={`/blog/${post.id}`}
+      className="flex h-full flex-col gap-3 rounded-3xl border border-black/5 bg-white p-6 shadow-[0_38px_56px_rgba(191,204,225,0.2)] transition hover:border-primary/30"
+    >
       <h2 className="text-xl font-medium leading-tight">{post.title}</h2>
       <p className="leading-6 text-gray-500">{truncateExcerpt(post.excerpt)}</p>
       <span className="mt-auto text-sm text-gray-500">
-        {formatDate(post.date)}
+        {formatBlogDate(post.date)}
       </span>
-    </article>
+    </Link>
   )
 }
 
