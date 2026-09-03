@@ -111,7 +111,10 @@ export default function BlogPostPage({ params }: { params: { id: string } }) {
             <Link href="/blog" className="transition hover:text-primary">
               Блог
             </Link>
-            <span className="mx-2">&gt;</span>
+            <span
+              className="mx-2 inline-block h-1.5 w-1.5 rounded-full bg-primary align-middle"
+              aria-hidden="true"
+            />
             <span>{post.title}</span>
           </nav>
         </div>
