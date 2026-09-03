@@ -107,6 +107,14 @@ export default function BlogPostPage({ params }: { params: { id: string } }) {
       {/* Banner */}
       <section className="bg-bg-secondary">
         <div className="mx-auto max-w-container px-4 py-16 md:py-24">
+          <nav className="mb-6 text-sm text-gray-500">
+            <Link href="/blog" className="transition hover:text-primary">
+              Блог
+            </Link>
+            <span className="mx-2">/</span>
+            <span>{post.title}</span>
+          </nav>
+
           {/* Mobile: title/date, then author, then socials underneath. */}
           <div className="flex flex-col gap-6 md:hidden">
             <div>
