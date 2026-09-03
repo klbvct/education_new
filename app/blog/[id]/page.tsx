@@ -98,10 +98,10 @@ export default function BlogPostPage({ params }: { params: { id: string } }) {
               <h1 className="mb-8 max-w-2xl text-3xl font-bold leading-tight text-dark">
                 {post.title}
               </h1>
-              <p className="text-sm text-gray-500">{formatBlogDate(post.date)}</p>
+              <p className="mb-4 text-sm text-gray-500">{formatBlogDate(post.date)}</p>
             </div>
 
-            <div className="flex items-center gap-3 text-left">
+            <div className="flex items-center gap-5 text-left">
               <Image
                 src="/images/mariana.png"
                 alt="Мар'яна Калабухова"
