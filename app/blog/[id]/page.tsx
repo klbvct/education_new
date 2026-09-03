@@ -2,8 +2,29 @@ import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { BLOG_POSTS, formatBlogDate } from '../../../lib/blog-posts'
+import { BLOG_POSTS, formatBlogDate, type BlogBlock } from '../../../lib/blog-posts'
 import ContactRequestForm from '../../../components/ContactRequestForm'
+
+function BlogBlockView({ block }: { block: BlogBlock }) {
+  if (block.type === 'paragraph') {
+    return <p className="leading-7 text-dark">{block.text}</p>
+  }
+  if (block.type === 'subheading') {
+    return <h3 className="text-xl font-medium leading-tight text-dark">{block.text}</h3>
+  }
+  const ListTag = block.style === 'ordered' ? 'ol' : 'ul'
+  return (
+    <ListTag
+      className={`flex flex-col gap-2 pl-5 leading-7 text-dark ${
+        block.style === 'ordered' ? 'list-decimal' : 'list-disc'
+      }`}
+    >
+      {block.items.map((item, i) => (
+        <li key={i}>{item}</li>
+      ))}
+    </ListTag>
+  )
+}
 
 const SOCIALS = [
   {
@@ -136,11 +157,13 @@ export default function BlogPostPage({ params }: { params: { id: string } }) {
                     {section.heading}
                   </h2>
                   <div className="flex flex-col gap-5">
-                    {section.paragraphs.map((paragraph, j) => (
-                      <p key={j} className="leading-7 text-dark">
-                        {paragraph}
-                      </p>
-                    ))}
+                    {section.blocks
+                      ? section.blocks.map((block, j) => <BlogBlockView key={j} block={block} />)
+                      : section.paragraphs?.map((paragraph, j) => (
+                          <p key={j} className="leading-7 text-dark">
+                            {paragraph}
+                          </p>
+                        ))}
                   </div>
                 </div>
               ))}
