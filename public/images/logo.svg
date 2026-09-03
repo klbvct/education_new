@@ -1,15 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="300" height="64" viewBox="0 0 300 64">
-  <defs>
-    <style>
-      .cls-1 {
-        font-size: 133.333px;
-        font-family: "Futura PT";
-      }
-    </style>
-  </defs>
-  <image id="Слой_2" data-name="Слой 2" x="138" y="4" width="2" height="52" xlink:href="data:img/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAA0CAYAAACglemUAAAANUlEQVQYlWOMLbx7moGBQZKJgYFBmIGBQQzE+MPAwPAbxACDEc8Y9AwWBgYGVhDxloGBgQ0AvQ4GFUWoctwAAAAASUVORK5CYII="/>
-  <text id="Освіти" class="cls-1" transform="translate(46.363 55.11) scale(0.21)">Освіти</text>
-  <text id="Дизайн" class="cls-1" transform="translate(35.666 22.809) scale(0.21)">Дизайн</text>
-  <text id="Education" class="cls-1" transform="translate(155.434 21.97) scale(0.21)">Education</text>
-  <text id="Design" class="cls-1" transform="translate(155.434 55.949) scale(0.21)">Design</text>
+<svg width="600" height="521" viewBox="0 0 600 521" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M294.929 2.96156C297.183 -0.940525 302.817 -0.939899 305.071 2.96237L599.207 512.219C601.461 516.121 598.644 521 594.136 521L5.86407 520.999C1.3563 520.999 -1.46054 516.122 0.793325 512.22L294.929 2.96156ZM305.38 283.622C303.126 279.72 297.493 279.72 295.239 283.622L244.525 371.426C242.271 375.328 245.089 380.206 249.596 380.206H351.022C355.53 380.206 358.347 375.328 356.094 371.426L305.38 283.622Z" fill="#266AF6"/>
+<path d="M295.415 2.92415C296.632 0.817333 298.835 -0.149584 300.958 0.0187102L300.958 280.66C298.926 280.599 296.867 281.571 295.706 283.582L244.993 371.384C242.739 375.287 245.556 380.164 250.064 380.164H300.958L300.959 520.963L6.35055 520.962C1.8428 520.962 -0.974046 516.085 1.2798 512.182L295.415 2.92415Z" fill="#1F5BD1"/>
 </svg>

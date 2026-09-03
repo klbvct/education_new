@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
+import { usePathname } from 'next/navigation'
 
 const NAV_ITEMS = [
   { href: '/', label: 'Головна' },
@@ -15,6 +16,8 @@ const NAV_ITEMS = [
 ]
 
 export default function Header() {
+  const pathname = usePathname()
+  const isHome = pathname === '/'
   const [isOpen, setIsOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
 
@@ -36,16 +39,21 @@ export default function Header() {
           isScrolled ? 'py-1' : 'py-2'
         }`}
       >
-        <Link href="/" className="block max-w-[56%] p-2" onClick={() => setIsOpen(false)}>
-          <Image
-            src="/images/logo.svg"
-            alt="Education Design — Дизайн Освіти"
-            width={isScrolled ? 131 : 180}
-            height={isScrolled ? 35 : 48}
-            className="transition-all duration-300"
-            priority
-          />
-        </Link>
+        {isHome ? (
+          <span className="flex max-w-[56%] items-center gap-2 p-2">
+            <Image src="/images/logo.svg" alt="" width={24} height={21} priority />
+            <span className="text-2xl font-semibold text-dark">Дизайн Освіти</span>
+          </span>
+        ) : (
+          <Link
+            href="/"
+            className="flex max-w-[56%] items-center gap-2 p-2"
+            onClick={() => setIsOpen(false)}
+          >
+            <Image src="/images/logo.svg" alt="" width={24} height={21} priority />
+            <span className="text-2xl font-semibold text-dark">Дизайн Освіти</span>
+          </Link>
+        )}
 
         <nav className="hidden items-center gap-10 md:flex">
           {NAV_ITEMS.map((item) => (
