@@ -42,7 +42,7 @@ export default function Header() {
         {isHome ? (
           <span className="flex max-w-[56%] items-center gap-2 p-2">
             <Image src="/images/logo.svg" alt="" width={24} height={21} priority />
-            <span className="text-2xl font-semibold text-dark">Дизайн Освіти</span>
+            <span className="text-lg font-semibold text-dark md:text-2xl">Дизайн Освіти</span>
           </span>
         ) : (
           <Link
@@ -51,7 +51,7 @@ export default function Header() {
             onClick={() => setIsOpen(false)}
           >
             <Image src="/images/logo.svg" alt="" width={24} height={21} priority />
-            <span className="text-2xl font-semibold text-dark">Дизайн Освіти</span>
+            <span className="text-lg font-semibold text-dark md:text-2xl">Дизайн Освіти</span>
           </Link>
         )}
 
