@@ -132,6 +132,16 @@ export default function BlogPostPage({ params }: { params: { id: string } }) {
       <section className="mx-auto max-w-container px-4 py-16">
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-3">
           <article className="lg:col-span-2">
+            {post.intro && (
+              <div className="mb-10 flex flex-col gap-5">
+                {post.intro.map((paragraph, i) => (
+                  <p key={i} className="leading-7 text-dark">
+                    {paragraph}
+                  </p>
+                ))}
+              </div>
+            )}
+
             {post.sections.length > 1 && (
               <div className="mb-10 rounded-2xl border border-black/5 bg-white p-6">
                 <p className="mb-3 font-medium">Про що поговоримо:</p>
