@@ -107,15 +107,15 @@ export default function BlogPostPage({ params }: { params: { id: string } }) {
       {/* Breadcrumbs */}
       <section className="bg-bg-base">
         <div className="mx-auto max-w-container px-4 py-3">
-          <nav className="text-sm text-gray-500">
-            <Link href="/blog" className="transition hover:text-primary">
+          <nav className="flex items-center text-sm text-gray-500">
+            <Link href="/blog" className="shrink-0 transition hover:text-primary">
               Блог
             </Link>
             <span
-              className="mx-2 inline-block h-1.5 w-1.5 rounded-full bg-primary align-middle"
+              className="mx-2 inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-primary"
               aria-hidden="true"
             />
-            <span>{post.title}</span>
+            <span className="min-w-0 truncate">{post.title}</span>
           </nav>
         </div>
       </section>
