@@ -31,6 +31,17 @@ function BlogBlockView({ block }: { block: BlogBlock }) {
       </h3>
     )
   }
+  if (block.type === 'image') {
+    return (
+      <Image
+        src={block.src}
+        alt={block.alt}
+        width={600}
+        height={300}
+        className="my-[18px] h-auto w-full rounded-2xl"
+      />
+    )
+  }
   const ListTag = block.style === 'ordered' ? 'ol' : 'ul'
   return (
     <ListTag

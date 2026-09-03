@@ -4,10 +4,17 @@ export type BlogListBlock = {
   items: string[]
 }
 
+export type BlogImageBlock = {
+  type: 'image'
+  src: string
+  alt: string
+}
+
 export type BlogBlock =
   | { type: 'paragraph'; text: string }
   | { type: 'subheading'; text: string }
   | BlogListBlock
+  | BlogImageBlock
 
 export type BlogSection = {
   heading: string
@@ -458,6 +465,7 @@ export const BLOG_POSTS: BlogPost[] = [
               'Порівняти свої результати з актуальними трендами на ринку праці.',
             ],
           },
+          { type: 'image', src: '/images/post-18-1.webp', alt: 'Тест на професію для підлітка' },
           { type: 'subheading', text: '3. Досліджуйте професії та спробуйте себе у справі' },
           {
             type: 'paragraph',
@@ -515,6 +523,7 @@ export const BLOG_POSTS: BlogPost[] = [
             type: 'paragraph',
             text: 'У сучасному світі підлітки все раніше починають замислюватися про свою майбутню професію. Уже в шкільні роки важливо розуміти, які напрямки цікаві, де можна реалізувати себе і в яких сферах є перспективи. Однак для багатьох дітей вибір професії — це важкий і заплутаний процес. Тут на допомогу приходить тест на вибір професії для школярів — ефективний інструмент, що дає змогу краще пізнати себе та визначитися з майбутньою кар’єрою.',
           },
+          { type: 'image', src: '/images/post-18-2.webp', alt: 'Тест на вибір професії для школяра' },
           { type: 'subheading', text: 'Навіщо школяреві проходити тест на вибір професії?' },
           {
             type: 'paragraph',
@@ -582,6 +591,7 @@ export const BLOG_POSTS: BlogPost[] = [
             type: 'paragraph',
             text: 'Якщо ви ще не визначилися з майбутньою кар’єрою або хочете кардинально змінити своє життя, вибір професії онлайн за допомогою спеціалізованого тесту — це перший крок у правильному напрямку.',
           },
+          { type: 'image', src: '/images/post-18-3.webp', alt: 'Онлайн тест для вибору професії' },
         ],
       },
       {
