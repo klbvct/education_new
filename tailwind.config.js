@@ -17,6 +17,9 @@ module.exports = {
       fontFamily: {
         sans: ['"Futura PT"', 'system-ui', 'sans-serif'],
       },
+      fontSize: {
+        base: ['18px', '28px'],
+      },
       maxWidth: {
         container: '1200px',
       },
