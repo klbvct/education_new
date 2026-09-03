@@ -321,7 +321,7 @@ export default function HomePage() {
             Про проєкт
           </h2>
           <div className="grid grid-cols-1 gap-10 md:grid-cols-2">
-            <div className="space-y-4 text-base leading-6">
+            <div className="space-y-2.5 text-base leading-6">
               {ABOUT_PARAGRAPHS.map((p) => (
                 <p key={p}>{p}</p>
               ))}
@@ -385,7 +385,7 @@ export default function HomePage() {
               key={text}
               className="mx-auto w-full max-w-[300px] rounded-lg bg-[#F9FAFC] p-4 shadow-[0_38px_56px_rgba(191,204,225,0.39)]"
             >
-              <p className="text-primary">{text}</p>
+              <p className="text-base leading-6 text-primary">{text}</p>
             </div>
           ))}
         </div>
@@ -406,7 +406,7 @@ export default function HomePage() {
                 {step.number}
               </div>
               <h3 className="mb-2 text-2xl font-medium text-dark">{step.title}</h3>
-              <p className="mb-4 leading-6">{step.intro}</p>
+              <p className="mb-4 text-base leading-6">{step.intro}</p>
 
               {step.combo && <ChipRow items={step.combo} connector="+" />}
 
@@ -449,7 +449,7 @@ export default function HomePage() {
               {step.flow && <ChipRow items={step.flow} connector="→" />}
 
               {step.note && (
-                <p className="mt-4 leading-6">{step.note}</p>
+                <p className="mt-4 text-base leading-6">{step.note}</p>
               )}
             </div>
           ))}
@@ -481,7 +481,7 @@ export default function HomePage() {
                       height={20}
                       className="mt-1"
                     />
-                    <p>{text}</p>
+                    <p className="text-base leading-6">{text}</p>
                   </div>
                 ))}
               </div>
@@ -584,7 +584,7 @@ export default function HomePage() {
                 <h3 className="mb-2 text-2xl font-medium text-primary">
                   {item.title}
                 </h3>
-                <p className="leading-6">{item.text}</p>
+                <p className="text-base leading-6">{item.text}</p>
               </div>
             </div>
           ))}
@@ -600,7 +600,7 @@ export default function HomePage() {
               <br />
               навчання ефективним
             </h2>
-            <p className="max-w-[390px] text-white">
+            <p className="max-w-[390px] text-base leading-6 text-white">
               Створити свій власний освітній дизайн, сформувати свою унікальну
               модель навчання, розвитку та кар&apos;єри!
             </p>
