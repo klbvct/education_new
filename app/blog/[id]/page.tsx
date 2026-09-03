@@ -5,9 +5,24 @@ import { notFound } from 'next/navigation'
 import { BLOG_POSTS, formatBlogDate, type BlogBlock } from '../../../lib/blog-posts'
 import ContactRequestForm from '../../../components/ContactRequestForm'
 
+// Lightweight `[text](href)` link syntax for inline anchors within body text —
+// see post-18, ported from links in the live article (stubs use href="#").
+function renderRichText(text: string) {
+  return text.split(/(\[[^\]]+\]\([^)]+\))/g).map((part, i) => {
+    const match = part.match(/^\[([^\]]+)\]\(([^)]+)\)$/)
+    if (!match) return part
+    const [, label, href] = match
+    return (
+      <a key={i} href={href} className="text-primary underline hover:opacity-60">
+        {label}
+      </a>
+    )
+  })
+}
+
 function BlogBlockView({ block }: { block: BlogBlock }) {
   if (block.type === 'paragraph') {
-    return <p className="mb-2.5 text-base leading-6 text-dark">{block.text}</p>
+    return <p className="mb-2.5 text-base leading-6 text-dark">{renderRichText(block.text)}</p>
   }
   if (block.type === 'subheading') {
     return (
@@ -182,7 +197,7 @@ export default function BlogPostPage({ params }: { params: { id: string } }) {
               <div className="mb-10 [&>*:last-child]:mb-0">
                 {post.intro.map((paragraph, i) => (
                   <p key={i} className="mb-2.5 text-base leading-6 text-dark">
-                    {paragraph}
+                    {renderRichText(paragraph)}
                   </p>
                 ))}
               </div>
@@ -217,7 +232,7 @@ export default function BlogPostPage({ params }: { params: { id: string } }) {
                       ? section.blocks.map((block, j) => <BlogBlockView key={j} block={block} />)
                       : section.paragraphs?.map((paragraph, j) => (
                           <p key={j} className="mb-2.5 text-base leading-6 text-dark">
-                            {paragraph}
+                            {renderRichText(paragraph)}
                           </p>
                         ))}
                   </div>
