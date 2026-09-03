@@ -306,7 +306,7 @@ export default function HomePage() {
           {PROFITS.map((item) => (
             <div key={item.text} className="flex flex-col items-center">
               <Image src={item.icon} alt="" width={40} height={40} />
-              <p className="mt-4 text-center text-base text-white">
+              <p className="mt-4 text-center text-[16px] text-white">
                 {item.text}
               </p>
             </div>
