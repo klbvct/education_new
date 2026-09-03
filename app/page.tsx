@@ -282,7 +282,7 @@ export default function HomePage() {
             height={64}
             className="mb-8"
           />
-          <p className="max-w-[500px] text-base leading-6">
+          <p className="max-w-[500px] text-[16px] leading-6">
             <span className="font-medium">Мар&apos;яна Калабухова</span>
             <br />
             Автор методики Дизайн Освіти, консультант з освіти, навчання і кар&apos;єри, ментор, ступінь PhD, 8 років роботи в університеті, 12+ років досвіду підготовки і зарахування учнів і студентів в найкращі навчальні заклади світу
@@ -436,7 +436,7 @@ export default function HomePage() {
                         className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-primary"
                         aria-hidden="true"
                       />
-                      <p className="text-sm leading-6">{item}</p>
+                      <p className="text-[16px] leading-6">{item}</p>
                     </div>
                   ))}
                 </div>
@@ -553,7 +553,7 @@ export default function HomePage() {
                           height={20}
                           className="mt-0.5"
                         />
-                        <p className="text-base leading-6">{item}</p>
+                        <p className="text-[16px] leading-6">{item}</p>
                       </li>
                     ))}
                   </ul>
