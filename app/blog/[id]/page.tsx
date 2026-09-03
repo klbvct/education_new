@@ -7,15 +7,19 @@ import ContactRequestForm from '../../../components/ContactRequestForm'
 
 function BlogBlockView({ block }: { block: BlogBlock }) {
   if (block.type === 'paragraph') {
-    return <p className="leading-7 text-dark">{block.text}</p>
+    return <p className="mb-2.5 text-lg leading-7 text-dark">{block.text}</p>
   }
   if (block.type === 'subheading') {
-    return <h3 className="text-xl font-medium leading-tight text-dark">{block.text}</h3>
+    return (
+      <h3 className="mb-[5px] mt-[18px] text-lg font-medium leading-tight text-dark">
+        {block.text}
+      </h3>
+    )
   }
   const ListTag = block.style === 'ordered' ? 'ol' : 'ul'
   return (
     <ListTag
-      className={`flex flex-col gap-2 pl-5 leading-7 text-dark ${
+      className={`my-[18px] pl-10 text-lg leading-7 text-dark ${
         block.style === 'ordered' ? 'list-decimal' : 'list-disc'
       }`}
     >
@@ -133,9 +137,9 @@ export default function BlogPostPage({ params }: { params: { id: string } }) {
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-3">
           <article className="lg:col-span-2">
             {post.intro && (
-              <div className="mb-10 flex flex-col gap-5">
+              <div className="mb-10 [&>*:last-child]:mb-0">
                 {post.intro.map((paragraph, i) => (
-                  <p key={i} className="leading-7 text-dark">
+                  <p key={i} className="mb-2.5 text-lg leading-7 text-dark">
                     {paragraph}
                   </p>
                 ))}
@@ -163,14 +167,14 @@ export default function BlogPostPage({ params }: { params: { id: string } }) {
             <div className="flex flex-col gap-8">
               {post.sections.map((section, i) => (
                 <div key={i} id={`section-${i}`} className="scroll-mt-24">
-                  <h2 className="mb-4 text-2xl font-medium leading-tight text-dark">
+                  <h2 className="mb-5 text-2xl font-medium leading-tight text-dark">
                     {section.heading}
                   </h2>
-                  <div className="flex flex-col gap-5">
+                  <div className="[&>*:last-child]:mb-0">
                     {section.blocks
                       ? section.blocks.map((block, j) => <BlogBlockView key={j} block={block} />)
                       : section.paragraphs?.map((paragraph, j) => (
-                          <p key={j} className="leading-7 text-dark">
+                          <p key={j} className="mb-2.5 text-lg leading-7 text-dark">
                             {paragraph}
                           </p>
                         ))}
