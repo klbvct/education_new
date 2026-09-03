@@ -92,7 +92,47 @@ export default function BlogPostPage({ params }: { params: { id: string } }) {
       {/* Banner */}
       <section className="bg-bg-secondary">
         <div className="mx-auto max-w-container px-4 py-16 md:py-24">
-          <div className="flex flex-col gap-8 md:flex-row md:items-start md:gap-16">
+          {/* Mobile: title/date, then author, then socials underneath. */}
+          <div className="flex flex-col gap-6 md:hidden">
+            <div>
+              <h1 className="mb-8 max-w-2xl text-3xl font-bold leading-tight text-dark">
+                {post.title}
+              </h1>
+              <p className="text-sm text-gray-500">{formatBlogDate(post.date)}</p>
+            </div>
+
+            <div className="flex flex-col items-start text-left">
+              <Image
+                src="/images/mariana.png"
+                alt="Мар'яна Калабухова"
+                width={56}
+                height={56}
+                className="h-14 w-14 rounded-full object-cover"
+              />
+              <p className="mt-3 font-medium">Мар&apos;яна Калабухова</p>
+              <p className="text-sm text-gray-500">
+                Автор проєкту, консультант з освіти, PhD
+              </p>
+            </div>
+
+            <div className="flex gap-3">
+              {SOCIALS.map((s) => (
+                <a
+                  key={s.label}
+                  href={s.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={s.label}
+                  className="flex h-10 w-10 items-center justify-center rounded-full border border-black/10 text-dark transition hover:border-primary hover:text-primary"
+                >
+                  <s.icon className="h-4 w-4" />
+                </a>
+              ))}
+            </div>
+          </div>
+
+          {/* md+: socials beside the title, author off to the right. */}
+          <div className="hidden md:flex md:items-start md:gap-16">
             <div className="flex gap-12">
               <div className="flex shrink-0 flex-col gap-3">
                 {SOCIALS.map((s) => (
@@ -135,7 +175,7 @@ export default function BlogPostPage({ params }: { params: { id: string } }) {
 
       <section className="mx-auto max-w-container px-4 py-16">
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-3">
-          <article className="rounded-[20px] bg-white p-10 lg:col-span-2">
+          <article className="bg-white p-4 sm:rounded-[20px] sm:p-10 lg:col-span-2">
             {post.intro && (
               <div className="mb-10 [&>*:last-child]:mb-0">
                 {post.intro.map((paragraph, i) => (
