@@ -11,6 +11,9 @@ export type BlogBlock =
 
 export type BlogSection = {
   heading: string
+  // Shown in the "Про що поговоримо" table of contents instead of `heading`
+  // when a shorter label reads better there than the full section title.
+  tocLabel?: string
   // Most posts only need plain paragraphs. `blocks` is an escape hatch for
   // richer content (subheadings, lists) — see post-18 for an example.
   paragraphs?: string[]
@@ -409,6 +412,7 @@ export const BLOG_POSTS: BlogPost[] = [
     sections: [
       {
         heading: 'Вибір професії — важливий етап у житті будь-якої людини, особливо підлітка',
+        tocLabel: 'Вибір професії — важливий етап у житті будь-якої людини',
         blocks: [
           {
             type: 'paragraph',

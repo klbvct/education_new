@@ -134,7 +134,7 @@ export default function BlogPostPage({ params }: { params: { id: string } }) {
           <article className="lg:col-span-2">
             {post.sections.length > 1 && (
               <div className="mb-10 rounded-2xl border border-black/5 bg-white p-6">
-                <p className="mb-3 font-medium">Про що поговоримо</p>
+                <p className="mb-3 font-medium">Про що поговоримо:</p>
                 <ol className="flex list-decimal flex-col gap-2 pl-5">
                   {post.sections.map((section, i) => (
                     <li key={i}>
@@ -142,7 +142,7 @@ export default function BlogPostPage({ params }: { params: { id: string } }) {
                         href={`#section-${i}`}
                         className="text-primary hover:opacity-60"
                       >
-                        {section.heading}
+                        {section.tocLabel ?? section.heading}
                       </a>
                     </li>
                   ))}
