@@ -105,13 +105,13 @@ export default function BlogPostPage({ params }: { params: { id: string } }) {
   return (
     <main className="bg-bg-base">
       {/* Breadcrumbs */}
-      <section className="bg-white">
+      <section className="bg-bg-base">
         <div className="mx-auto max-w-container px-4 py-3">
           <nav className="text-sm text-gray-500">
             <Link href="/blog" className="transition hover:text-primary">
               Блог
             </Link>
-            <span className="mx-2">/</span>
+            <span className="mx-2">&gt;</span>
             <span>{post.title}</span>
           </nav>
         </div>
