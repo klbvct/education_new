@@ -535,7 +535,7 @@ export default function HomePage() {
                     </h3>
                     {plan.tag && (
                       <p
-                        className={`mt-5 text-sm ${
+                        className={`mt-5 text-base leading-6 ${
                           isAccent ? 'text-white/90' : 'text-gray-500'
                         }`}
                       >
@@ -553,7 +553,7 @@ export default function HomePage() {
                           height={20}
                           className="mt-0.5"
                         />
-                        <p className="text-sm leading-6">{item}</p>
+                        <p className="text-base leading-6">{item}</p>
                       </li>
                     ))}
                   </ul>
