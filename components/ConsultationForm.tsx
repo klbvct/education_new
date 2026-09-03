@@ -23,14 +23,14 @@ export function ServicePicker({
   onChange: (id: ServiceId) => void
 }) {
   return (
-    <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+    <div className="grid grid-cols-2 gap-2">
       {SERVICES.map((s) => (
         <button
           key={s.id}
           type="button"
           onClick={() => onChange(s.id)}
           aria-pressed={value === s.id}
-          className={`flex flex-col items-start rounded-2xl border p-4 text-left transition ${
+          className={`flex flex-col items-start rounded-2xl border p-3 text-left transition sm:p-4 ${
             value === s.id
               ? 'border-primary bg-primary/5'
               : 'border-black/10 hover:border-primary/40'
@@ -86,7 +86,7 @@ export default function ConsultationForm({
         </div>
       )}
 
-      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+      <div className="grid grid-cols-2 gap-3">
         <div>
           <label className="mb-2 block text-[16px] font-medium" htmlFor="firstName">
             Ім&apos;я <span className="text-primary">*</span>
