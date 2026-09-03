@@ -135,7 +135,7 @@ export default function BlogPostPage({ params }: { params: { id: string } }) {
 
       <section className="mx-auto max-w-container px-4 py-16">
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-3">
-          <article className="lg:col-span-2">
+          <article className="rounded-[20px] bg-white p-10 lg:col-span-2">
             {post.intro && (
               <div className="mb-10 [&>*:last-child]:mb-0">
                 {post.intro.map((paragraph, i) => (
