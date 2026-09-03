@@ -13,7 +13,7 @@ type Messenger = (typeof MESSENGERS)[number]
 export type ServiceId = (typeof SERVICES)[number]['id']
 
 const inputClass =
-  'h-12 w-full rounded-[32px] border border-transparent bg-bg-secondary px-6 text-base outline-none transition focus:border-primary focus:bg-white'
+  'h-12 w-full rounded-[32px] border border-transparent bg-bg-secondary px-6 text-[16px] outline-none transition focus:border-primary focus:bg-white'
 
 export function ServicePicker({
   value,
@@ -36,7 +36,7 @@ export function ServicePicker({
               : 'border-black/10 hover:border-primary/40'
           }`}
         >
-          <span className="text-sm font-medium">{s.title}</span>
+          <span className="text-[16px] font-medium">{s.title}</span>
           <span className="font-semibold text-primary">{s.price} грн</span>
         </button>
       ))}
@@ -79,7 +79,7 @@ export default function ConsultationForm({
     >
       {showServiceSummary && selectedService && (
         <div>
-          <span className="mr-2 text-sm font-medium">{selectedService.title}</span>
+          <span className="mr-2 text-[16px] font-medium">{selectedService.title}</span>
           <span className="font-semibold text-primary">
             {selectedService.price} грн
           </span>
@@ -88,7 +88,7 @@ export default function ConsultationForm({
 
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
         <div>
-          <label className="mb-2 block text-sm font-medium" htmlFor="firstName">
+          <label className="mb-2 block text-[16px] font-medium" htmlFor="firstName">
             Ім&apos;я <span className="text-primary">*</span>
           </label>
           <input
@@ -100,7 +100,7 @@ export default function ConsultationForm({
           />
         </div>
         <div>
-          <label className="mb-2 block text-sm font-medium" htmlFor="lastName">
+          <label className="mb-2 block text-[16px] font-medium" htmlFor="lastName">
             Прізвище <span className="text-primary">*</span>
           </label>
           <input
@@ -115,7 +115,7 @@ export default function ConsultationForm({
 
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
         <div>
-          <label className="mb-2 block text-sm font-medium" htmlFor="email">
+          <label className="mb-2 block text-[16px] font-medium" htmlFor="email">
             Email <span className="text-primary">*</span>
           </label>
           <input
@@ -128,7 +128,7 @@ export default function ConsultationForm({
           />
         </div>
         <div>
-          <label className="mb-2 block text-sm font-medium" htmlFor="phone">
+          <label className="mb-2 block text-[16px] font-medium" htmlFor="phone">
             Телефон <span className="text-primary">*</span>
           </label>
           <input
@@ -143,7 +143,7 @@ export default function ConsultationForm({
       </div>
 
       <div>
-        <span className="mb-2 block text-sm font-medium">
+        <span className="mb-2 block text-[16px] font-medium">
           Зручний месенджер <span className="text-primary">*</span>
         </span>
         <div className="flex flex-wrap gap-2">
@@ -153,7 +153,7 @@ export default function ConsultationForm({
               type="button"
               onClick={() => setMessenger(m)}
               aria-pressed={messenger === m}
-              className={`h-10 rounded-full px-5 text-sm transition ${
+              className={`h-10 rounded-full px-5 text-[16px] transition ${
                 messenger === m
                   ? 'bg-primary text-white'
                   : 'bg-bg-secondary text-dark hover:bg-primary/10'
@@ -166,14 +166,14 @@ export default function ConsultationForm({
       </div>
 
       <div>
-        <label className="mb-2 block text-sm font-medium" htmlFor="message">
+        <label className="mb-2 block text-[16px] font-medium" htmlFor="message">
           Повідомлення{' '}
           <span className="font-normal text-gray-500">(необов&apos;язково)</span>
         </label>
         <textarea
           id="message"
           name="message"
-          className="h-12 w-full resize-none rounded-2xl border border-transparent bg-bg-secondary px-5 py-3 text-base outline-none transition focus:border-primary focus:bg-white sm:h-20"
+          className="h-12 w-full resize-none rounded-2xl border border-transparent bg-bg-secondary px-5 py-3 text-[16px] outline-none transition focus:border-primary focus:bg-white sm:h-20"
           placeholder="Коротко опишіть свій запит"
         />
       </div>

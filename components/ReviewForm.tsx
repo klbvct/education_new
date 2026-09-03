@@ -56,31 +56,31 @@ export default function ReviewForm() {
       className="flex flex-col gap-3"
     >
       <div>
-        <label className="mb-2 block text-sm font-medium" htmlFor="firstName">
+        <label className="mb-2 block text-[16px] font-medium" htmlFor="firstName">
           Ім&apos;я <span className="text-primary">*</span>
         </label>
         <input
           id="firstName"
           name="firstName"
           required
-          className="h-12 w-full rounded-[32px] border border-transparent bg-bg-secondary px-6 text-base outline-none transition focus:border-primary focus:bg-white"
+          className="h-12 w-full rounded-[32px] border border-transparent bg-bg-secondary px-6 text-[16px] outline-none transition focus:border-primary focus:bg-white"
           placeholder="Ваше ім'я"
         />
       </div>
       <div>
-        <label className="mb-2 block text-sm font-medium" htmlFor="lastName">
+        <label className="mb-2 block text-[16px] font-medium" htmlFor="lastName">
           Прізвище
         </label>
         <input
           id="lastName"
           name="lastName"
-          className="h-12 w-full rounded-[32px] border border-transparent bg-bg-secondary px-6 text-base outline-none transition focus:border-primary focus:bg-white"
+          className="h-12 w-full rounded-[32px] border border-transparent bg-bg-secondary px-6 text-[16px] outline-none transition focus:border-primary focus:bg-white"
           placeholder="Ваше прізвище"
         />
       </div>
 
       <div>
-        <span className="mb-2 block text-sm font-medium">Оцінка</span>
+        <span className="mb-2 block text-[16px] font-medium">Оцінка</span>
         <div className="flex gap-1">
           {[1, 2, 3, 4, 5].map((value) => (
             <button
@@ -98,7 +98,7 @@ export default function ReviewForm() {
       </div>
 
       <div>
-        <label className="mb-2 block text-sm font-medium" htmlFor="text">
+        <label className="mb-2 block text-[16px] font-medium" htmlFor="text">
           Відгук <span className="text-primary">*</span>
         </label>
         <textarea
@@ -106,7 +106,7 @@ export default function ReviewForm() {
           name="text"
           required
           rows={5}
-          className="w-full resize-none rounded-2xl border border-transparent bg-bg-secondary px-5 py-3 text-base outline-none transition focus:border-primary focus:bg-white"
+          className="w-full resize-none rounded-2xl border border-transparent bg-bg-secondary px-5 py-3 text-[16px] outline-none transition focus:border-primary focus:bg-white"
           placeholder="Поділіться враженнями від консультації"
         />
       </div>
