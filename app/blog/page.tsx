@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   description: 'Статті та поради про освіту за кордоном і кар’єрне консультування.',
 }
 
-const PAGE_SIZE = 8
+const PAGE_SIZE = 7
 
 const EXCERPT_LENGTH = 150
 // The accent tile spans 2 card-rows on desktop (roughly double the height
