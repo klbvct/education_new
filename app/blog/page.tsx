@@ -11,41 +11,42 @@ export const metadata: Metadata = {
 
 const PAGE_SIZE = 8
 
-const EXCERPT_LENGTH = 320
+const EXCERPT_LENGTH = 150
+// The accent tile spans 2 card-rows on desktop (roughly double the height
+// plus the gap between them), so it can fit a longer excerpt before truncating.
+const ACCENT_EXCERPT_LENGTH = 320
 
 function truncateExcerpt(text: string, maxLength: number = EXCERPT_LENGTH) {
   if (text.length <= maxLength) return text
   return `${text.slice(0, maxLength).trimEnd()}…`
 }
 
-// The live site's blog grid repeats a 5-tile pattern: one big excerpt tile
-// spanning 2x2, two tall accent tiles (1 column, 2 rows), then two wide
-// tiles (2 columns, 1 row) — see live reference at education-design.com.ua/blog-uk.
-type CardVariant = 'big' | 'accent' | 'wide'
-
-function cardVariant(i: number): CardVariant {
-  const pos = i % 5
-  if (pos === 0) return 'big'
-  if (pos === 1 || pos === 2) return 'accent'
-  return 'wide'
-}
-
-function BlogCard({ post, variant }: { post: BlogPost; variant: CardVariant }) {
-  const isAccent = variant === 'accent'
+function AccentCard({ post }: { post: BlogPost }) {
   return (
     <Link
       href={`/blog/${post.id}`}
-      className={`flex h-full flex-col gap-3 rounded-3xl p-6 transition ${
-        isAccent
-          ? 'bg-primary text-white hover:opacity-90'
-          : 'border border-black/5 bg-white shadow-[0_38px_56px_rgba(191,204,225,0.2)] hover:border-primary/30'
-      }`}
+      className="flex h-full flex-col gap-3 rounded-3xl bg-primary p-6 text-white transition hover:opacity-90"
     >
       <h2 className="text-xl font-medium leading-tight">{post.title}</h2>
-      {variant === 'big' && (
-        <p className="leading-6 text-gray-500">{truncateExcerpt(post.excerpt)}</p>
-      )}
-      <span className={`mt-auto text-sm ${isAccent ? 'text-white/70' : 'text-gray-500'}`}>
+      <p className="leading-6 text-white/90">
+        {truncateExcerpt(post.excerpt, ACCENT_EXCERPT_LENGTH)}
+      </p>
+      <span className="mt-auto text-sm text-white/70">
+        {formatBlogDate(post.date)}
+      </span>
+    </Link>
+  )
+}
+
+function RegularCard({ post }: { post: BlogPost }) {
+  return (
+    <Link
+      href={`/blog/${post.id}`}
+      className="flex h-full flex-col gap-3 rounded-3xl border border-black/5 bg-white p-6 shadow-[0_38px_56px_rgba(191,204,225,0.2)] transition hover:border-primary/30"
+    >
+      <h2 className="text-xl font-medium leading-tight">{post.title}</h2>
+      <p className="leading-6 text-gray-500">{truncateExcerpt(post.excerpt)}</p>
+      <span className="mt-auto text-sm text-gray-500">
         {formatBlogDate(post.date)}
       </span>
     </Link>
@@ -70,35 +71,32 @@ export default function BlogPage({
       <section className="mx-auto max-w-container px-4 py-16">
         <h1 className="mb-12 text-3xl font-bold text-dark md:text-5xl">Блог</h1>
 
-        <div className="grid grid-cols-1 gap-10 lg:grid-cols-4">
-          <div className="lg:col-span-3">
-            {/* Below lg: plain single/2-column grid, no row/column spanning. */}
+        <div className="grid grid-cols-1 gap-10 lg:grid-cols-3">
+          <div className="lg:col-span-2">
+            {/* Below lg: plain single/2-column grid — the first post is still the accent tile, just without the row-span. */}
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:hidden">
-              {posts.map((post, i) => (
-                <BlogCard key={post.id} post={post} variant={cardVariant(i)} />
-              ))}
+              {posts.map((post, i) =>
+                i === 0 ? (
+                  <AccentCard key={post.id} post={post} />
+                ) : (
+                  <RegularCard key={post.id} post={post} />
+                ),
+              )}
             </div>
 
-            {/* lg+: 3-column grid following the live site's 5-tile repeating pattern. */}
-            <div className="hidden gap-10 lg:grid lg:grid-cols-3">
-              {posts.map((post, i) => {
-                const variant = cardVariant(i)
-                const style =
-                  variant === 'big'
-                    ? { gridColumn: 'span 2 / span 2', gridRow: 'span 2 / span 2' }
-                    : variant === 'accent'
-                      ? { gridRow: 'span 2 / span 2' }
-                      : { gridColumn: 'span 2 / span 2' }
-                return (
-                  <div
-                    key={post.id}
-                    style={style}
-                    className={variant === 'big' ? 'min-h-[400px]' : undefined}
-                  >
-                    <BlogCard post={post} variant={variant} />
+            {/* lg+: the first post of every page is a tall accent tile spanning 2 rows in column 1. */}
+            <div className="hidden gap-6 lg:grid lg:grid-cols-2">
+              {posts.map((post, i) =>
+                i === 0 ? (
+                  <div key={post.id} style={{ gridColumn: 1, gridRow: '1 / span 2' }}>
+                    <AccentCard post={post} />
                   </div>
-                )
-              })}
+                ) : (
+                  <div key={post.id}>
+                    <RegularCard post={post} />
+                  </div>
+                ),
+              )}
             </div>
 
             <BlogPagination currentPage={currentPage} totalPages={totalPages} />
