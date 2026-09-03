@@ -256,9 +256,9 @@ export default function BlogPostPage({ params }: { params: { id: string } }) {
               <ContactRequestForm />
             </div>
 
-            <div className="rounded-2xl border border-black/5 bg-white p-6">
+            <div className="rounded-2xl border border-black/5 bg-white p-6 text-center">
               <h3 className="mb-4 text-lg font-medium">Підписатися</h3>
-              <div className="flex gap-3">
+              <div className="flex justify-center gap-3">
                 {SOCIALS.map((s) => (
                   <a
                     key={s.label}
