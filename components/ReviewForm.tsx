@@ -16,7 +16,7 @@ export default function ReviewForm() {
           ✓
         </div>
         <h3 className="text-xl font-medium">Дякуємо за відгук!</h3>
-        <p className="leading-6">Він уже опубліковано на сторінці.</p>
+        <p className="text-base leading-6">Він уже опубліковано на сторінці.</p>
       </div>
     )
   }

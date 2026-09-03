@@ -64,7 +64,7 @@ export default function ConsultationForm({
           ✓
         </div>
         <h3 className="text-xl font-medium">Заявку надіслано</h3>
-        <p className="leading-6">Ми зв&apos;яжемось з вами найближчим часом на обраний месенджер.</p>
+        <p className="text-base leading-6">Ми зв&apos;яжемось з вами найближчим часом на обраний месенджер.</p>
       </div>
     )
   }

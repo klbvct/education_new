@@ -59,7 +59,7 @@ export default function ContactsPage() {
               Написати в Telegram
             </a>
 
-            <address className="mb-8 not-italic leading-6">
+            <address className="mb-8 text-base not-italic leading-6">
               м. Київ, вул. Тираспольська, 54
             </address>
 

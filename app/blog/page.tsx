@@ -28,7 +28,7 @@ function AccentCard({ post }: { post: BlogPost }) {
       className="flex h-full flex-col gap-3 rounded-3xl bg-primary p-6 text-white transition hover:opacity-60"
     >
       <h2 className="text-xl font-medium leading-tight">{post.title}</h2>
-      <p className="leading-6 text-white/90">
+      <p className="text-base leading-6 text-white/90">
         {truncateExcerpt(post.excerpt, ACCENT_EXCERPT_LENGTH)}
       </p>
       <span className="mt-auto text-sm text-white/70">
@@ -45,7 +45,7 @@ function RegularCard({ post }: { post: BlogPost }) {
       className="flex h-full flex-col gap-3 rounded-3xl border border-black/5 bg-white p-6 shadow-[0_38px_56px_rgba(191,204,225,0.2)] transition hover:border-primary/30"
     >
       <h2 className="text-xl font-medium leading-tight">{post.title}</h2>
-      <p className="leading-6 text-gray-500">{truncateExcerpt(post.excerpt)}</p>
+      <p className="text-base leading-6 text-gray-500">{truncateExcerpt(post.excerpt)}</p>
       <span className="mt-auto text-sm text-gray-500">
         {formatBlogDate(post.date)}
       </span>

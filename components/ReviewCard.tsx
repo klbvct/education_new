@@ -17,7 +17,7 @@ export default function ReviewCard({ review }: { review: Review }) {
   return (
     <div className="flex flex-col gap-3 rounded-3xl border border-black/5 bg-white p-6 shadow-[0_38px_56px_rgba(191,204,225,0.2)]">
       <div className="flex items-start justify-between gap-3">
-        <span className="font-medium">{review.name || 'Анонімно'}</span>
+        <span className="text-base font-medium">{review.name || 'Анонімно'}</span>
         {review.rating && (
           <div className="flex shrink-0 text-primary">
             {[1, 2, 3, 4, 5].map((value) => (
@@ -31,7 +31,7 @@ export default function ReviewCard({ review }: { review: Review }) {
         )}
       </div>
 
-      <p className="leading-6">
+      <p className="text-base leading-6">
         {shownText}
         {isLong && (
           <button
