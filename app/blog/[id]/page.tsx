@@ -13,7 +13,7 @@ function renderRichText(text: string) {
     if (!match) return part
     const [, label, href] = match
     return (
-      <a key={i} href={href} className="text-primary underline hover:opacity-60">
+      <a key={i} href={href} className="underline decoration-primary">
         {label}
       </a>
     )
