@@ -25,7 +25,7 @@ function AccentCard({ post }: { post: BlogPost }) {
   return (
     <Link
       href={`/blog/${post.id}`}
-      className="flex h-full flex-col gap-3 rounded-3xl bg-primary p-6 text-white transition hover:opacity-90"
+      className="flex h-full flex-col gap-3 rounded-3xl bg-primary p-6 text-white transition hover:opacity-60"
     >
       <h2 className="text-xl font-medium leading-tight">{post.title}</h2>
       <p className="leading-6 text-white/90">
