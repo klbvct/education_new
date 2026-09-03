@@ -56,7 +56,7 @@ export default function OrderModal({
           </svg>
         </button>
 
-        <h2 className="mb-4 pr-8 text-xl font-medium">Замовити консультацію</h2>
+        <h2 className="mb-4 pr-8 text-2xl font-medium">Замовити консультацію</h2>
         <ConsultationForm service={service} />
       </div>
     </div>,
