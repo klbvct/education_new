@@ -7,7 +7,7 @@ import ContactRequestForm from '../../../components/ContactRequestForm'
 
 function BlogBlockView({ block }: { block: BlogBlock }) {
   if (block.type === 'paragraph') {
-    return <p className="mb-2.5 text-lg leading-7 text-dark">{block.text}</p>
+    return <p className="mb-2.5 text-base leading-6 text-dark">{block.text}</p>
   }
   if (block.type === 'subheading') {
     return (
@@ -19,7 +19,7 @@ function BlogBlockView({ block }: { block: BlogBlock }) {
   const ListTag = block.style === 'ordered' ? 'ol' : 'ul'
   return (
     <ListTag
-      className={`my-[18px] pl-10 text-lg leading-7 text-dark ${
+      className={`my-[18px] pl-10 text-base leading-6 text-dark ${
         block.style === 'ordered' ? 'list-decimal' : 'list-disc'
       }`}
     >
@@ -139,7 +139,7 @@ export default function BlogPostPage({ params }: { params: { id: string } }) {
             {post.intro && (
               <div className="mb-10 [&>*:last-child]:mb-0">
                 {post.intro.map((paragraph, i) => (
-                  <p key={i} className="mb-2.5 text-lg leading-7 text-dark">
+                  <p key={i} className="mb-2.5 text-base leading-6 text-dark">
                     {paragraph}
                   </p>
                 ))}
@@ -174,7 +174,7 @@ export default function BlogPostPage({ params }: { params: { id: string } }) {
                     {section.blocks
                       ? section.blocks.map((block, j) => <BlogBlockView key={j} block={block} />)
                       : section.paragraphs?.map((paragraph, j) => (
-                          <p key={j} className="mb-2.5 text-lg leading-7 text-dark">
+                          <p key={j} className="mb-2.5 text-base leading-6 text-dark">
                             {paragraph}
                           </p>
                         ))}
