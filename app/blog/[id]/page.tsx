@@ -101,18 +101,20 @@ export default function BlogPostPage({ params }: { params: { id: string } }) {
               <p className="text-sm text-gray-500">{formatBlogDate(post.date)}</p>
             </div>
 
-            <div className="flex flex-col items-start text-left">
+            <div className="flex items-center gap-3 text-left">
               <Image
                 src="/images/mariana.png"
                 alt="Мар'яна Калабухова"
                 width={56}
                 height={56}
-                className="h-14 w-14 rounded-full object-cover"
+                className="h-14 w-14 shrink-0 rounded-full object-cover"
               />
-              <p className="mt-3 font-medium">Мар&apos;яна Калабухова</p>
-              <p className="text-sm text-gray-500">
-                Автор проєкту, консультант з освіти, PhD
-              </p>
+              <div>
+                <p className="font-medium">Мар&apos;яна Калабухова</p>
+                <p className="text-sm text-gray-500">
+                  Автор проєкту, консультант з освіти, PhD
+                </p>
+              </div>
             </div>
 
             <div className="flex gap-3">
