@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import BlogPagination from '../../components/BlogPagination'
+import ContactRequestForm from '../../components/ContactRequestForm'
 import { BLOG_POSTS, formatBlogDate, type BlogPost } from '../../lib/blog-posts'
 
 export const metadata: Metadata = {
@@ -70,33 +71,43 @@ export default function BlogPage({
       <section className="mx-auto max-w-container px-4 py-16">
         <h1 className="mb-12 text-3xl font-bold text-dark md:text-5xl">Блог</h1>
 
-        {/* Below lg: plain single/2-column grid — the first post is still the accent tile, just without the row-span. */}
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:hidden">
-          {posts.map((post, i) =>
-            i === 0 ? (
-              <AccentCard key={post.id} post={post} />
-            ) : (
-              <RegularCard key={post.id} post={post} />
-            ),
-          )}
-        </div>
+        <div className="grid grid-cols-1 gap-10 lg:grid-cols-3">
+          <div className="lg:col-span-2">
+            {/* Below lg: plain single/2-column grid — the first post is still the accent tile, just without the row-span. */}
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:hidden">
+              {posts.map((post, i) =>
+                i === 0 ? (
+                  <AccentCard key={post.id} post={post} />
+                ) : (
+                  <RegularCard key={post.id} post={post} />
+                ),
+              )}
+            </div>
 
-        {/* lg+: the first post of every page is a tall accent tile spanning 2 rows in column 1. */}
-        <div className="hidden gap-6 lg:grid lg:grid-cols-3">
-          {posts.map((post, i) =>
-            i === 0 ? (
-              <div key={post.id} style={{ gridColumn: 1, gridRow: '1 / span 2' }}>
-                <AccentCard post={post} />
-              </div>
-            ) : (
-              <div key={post.id}>
-                <RegularCard post={post} />
-              </div>
-            ),
-          )}
-        </div>
+            {/* lg+: the first post of every page is a tall accent tile spanning 2 rows in column 1. */}
+            <div className="hidden gap-6 lg:grid lg:grid-cols-2">
+              {posts.map((post, i) =>
+                i === 0 ? (
+                  <div key={post.id} style={{ gridColumn: 1, gridRow: '1 / span 2' }}>
+                    <AccentCard post={post} />
+                  </div>
+                ) : (
+                  <div key={post.id}>
+                    <RegularCard post={post} />
+                  </div>
+                ),
+              )}
+            </div>
 
-        <BlogPagination currentPage={currentPage} totalPages={totalPages} />
+            <BlogPagination currentPage={currentPage} totalPages={totalPages} />
+          </div>
+
+          <aside className="lg:sticky lg:top-24 lg:self-start">
+            <div className="rounded-2xl bg-white p-6 shadow-[0_38px_56px_rgba(191,204,225,0.4)]">
+              <ContactRequestForm />
+            </div>
+          </aside>
+        </div>
       </section>
     </main>
   )
