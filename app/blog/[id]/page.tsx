@@ -147,9 +147,9 @@ export default function BlogPostPage({ params }: { params: { id: string } }) {
             )}
 
             {post.sections.length > 1 && (
-              <div className="mb-10 rounded-2xl border border-black/5 bg-white p-6">
+              <div className="mb-10 text-base">
                 <p className="mb-3 font-medium">Про що поговоримо:</p>
-                <ol className="flex list-decimal flex-col gap-2 pl-5">
+                <ol className="my-[18px] list-decimal pl-10 leading-7">
                   {post.sections.map((section, i) => (
                     <li key={i}>
                       <a
