@@ -56,11 +56,13 @@ export default function Header() {
         )}
 
         <nav className="hidden items-center gap-10 md:flex">
-          {NAV_ITEMS.map((item) => (
+          {NAV_ITEMS.filter((item) => !isHome || item.href !== '/').map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              className="text-lg text-dark transition-colors hover:text-primary"
+              className={`text-lg transition-colors hover:text-primary ${
+                pathname === item.href ? 'text-primary' : 'text-dark'
+              }`}
             >
               {item.label}
             </Link>
@@ -88,12 +90,14 @@ export default function Header() {
 
       {isOpen && (
         <nav className="flex flex-col border-t border-black/5 bg-bg-secondary px-4 py-2 md:hidden">
-          {NAV_ITEMS.map((item) => (
+          {NAV_ITEMS.filter((item) => !isHome || item.href !== '/').map((item) => (
             <Link
               key={item.href}
               href={item.href}
               onClick={() => setIsOpen(false)}
-              className="border-b border-black/5 py-3 text-lg text-dark transition-colors last:border-b-0 hover:text-primary"
+              className={`border-b border-black/5 py-3 text-lg transition-colors last:border-b-0 hover:text-primary ${
+                pathname === item.href ? 'text-primary' : 'text-dark'
+              }`}
             >
               {item.label}
             </Link>
