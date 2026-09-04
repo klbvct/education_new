@@ -154,44 +154,114 @@ export default function PostForm({ mode, initial }: PostFormProps) {
         />
       </div>
 
-      <div>
-        <div className="mb-2 flex items-center justify-between">
-          <label className="block text-[16px] font-medium" htmlFor="body">
-            Текст статті
-          </label>
-          <div>
-            <input
-              ref={fileInputRef}
-              type="file"
-              accept="image/jpeg,image/png,image/webp,image/gif"
-              className="hidden"
-              onChange={handleFileChange}
-            />
-            <button
-              type="button"
-              onClick={() => fileInputRef.current?.click()}
-              disabled={isUploading}
-              className="h-9 rounded-full border border-black/10 px-4 text-sm text-dark transition hover:border-primary hover:text-primary disabled:opacity-50"
-            >
-              {isUploading ? 'Завантаження…' : 'Вставити фото'}
-            </button>
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_320px]">
+        <div>
+          <div className="mb-2 flex items-center justify-between">
+            <label className="block text-[16px] font-medium" htmlFor="body">
+              Текст статті
+            </label>
+            <div>
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept="image/jpeg,image/png,image/webp,image/gif"
+                className="hidden"
+                onChange={handleFileChange}
+              />
+              <button
+                type="button"
+                onClick={() => fileInputRef.current?.click()}
+                disabled={isUploading}
+                className="h-9 rounded-full border border-black/10 px-4 text-sm text-dark transition hover:border-primary hover:text-primary disabled:opacity-50"
+              >
+                {isUploading ? 'Завантаження…' : 'Вставити фото'}
+              </button>
+            </div>
           </div>
+          <textarea
+            ref={textareaRef}
+            id="body"
+            value={body}
+            onChange={(e) => setBody(e.target.value)}
+            required
+            rows={22}
+            className="w-full resize-y rounded-2xl border border-black/10 bg-bg-secondary px-4 py-3 font-mono text-sm leading-6 outline-none transition focus:border-primary focus:bg-white"
+          />
         </div>
-        <textarea
-          ref={textareaRef}
-          id="body"
-          value={body}
-          onChange={(e) => setBody(e.target.value)}
-          required
-          rows={22}
-          className="w-full resize-y rounded-2xl border border-black/10 bg-bg-secondary px-4 py-3 font-mono text-sm leading-6 outline-none transition focus:border-primary focus:bg-white"
-        />
-        <p className="mt-2 text-sm text-gray-500">
-          Текст до першого «## » — вступ. Розділи: «## Заголовок» (за потреби
-          одразу під ним «[toc: коротка назва]»), підзаголовки «### текст»,
-          списки — рядки «- пункт» або «1. пункт», зображення —
-          «![alt](адреса)», посилання в тексті — «[текст](url)».
-        </p>
+
+        <aside className="h-fit rounded-2xl border border-black/10 bg-bg-secondary p-5 text-sm leading-6 text-dark lg:sticky lg:top-8">
+          <p className="mb-3 font-medium">Як розмічати текст</p>
+
+          <div className="mb-3">
+            <p className="font-medium">Вступ</p>
+            <p className="text-gray-600">
+              Текст на самому початку, до першого рядка з «## », — вступні абзаци перед статтею.
+            </p>
+          </div>
+
+          <div className="mb-3">
+            <p className="font-medium">
+              <code className="rounded bg-black/5 px-1 py-0.5">## Заголовок</code> — розділ
+            </p>
+            <p className="text-gray-600">
+              Кожен такий рядок починає новий розділ статті (він же підзаголовок у тексті).
+              Якщо розділів два або більше, над статтею автоматично з&apos;являється блок
+              «Про що поговоримо» зі списком-змістом — його не треба створювати вручну.
+            </p>
+          </div>
+
+          <div className="mb-3">
+            <p className="font-medium">
+              <code className="rounded bg-black/5 px-1 py-0.5">[toc: коротка назва]</code>
+            </p>
+            <p className="text-gray-600">
+              Необов&apos;язковий рядок одразу під «## Заголовок». Якщо заголовок розділу
+              довгий, тут можна задати коротшу назву — саме вона (а не весь заголовок)
+              покажеться в списку «Про що поговоримо».
+            </p>
+          </div>
+
+          <div className="mb-3">
+            <p className="font-medium">
+              <code className="rounded bg-black/5 px-1 py-0.5">### Підзаголовок</code>
+            </p>
+            <p className="text-gray-600">Менший підзаголовок усередині розділу.</p>
+          </div>
+
+          <div className="mb-3">
+            <p className="font-medium">Списки</p>
+            <p className="text-gray-600">
+              Рядки <code className="rounded bg-black/5 px-1 py-0.5">- пункт</code> — маркований
+              список; рядки{' '}
+              <code className="rounded bg-black/5 px-1 py-0.5">1. пункт</code>,{' '}
+              <code className="rounded bg-black/5 px-1 py-0.5">2. пункт</code> — нумерований.
+            </p>
+          </div>
+
+          <div className="mb-3">
+            <p className="font-medium">
+              <code className="rounded bg-black/5 px-1 py-0.5">![alt](адреса)</code> — фото
+            </p>
+            <p className="text-gray-600">
+              Простіше через кнопку «Вставити фото» вище — вона сама завантажить файл і
+              вставить цей рядок у потрібне місце.
+            </p>
+          </div>
+
+          <div className="mb-3">
+            <p className="font-medium">
+              <code className="rounded bg-black/5 px-1 py-0.5">[текст](url)</code> — посилання
+            </p>
+            <p className="text-gray-600">Посилання прямо всередині абзацу.</p>
+          </div>
+
+          <div>
+            <p className="font-medium">Абзаци</p>
+            <p className="text-gray-600">
+              Порожній рядок розділяє абзаци та інші блоки один від одного.
+            </p>
+          </div>
+        </aside>
       </div>
 
       {error && <p className="text-sm text-red-600">{error}</p>}

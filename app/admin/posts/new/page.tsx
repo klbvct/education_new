@@ -10,7 +10,7 @@ export default function NewPostPage() {
         ← Статті
       </Link>
       <h1 className="mb-8 text-2xl font-bold text-gray-900">Нова стаття</h1>
-      <div className="max-w-3xl">
+      <div className="max-w-5xl">
         <PostForm
           mode="new"
           initial={{ id: `post-${Date.now()}`, title: '', excerpt: '', date: today, body: '' }}

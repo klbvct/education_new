@@ -16,7 +16,7 @@ export default async function EditPostPage({ params }: { params: { id: string } 
         ← Статті
       </Link>
       <h1 className="mb-8 text-2xl font-bold text-gray-900">Редагувати статтю</h1>
-      <div className="max-w-3xl">
+      <div className="max-w-5xl">
         <PostForm
           mode="edit"
           initial={{
