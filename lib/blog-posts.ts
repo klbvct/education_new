@@ -38,6 +38,11 @@ export type BlogPost = {
   sections: BlogSection[]
 }
 
+// Appended to post.title for the <title> tag — see generateMetadata in
+// app/(site)/blog/[id]/page.tsx. Shared so the admin's SEO length hint
+// (components/PostForm.tsx) counts the actual rendered title length.
+export const SITE_TITLE_SUFFIX = ' — Дизайн Освіти'
+
 export function formatBlogDate(iso: string) {
   return new Date(iso).toLocaleDateString('uk-UA', {
     day: 'numeric',

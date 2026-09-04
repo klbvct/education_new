@@ -1,6 +1,19 @@
 'use client'
 
 import { useRef, useState } from 'react'
+import { SITE_TITLE_SUFFIX } from '../lib/blog-posts'
+
+// Yoast-style SEO length ranges: below `min` is too short, above `max` is
+// too long, in between is the sweet spot Google tends not to truncate.
+const TITLE_SEO_RANGE = { min: 40, max: 60 }
+const DESCRIPTION_SEO_RANGE = { min: 120, max: 156 }
+
+function seoLengthHint(length: number, { min, max }: { min: number; max: number }) {
+  if (length === 0) return { className: 'text-gray-400', label: `0 символів — рекомендовано ${min}–${max}` }
+  if (length < min) return { className: 'text-orange-500', label: `${length} символів — закороткий, рекомендовано ${min}–${max}` }
+  if (length > max) return { className: 'text-red-500', label: `${length} символів — задовгий, рекомендовано ${min}–${max}` }
+  return { className: 'text-green-600', label: `${length} символів — добра довжина (${min}–${max})` }
+}
 
 type PostFormProps = {
   mode: 'new' | 'edit'
@@ -29,6 +42,9 @@ export default function PostForm({ mode, initial }: PostFormProps) {
   const [isUploading, setIsUploading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [success, setSuccess] = useState(false)
+
+  const titleSeo = seoLengthHint(`${title}${SITE_TITLE_SUFFIX}`.length, TITLE_SEO_RANGE)
+  const excerptSeo = seoLengthHint(excerpt.length, DESCRIPTION_SEO_RANGE)
 
   function insertAtCursor(snippet: string) {
     const el = textareaRef.current
@@ -126,11 +142,12 @@ export default function PostForm({ mode, initial }: PostFormProps) {
           required
           className={inputClass}
         />
+        <p className={`mt-1 text-xs ${titleSeo.className}`}>{titleSeo.label}</p>
       </div>
 
       <div className="max-w-2xl">
         <label className="mb-2 block text-[16px] font-medium" htmlFor="excerpt">
-          Короткий опис (для картки та мета-опису)
+          Короткий опис (для SEO — мета-опис сторінки статті)
         </label>
         <textarea
           id="excerpt"
@@ -140,6 +157,7 @@ export default function PostForm({ mode, initial }: PostFormProps) {
           rows={2}
           className="w-full resize-none rounded-2xl border border-black/10 bg-bg-secondary px-4 py-3 text-[16px] outline-none transition focus:border-primary focus:bg-white"
         />
+        <p className={`mt-1 text-xs ${excerptSeo.className}`}>{excerptSeo.label}</p>
       </div>
 
       <div className="max-w-2xl">

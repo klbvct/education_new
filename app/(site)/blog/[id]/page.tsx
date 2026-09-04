@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { formatBlogDate, type BlogBlock } from '../../../../lib/blog-posts'
+import { formatBlogDate, SITE_TITLE_SUFFIX, type BlogBlock } from '../../../../lib/blog-posts'
 import { getPost, getPosts } from '../../../../lib/posts'
 import ContactRequestForm from '../../../../components/ContactRequestForm'
 
@@ -102,7 +102,7 @@ export async function generateMetadata({
   const post = await getPost(params.id)
   if (!post) return {}
   return {
-    title: `${post.title} — Дизайн Освіти`,
+    title: `${post.title}${SITE_TITLE_SUFFIX}`,
     description: post.excerpt,
   }
 }
