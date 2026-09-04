@@ -2,8 +2,11 @@ import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { BLOG_POSTS, formatBlogDate, type BlogBlock } from '../../../lib/blog-posts'
+import { formatBlogDate, type BlogBlock } from '../../../lib/blog-posts'
+import { getPost, getPosts } from '../../../lib/posts'
 import ContactRequestForm from '../../../components/ContactRequestForm'
+
+export const dynamic = 'force-dynamic'
 
 // Lightweight `[text](href)` link syntax for inline anchors within body text —
 // see post-18, ported from links in the live article (stubs use href="#").
@@ -33,13 +36,9 @@ function BlogBlockView({ block }: { block: BlogBlock }) {
   }
   if (block.type === 'image') {
     return (
-      <Image
-        src={block.src}
-        alt={block.alt}
-        width={600}
-        height={300}
-        className="my-[18px] h-auto w-full rounded-2xl"
-      />
+      <div className="relative my-[18px] aspect-[2/1] w-full overflow-hidden rounded-2xl">
+        <Image src={block.src} alt={block.alt} fill className="object-cover" />
+      </div>
     )
   }
   const ListTag = block.style === 'ordered' ? 'ol' : 'ul'
@@ -88,16 +87,12 @@ const SOCIALS = [
   },
 ]
 
-export function generateStaticParams() {
-  return BLOG_POSTS.map((post) => ({ id: post.id }))
-}
-
-export function generateMetadata({
+export async function generateMetadata({
   params,
 }: {
   params: { id: string }
-}): Metadata {
-  const post = BLOG_POSTS.find((p) => p.id === params.id)
+}): Promise<Metadata> {
+  const post = await getPost(params.id)
   if (!post) return {}
   return {
     title: `${post.title} — Дизайн Освіти`,
@@ -105,13 +100,14 @@ export function generateMetadata({
   }
 }
 
-export default function BlogPostPage({ params }: { params: { id: string } }) {
-  const index = BLOG_POSTS.findIndex((p) => p.id === params.id)
+export default async function BlogPostPage({ params }: { params: { id: string } }) {
+  const allPosts = await getPosts()
+  const index = allPosts.findIndex((p) => p.id === params.id)
   if (index === -1) notFound()
 
-  const post = BLOG_POSTS[index]
-  const olderPost = BLOG_POSTS[index + 1]
-  const newerPost = BLOG_POSTS[index - 1]
+  const post = allPosts[index]
+  const olderPost = allPosts[index + 1]
+  const newerPost = allPosts[index - 1]
 
   return (
     <main className="bg-bg-base">

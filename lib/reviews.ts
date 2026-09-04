@@ -90,3 +90,28 @@ export async function deleteReview(id: string): Promise<boolean> {
     return true
   })
 }
+
+export async function getReview(id: string): Promise<Review | undefined> {
+  const reviews = await readAll()
+  return reviews.find((r) => r.id === id)
+}
+
+export async function updateReview(
+  id: string,
+  input: { name: string; text: string; rating?: number | null },
+): Promise<Review | null> {
+  return withLock(async () => {
+    const reviews = await readAll()
+    const index = reviews.findIndex((r) => r.id === id)
+    if (index === -1) return null
+    const updated: Review = {
+      ...reviews[index],
+      name: input.name.trim(),
+      text: input.text.trim(),
+      rating: input.rating ?? null,
+    }
+    reviews[index] = updated
+    await writeAll(reviews)
+    return updated
+  })
+}

@@ -24,6 +24,10 @@ yarn-error.log*
 # at runtime; never overwrite it via git
 /data/reviews.json
 
+# live, mutable post store — bootstrapped from data/posts.seed.json
+# at runtime; never overwrite it via git
+/data/posts.json
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

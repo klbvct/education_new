@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { getReviews } from '../../../lib/reviews'
 import AdminReviewActions from '../../../components/AdminReviewActions'
 
@@ -8,9 +9,12 @@ export default async function AdminReviewsPage() {
 
   return (
     <main className="mx-auto max-w-container px-4 py-16">
+      <Link href="/admin" className="mb-6 inline-block text-sm text-gray-500 hover:text-primary">
+        ← Адмінка
+      </Link>
       <h1 className="mb-2 text-3xl font-bold text-dark">Відгуки</h1>
       <p className="mb-8 leading-6 text-gray-500">
-        Нові відгуки публікуються одразу. Тут можна видалити небажані.
+        Нові відгуки публікуються одразу. Тут можна редагувати або видалити небажані.
       </p>
 
       {reviews.length === 0 ? (
@@ -32,7 +36,15 @@ export default async function AdminReviewsPage() {
                 </span>
               </div>
               <p className="mb-4 leading-6">{review.text}</p>
-              <AdminReviewActions id={review.id} />
+              <div className="flex gap-3">
+                <Link
+                  href={`/admin/reviews/${review.id}/edit`}
+                  className="flex h-10 items-center rounded-full border border-black/10 px-5 text-sm text-dark transition hover:border-primary hover:text-primary"
+                >
+                  Редагувати
+                </Link>
+                <AdminReviewActions id={review.id} />
+              </div>
             </div>
           ))}
         </div>

@@ -2,12 +2,15 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import BlogPagination from '../../components/BlogPagination'
 import ContactRequestForm from '../../components/ContactRequestForm'
-import { BLOG_POSTS, formatBlogDate, type BlogPost } from '../../lib/blog-posts'
+import { formatBlogDate, type BlogPost } from '../../lib/blog-posts'
+import { getPosts } from '../../lib/posts'
 
 export const metadata: Metadata = {
   title: 'Блог — Дизайн Освіти',
   description: 'Статті та поради про освіту за кордоном і кар’єрне консультування.',
 }
+
+export const dynamic = 'force-dynamic'
 
 const PAGE_SIZE = 7
 
@@ -53,18 +56,19 @@ function RegularCard({ post }: { post: BlogPost }) {
   )
 }
 
-export default function BlogPage({
+export default async function BlogPage({
   searchParams,
 }: {
   searchParams: { page?: string }
 }) {
-  const totalPages = Math.max(1, Math.ceil(BLOG_POSTS.length / PAGE_SIZE))
+  const allPosts = await getPosts()
+  const totalPages = Math.max(1, Math.ceil(allPosts.length / PAGE_SIZE))
   const currentPage = Math.min(
     Math.max(Number(searchParams.page) || 1, 1),
     totalPages,
   )
   const start = (currentPage - 1) * PAGE_SIZE
-  const posts = BLOG_POSTS.slice(start, start + PAGE_SIZE)
+  const posts = allPosts.slice(start, start + PAGE_SIZE)
 
   return (
     <main className="bg-bg-base">
