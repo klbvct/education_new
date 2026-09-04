@@ -97,7 +97,7 @@ export default function PostForm({ mode, initial }: PostFormProps) {
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-      <div>
+      <div className="max-w-2xl">
         <label className="mb-2 block text-[16px] font-medium" htmlFor="id">
           URL статті (/blog/...)
         </label>
@@ -113,7 +113,7 @@ export default function PostForm({ mode, initial }: PostFormProps) {
         />
       </div>
 
-      <div>
+      <div className="max-w-2xl">
         <label className="mb-2 block text-[16px] font-medium" htmlFor="title">
           Заголовок
         </label>
@@ -126,7 +126,7 @@ export default function PostForm({ mode, initial }: PostFormProps) {
         />
       </div>
 
-      <div>
+      <div className="max-w-2xl">
         <label className="mb-2 block text-[16px] font-medium" htmlFor="excerpt">
           Короткий опис (для картки та мета-опису)
         </label>
@@ -140,7 +140,7 @@ export default function PostForm({ mode, initial }: PostFormProps) {
         />
       </div>
 
-      <div>
+      <div className="max-w-2xl">
         <label className="mb-2 block text-[16px] font-medium" htmlFor="date">
           Дата
         </label>
@@ -154,8 +154,8 @@ export default function PostForm({ mode, initial }: PostFormProps) {
         />
       </div>
 
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_320px]">
-        <div>
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_320px] lg:items-stretch">
+        <div className="flex flex-col">
           <div className="mb-2 flex items-center justify-between">
             <label className="block text-[16px] font-medium" htmlFor="body">
               Текст статті
@@ -184,12 +184,11 @@ export default function PostForm({ mode, initial }: PostFormProps) {
             value={body}
             onChange={(e) => setBody(e.target.value)}
             required
-            rows={22}
-            className="w-full resize-y rounded-2xl border border-black/10 bg-bg-secondary px-4 py-3 font-mono text-sm leading-6 outline-none transition focus:border-primary focus:bg-white"
+            className="w-full min-h-[560px] flex-1 resize-y rounded-2xl border border-black/10 bg-bg-secondary px-4 py-3 font-mono text-sm leading-6 outline-none transition focus:border-primary focus:bg-white"
           />
         </div>
 
-        <aside className="h-fit rounded-2xl border border-black/10 bg-bg-secondary p-5 text-sm leading-6 text-dark lg:sticky lg:top-8">
+        <aside className="rounded-2xl border border-black/10 bg-bg-secondary p-5 text-sm leading-6 text-dark lg:sticky lg:top-8 lg:self-start">
           <p className="mb-3 font-medium">Як розмічати текст</p>
 
           <div className="mb-3">
