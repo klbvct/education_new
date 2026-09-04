@@ -1,86 +1,74 @@
-import { promises as fs } from 'fs'
-import path from 'path'
 import type { BlogPost } from './blog-posts'
+import { getDb } from './db'
 
-const DATA_FILE = path.join(process.cwd(), 'data', 'posts.json')
-const SEED_FILE = path.join(process.cwd(), 'data', 'posts.seed.json')
-
-// Serializes reads/writes within this process so concurrent requests
-// can't interleave and corrupt the JSON file.
-let queue: Promise<unknown> = Promise.resolve()
-
-function withLock<T>(fn: () => Promise<T>): Promise<T> {
-  const result = queue.then(fn, fn)
-  queue = result.catch(() => undefined)
-  return result
+type PostRow = {
+  id: string
+  title: string
+  excerpt: string
+  date: string
+  intro: string | null
+  sections: string
 }
 
-// data/posts.json is the live, mutable store and is gitignored on
-// purpose — same split as data/reviews.json: it's bootstrapped from the
-// committed seed file on first run so a fresh deploy still ships with
-// the existing 18 articles, without a later `git pull` ever overwriting
-// posts added or edited through the admin.
-async function ensureDataFile(): Promise<void> {
-  try {
-    await fs.access(DATA_FILE)
-  } catch {
-    const seed = await fs.readFile(SEED_FILE, 'utf-8').catch(() => '[]')
-    await fs.mkdir(path.dirname(DATA_FILE), { recursive: true })
-    await fs.writeFile(DATA_FILE, seed, 'utf-8')
+function fromRow(row: PostRow): BlogPost {
+  return {
+    id: row.id,
+    title: row.title,
+    excerpt: row.excerpt,
+    date: row.date,
+    intro: row.intro ? JSON.parse(row.intro) : undefined,
+    sections: JSON.parse(row.sections),
   }
 }
 
-async function readAll(): Promise<BlogPost[]> {
-  await ensureDataFile()
-  try {
-    const raw = await fs.readFile(DATA_FILE, 'utf-8')
-    return JSON.parse(raw) as BlogPost[]
-  } catch (err) {
-    if ((err as NodeJS.ErrnoException).code === 'ENOENT') return []
-    throw err
+function toParams(post: BlogPost) {
+  return {
+    id: post.id,
+    title: post.title,
+    excerpt: post.excerpt,
+    date: post.date,
+    intro: post.intro ? JSON.stringify(post.intro) : null,
+    sections: JSON.stringify(post.sections),
   }
-}
-
-async function writeAll(posts: BlogPost[]): Promise<void> {
-  await fs.writeFile(DATA_FILE, JSON.stringify(posts, null, 2), 'utf-8')
 }
 
 export async function getPosts(): Promise<BlogPost[]> {
-  const posts = await readAll()
-  return posts.sort((a, b) => b.date.localeCompare(a.date))
+  const rows = getDb().prepare('SELECT * FROM posts ORDER BY date DESC').all() as PostRow[]
+  return rows.map(fromRow)
 }
 
 export async function getPost(id: string): Promise<BlogPost | undefined> {
-  const posts = await readAll()
-  return posts.find((p) => p.id === id)
+  const row = getDb().prepare('SELECT * FROM posts WHERE id = ?').get(id) as
+    | PostRow
+    | undefined
+  return row ? fromRow(row) : undefined
 }
 
 export async function addPost(
   input: Omit<BlogPost, 'id'> & { id: string },
 ): Promise<BlogPost> {
-  return withLock(async () => {
-    const posts = await readAll()
-    if (posts.some((p) => p.id === input.id)) {
-      throw new Error('duplicate-id')
-    }
-    const post: BlogPost = { ...input }
-    posts.push(post)
-    await writeAll(posts)
-    return post
-  })
+  const existing = await getPost(input.id)
+  if (existing) throw new Error('duplicate-id')
+  const post: BlogPost = { ...input }
+  getDb()
+    .prepare(
+      'INSERT INTO posts (id, title, excerpt, date, intro, sections) VALUES (@id, @title, @excerpt, @date, @intro, @sections)',
+    )
+    .run(toParams(post))
+  return post
 }
 
 export async function updatePost(
   id: string,
   input: Omit<BlogPost, 'id'>,
 ): Promise<BlogPost | null> {
-  return withLock(async () => {
-    const posts = await readAll()
-    const index = posts.findIndex((p) => p.id === id)
-    if (index === -1) return null
-    const updated: BlogPost = { ...input, id }
-    posts[index] = updated
-    await writeAll(posts)
-    return updated
-  })
+  const existing = await getPost(id)
+  if (!existing) return null
+  const updated: BlogPost = { ...input, id }
+  getDb()
+    .prepare(
+      'UPDATE posts SET title = @title, excerpt = @excerpt, date = @date, intro = @intro, sections = @sections WHERE id = @id',
+    )
+    .run(toParams(updated))
+  return updated
 }

@@ -1,6 +1,5 @@
-import { promises as fs } from 'fs'
-import path from 'path'
 import { randomUUID } from 'crypto'
+import { getDb } from './db'
 
 export type Review = {
   id: string
@@ -10,55 +9,32 @@ export type Review = {
   createdAt: string
 }
 
-const DATA_FILE = path.join(process.cwd(), 'data', 'reviews.json')
-const SEED_FILE = path.join(process.cwd(), 'data', 'reviews.seed.json')
-
-// Serializes reads/writes within this process so concurrent requests
-// can't interleave and corrupt the JSON file.
-let queue: Promise<unknown> = Promise.resolve()
-
-function withLock<T>(fn: () => Promise<T>): Promise<T> {
-  const result = queue.then(fn, fn)
-  queue = result.catch(() => undefined)
-  return result
+type ReviewRow = {
+  id: string
+  name: string
+  rating: number | null
+  text: string
+  created_at: string
 }
 
-// data/reviews.json is the live, mutable store and is gitignored on
-// purpose: it diverges from the repo as soon as anyone submits a new
-// review. It's bootstrapped from the committed seed file on first run
-// so a fresh deploy still ships with real content, without a later
-// `git pull` ever overwriting live submissions.
-async function ensureDataFile(): Promise<void> {
-  try {
-    await fs.access(DATA_FILE)
-  } catch {
-    const seed = await fs.readFile(SEED_FILE, 'utf-8').catch(() => '[]')
-    await fs.mkdir(path.dirname(DATA_FILE), { recursive: true })
-    await fs.writeFile(DATA_FILE, seed, 'utf-8')
+function fromRow(row: ReviewRow): Review {
+  return {
+    id: row.id,
+    name: row.name,
+    rating: row.rating,
+    text: row.text,
+    createdAt: row.created_at,
   }
-}
-
-async function readAll(): Promise<Review[]> {
-  await ensureDataFile()
-  try {
-    const raw = await fs.readFile(DATA_FILE, 'utf-8')
-    return JSON.parse(raw) as Review[]
-  } catch (err) {
-    if ((err as NodeJS.ErrnoException).code === 'ENOENT') return []
-    throw err
-  }
-}
-
-async function writeAll(reviews: Review[]): Promise<void> {
-  await fs.writeFile(DATA_FILE, JSON.stringify(reviews, null, 2), 'utf-8')
 }
 
 // Reviews publish immediately on submission — there is no moderation
 // queue. /admin/reviews is a cleanup tool (delete anything unwanted
 // after the fact), not a publish gate.
 export async function getReviews(): Promise<Review[]> {
-  const reviews = await readAll()
-  return reviews.sort((a, b) => b.createdAt.localeCompare(a.createdAt))
+  const rows = getDb()
+    .prepare('SELECT * FROM reviews ORDER BY created_at DESC')
+    .all() as ReviewRow[]
+  return rows.map(fromRow)
 }
 
 export async function addReview(input: {
@@ -66,52 +42,47 @@ export async function addReview(input: {
   text: string
   rating?: number | null
 }): Promise<Review> {
-  return withLock(async () => {
-    const reviews = await readAll()
-    const review: Review = {
-      id: randomUUID(),
-      name: input.name.trim(),
-      text: input.text.trim(),
-      rating: input.rating ?? null,
-      createdAt: new Date().toISOString(),
-    }
-    reviews.push(review)
-    await writeAll(reviews)
-    return review
-  })
+  const review: Review = {
+    id: randomUUID(),
+    name: input.name.trim(),
+    text: input.text.trim(),
+    rating: input.rating ?? null,
+    createdAt: new Date().toISOString(),
+  }
+  getDb()
+    .prepare(
+      'INSERT INTO reviews (id, name, rating, text, created_at) VALUES (@id, @name, @rating, @text, @createdAt)',
+    )
+    .run(review)
+  return review
 }
 
 export async function deleteReview(id: string): Promise<boolean> {
-  return withLock(async () => {
-    const reviews = await readAll()
-    const next = reviews.filter((r) => r.id !== id)
-    if (next.length === reviews.length) return false
-    await writeAll(next)
-    return true
-  })
+  const result = getDb().prepare('DELETE FROM reviews WHERE id = ?').run(id)
+  return result.changes > 0
 }
 
 export async function getReview(id: string): Promise<Review | undefined> {
-  const reviews = await readAll()
-  return reviews.find((r) => r.id === id)
+  const row = getDb().prepare('SELECT * FROM reviews WHERE id = ?').get(id) as
+    | ReviewRow
+    | undefined
+  return row ? fromRow(row) : undefined
 }
 
 export async function updateReview(
   id: string,
   input: { name: string; text: string; rating?: number | null },
 ): Promise<Review | null> {
-  return withLock(async () => {
-    const reviews = await readAll()
-    const index = reviews.findIndex((r) => r.id === id)
-    if (index === -1) return null
-    const updated: Review = {
-      ...reviews[index],
-      name: input.name.trim(),
-      text: input.text.trim(),
-      rating: input.rating ?? null,
-    }
-    reviews[index] = updated
-    await writeAll(reviews)
-    return updated
-  })
+  const existing = await getReview(id)
+  if (!existing) return null
+  const updated: Review = {
+    ...existing,
+    name: input.name.trim(),
+    text: input.text.trim(),
+    rating: input.rating ?? null,
+  }
+  getDb()
+    .prepare('UPDATE reviews SET name = @name, rating = @rating, text = @text WHERE id = @id')
+    .run(updated)
+  return updated
 }
