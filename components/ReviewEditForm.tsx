@@ -1,20 +1,20 @@
 'use client'
 
 import { useState } from 'react'
-import { useRouter } from 'next/navigation'
 import type { Review } from '../lib/reviews'
 
 export default function ReviewEditForm({ review }: { review: Review }) {
-  const router = useRouter()
   const [name, setName] = useState(review.name)
   const [rating, setRating] = useState(review.rating ?? 5)
   const [text, setText] = useState(review.text)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [success, setSuccess] = useState(false)
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     setError(null)
+    setSuccess(false)
     setIsSubmitting(true)
     try {
       const res = await fetch(`/api/admin/reviews/${review.id}`, {
@@ -27,7 +27,9 @@ export default function ReviewEditForm({ review }: { review: Review }) {
         setError(data.error ?? 'Не вдалося зберегти відгук')
         return
       }
-      router.push('/admin/reviews')
+      setSuccess(true)
+    } catch {
+      setError('Не вдалося з’єднатися з сервером. Перевірте з’єднання і спробуйте ще раз.')
     } finally {
       setIsSubmitting(false)
     }
@@ -83,6 +85,7 @@ export default function ReviewEditForm({ review }: { review: Review }) {
       </div>
 
       {error && <p className="text-sm text-red-600">{error}</p>}
+      {success && <p className="text-sm text-green-600">Відгук успішно збережено.</p>}
 
       <button
         type="submit"

@@ -1,7 +1,6 @@
 'use client'
 
 import { useRef, useState } from 'react'
-import { useRouter } from 'next/navigation'
 
 type PostFormProps = {
   mode: 'new' | 'edit'
@@ -18,7 +17,6 @@ const inputClass =
   'h-12 w-full rounded-[16px] border border-black/10 bg-bg-secondary px-4 text-[16px] outline-none transition focus:border-primary focus:bg-white'
 
 export default function PostForm({ mode, initial }: PostFormProps) {
-  const router = useRouter()
   const textareaRef = useRef<HTMLTextAreaElement>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
 
@@ -30,6 +28,7 @@ export default function PostForm({ mode, initial }: PostFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isUploading, setIsUploading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [success, setSuccess] = useState(false)
 
   function insertAtCursor(snippet: string) {
     const el = textareaRef.current
@@ -75,6 +74,7 @@ export default function PostForm({ mode, initial }: PostFormProps) {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     setError(null)
+    setSuccess(false)
     setIsSubmitting(true)
     try {
       const url = mode === 'new' ? '/api/admin/posts' : `/api/admin/posts/${initial.id}`
@@ -89,7 +89,9 @@ export default function PostForm({ mode, initial }: PostFormProps) {
         setError(data.error ?? 'Не вдалося зберегти статтю')
         return
       }
-      router.push('/admin/posts')
+      setSuccess(true)
+    } catch {
+      setError('Не вдалося з’єднатися з сервером. Перевірте з’єднання і спробуйте ще раз.')
     } finally {
       setIsSubmitting(false)
     }
@@ -271,6 +273,11 @@ export default function PostForm({ mode, initial }: PostFormProps) {
       </div>
 
       {error && <p className="text-sm text-red-600">{error}</p>}
+      {success && (
+        <p className="text-sm text-green-600">
+          {mode === 'new' ? 'Статтю успішно опубліковано.' : 'Зміни успішно збережено.'}
+        </p>
+      )}
 
       <button
         type="submit"
