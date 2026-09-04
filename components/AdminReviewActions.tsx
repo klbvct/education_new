@@ -3,7 +3,13 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 
-export default function AdminReviewActions({ id }: { id: string }) {
+export default function AdminReviewActions({
+  id,
+  onDeleted,
+}: {
+  id: string
+  onDeleted?: () => void
+}) {
   const router = useRouter()
   const [isPending, setIsPending] = useState(false)
 
@@ -12,7 +18,11 @@ export default function AdminReviewActions({ id }: { id: string }) {
     setIsPending(true)
     try {
       await fetch(`/api/admin/reviews/${id}`, { method: 'DELETE' })
-      router.refresh()
+      if (onDeleted) {
+        onDeleted()
+      } else {
+        router.refresh()
+      }
     } finally {
       setIsPending(false)
     }

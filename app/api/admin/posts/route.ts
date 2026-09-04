@@ -1,8 +1,30 @@
 import { NextResponse } from 'next/server'
-import { addPost } from '../../../../lib/posts'
+import { addPost, getPosts } from '../../../../lib/posts'
 import { parsePostBody } from '../../../../lib/parse-post-body'
 
 const SLUG_RE = /^[a-z0-9-]+$/
+
+export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url)
+  const search = (searchParams.get('search') ?? '').trim().toLowerCase()
+  const page = Math.max(1, Number(searchParams.get('page')) || 1)
+  const pageSize = Math.max(1, Number(searchParams.get('pageSize')) || 25)
+
+  const allPosts = await getPosts()
+  const filtered = search
+    ? allPosts.filter(
+        (p) =>
+          p.title.toLowerCase().includes(search) || p.excerpt.toLowerCase().includes(search),
+      )
+    : allPosts
+
+  const total = filtered.length
+  const totalPages = Math.max(1, Math.ceil(total / pageSize))
+  const start = (page - 1) * pageSize
+  const posts = filtered.slice(start, start + pageSize)
+
+  return NextResponse.json({ posts, pagination: { total, totalPages } })
+}
 
 export async function POST(request: Request) {
   let body: { id?: string; title?: string; excerpt?: string; date?: string; body?: string }

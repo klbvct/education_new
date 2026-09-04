@@ -2,9 +2,9 @@ import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { formatBlogDate, type BlogBlock } from '../../../lib/blog-posts'
-import { getPost, getPosts } from '../../../lib/posts'
-import ContactRequestForm from '../../../components/ContactRequestForm'
+import { formatBlogDate, type BlogBlock } from '../../../../lib/blog-posts'
+import { getPost, getPosts } from '../../../../lib/posts'
+import ContactRequestForm from '../../../../components/ContactRequestForm'
 
 export const dynamic = 'force-dynamic'
 

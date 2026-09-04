@@ -1,9 +1,9 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import BlogPagination from '../../components/BlogPagination'
-import ContactRequestForm from '../../components/ContactRequestForm'
-import { formatBlogDate, type BlogPost } from '../../lib/blog-posts'
-import { getPosts } from '../../lib/posts'
+import BlogPagination from '../../../components/BlogPagination'
+import ContactRequestForm from '../../../components/ContactRequestForm'
+import { formatBlogDate, type BlogPost } from '../../../lib/blog-posts'
+import { getPosts } from '../../../lib/posts'
 
 export const metadata: Metadata = {
   title: 'Блог — Дизайн Освіти',

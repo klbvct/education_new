@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import ContactRequestForm from '../../components/ContactRequestForm'
+import ContactRequestForm from '../../../components/ContactRequestForm'
 
 export const metadata: Metadata = {
   title: 'Контакти — Дизайн Освіти',

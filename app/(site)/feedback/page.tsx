@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
-import { getReviews } from '../../lib/reviews'
-import ReviewForm from '../../components/ReviewForm'
-import ReviewsList from '../../components/ReviewsList'
+import { getReviews } from '../../../lib/reviews'
+import ReviewForm from '../../../components/ReviewForm'
+import ReviewsList from '../../../components/ReviewsList'
 
 export const dynamic = 'force-dynamic'
 

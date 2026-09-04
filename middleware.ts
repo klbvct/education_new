@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { SESSION_COOKIE, verifySessionToken } from './lib/session'
 
-export function middleware(request: NextRequest) {
-  const auth = request.headers.get('authorization')
+export async function middleware(request: NextRequest) {
   const user = process.env.ADMIN_USER
   const password = process.env.ADMIN_PASSWORD
 
@@ -11,22 +11,19 @@ export function middleware(request: NextRequest) {
     })
   }
 
-  if (auth) {
-    const [scheme, encoded] = auth.split(' ')
-    if (scheme === 'Basic' && encoded) {
-      const [providedUser, providedPassword] = Buffer.from(encoded, 'base64')
-        .toString('utf-8')
-        .split(':')
-      if (providedUser === user && providedPassword === password) {
-        return NextResponse.next()
-      }
-    }
+  const token = request.cookies.get(SESSION_COOKIE)?.value
+  const authed = await verifySessionToken(token)
+  if (authed) {
+    return NextResponse.next()
   }
 
-  return new NextResponse('Потрібна авторизація', {
-    status: 401,
-    headers: { 'WWW-Authenticate': 'Basic realm="Admin"' },
-  })
+  if (request.nextUrl.pathname.startsWith('/api/admin')) {
+    return NextResponse.json({ error: 'Потрібна авторизація' }, { status: 401 })
+  }
+
+  const loginUrl = new URL('/login', request.url)
+  loginUrl.searchParams.set('from', request.nextUrl.pathname)
+  return NextResponse.redirect(loginUrl)
 }
 
 export const config = {
