@@ -45,3 +45,30 @@ export function formatBlogDate(iso: string) {
     year: 'numeric',
   })
 }
+
+// Strips the inline markup renderRichText understands (see
+// app/(site)/blog/[id]/page.tsx) down to plain text — for contexts like
+// blog-listing cards that show a plain-text snippet, not rendered markup.
+function stripInlineMarkup(text: string): string {
+  return text.replace(/\*\*([^*]+)\*\*/g, '$1').replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+}
+
+// Plain-text snippet pulled from the article body itself (first intro
+// paragraph, or else the first paragraph of the first section) — distinct
+// from `excerpt`, which is an admin-authored summary used for SEO meta
+// description and is not derived from the body.
+export function getBodyExcerpt(post: Pick<BlogPost, 'intro' | 'sections'>): string {
+  if (post.intro?.length) return stripInlineMarkup(post.intro[0])
+
+  for (const section of post.sections) {
+    const blocks: BlogBlock[] =
+      section.blocks ??
+      (section.paragraphs ?? []).map((text) => ({ type: 'paragraph', text }) as BlogBlock)
+    const firstParagraph = blocks.find(
+      (b): b is Extract<BlogBlock, { type: 'paragraph' }> => b.type === 'paragraph',
+    )
+    if (firstParagraph) return stripInlineMarkup(firstParagraph.text)
+  }
+
+  return ''
+}

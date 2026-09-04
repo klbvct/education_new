@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import BlogPagination from '../../../components/BlogPagination'
 import ContactRequestForm from '../../../components/ContactRequestForm'
-import { formatBlogDate, type BlogPost } from '../../../lib/blog-posts'
+import { formatBlogDate, getBodyExcerpt, type BlogPost } from '../../../lib/blog-posts'
 import { getPosts } from '../../../lib/posts'
 
 export const metadata: Metadata = {
@@ -32,7 +32,7 @@ function AccentCard({ post }: { post: BlogPost }) {
     >
       <h2 className="text-xl font-medium leading-tight">{post.title}</h2>
       <p className="text-base leading-6 text-white/90">
-        {truncateExcerpt(post.excerpt, ACCENT_EXCERPT_LENGTH)}
+        {truncateExcerpt(getBodyExcerpt(post), ACCENT_EXCERPT_LENGTH)}
       </p>
       <span className="mt-auto text-sm text-white/70">
         {formatBlogDate(post.date)}
@@ -48,7 +48,9 @@ function RegularCard({ post }: { post: BlogPost }) {
       className="flex h-full flex-col gap-3 rounded-3xl border border-black/5 bg-white p-6 shadow-[0_38px_56px_rgba(191,204,225,0.2)] transition hover:border-primary/30"
     >
       <h2 className="text-xl font-medium leading-tight">{post.title}</h2>
-      <p className="text-base leading-6 text-gray-500">{truncateExcerpt(post.excerpt)}</p>
+      <p className="text-base leading-6 text-gray-500">
+        {truncateExcerpt(getBodyExcerpt(post))}
+      </p>
       <span className="mt-auto text-sm text-gray-500">
         {formatBlogDate(post.date)}
       </span>
