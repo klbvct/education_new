@@ -254,6 +254,13 @@ export default function PostForm({ mode, initial }: PostFormProps) {
             <p className="text-gray-600">Посилання прямо всередині абзацу.</p>
           </div>
 
+          <div className="mb-3">
+            <p className="font-medium">
+              <code className="rounded bg-black/5 px-1 py-0.5">**жирний текст**</code>
+            </p>
+            <p className="text-gray-600">Жирний текст прямо всередині абзацу.</p>
+          </div>
+
           <div>
             <p className="font-medium">Абзаци</p>
             <p className="text-gray-600">

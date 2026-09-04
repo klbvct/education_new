@@ -8,18 +8,25 @@ import ContactRequestForm from '../../../../components/ContactRequestForm'
 
 export const dynamic = 'force-dynamic'
 
-// Lightweight `[text](href)` link syntax for inline anchors within body text —
-// see post-18, ported from links in the live article (stubs use href="#").
+// Lightweight `[text](href)` link and `**bold**` syntax for inline
+// formatting within body text — see post-18, ported from links in the
+// live article (stubs use href="#").
 function renderRichText(text: string) {
-  return text.split(/(\[[^\]]+\]\([^)]+\))/g).map((part, i) => {
-    const match = part.match(/^\[([^\]]+)\]\(([^)]+)\)$/)
-    if (!match) return part
-    const [, label, href] = match
-    return (
-      <a key={i} href={href} className="underline decoration-primary">
-        {label}
-      </a>
-    )
+  return text.split(/(\*\*[^*]+\*\*|\[[^\]]+\]\([^)]+\))/g).map((part, i) => {
+    const bold = part.match(/^\*\*([^*]+)\*\*$/)
+    if (bold) return <strong key={i}>{bold[1]}</strong>
+
+    const link = part.match(/^\[([^\]]+)\]\(([^)]+)\)$/)
+    if (link) {
+      const [, label, href] = link
+      return (
+        <a key={i} href={href} className="underline decoration-primary">
+          {label}
+        </a>
+      )
+    }
+
+    return part
   })
 }
 
