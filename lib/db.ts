@@ -19,6 +19,18 @@ type SeedPost = {
   date: string
   intro?: string[]
   sections: unknown
+  titleRu?: string
+  excerptRu?: string
+  introRu?: string[]
+  sectionsRu?: unknown
+}
+
+type SeedRedirect = {
+  id: string
+  from: string
+  to: string
+  type: 'permanent' | 'temporary'
+  createdAt: string
 }
 
 function readJson<T>(fileName: string): T[] {
@@ -42,12 +54,17 @@ function readLiveOrSeed<T>(liveFile: string, seedFile: string): T[] {
 function seed(db: Database.Database): void {
   const reviews = readLiveOrSeed<SeedReview>('reviews.json', 'reviews.seed.json')
   const posts = readLiveOrSeed<SeedPost>('posts.json', 'posts.seed.json')
+  const redirects = readJson<SeedRedirect>('redirects.seed.json')
 
   const insertReview = db.prepare(
     `INSERT INTO reviews (id, name, rating, text, created_at) VALUES (@id, @name, @rating, @text, @createdAt)`,
   )
   const insertPost = db.prepare(
-    `INSERT INTO posts (id, title, excerpt, date, intro, sections) VALUES (@id, @title, @excerpt, @date, @intro, @sections)`,
+    `INSERT INTO posts (id, title, excerpt, date, intro, sections, title_ru, excerpt_ru, intro_ru, sections_ru)
+     VALUES (@id, @title, @excerpt, @date, @intro, @sections, @title_ru, @excerpt_ru, @intro_ru, @sections_ru)`,
+  )
+  const insertRedirect = db.prepare(
+    `INSERT INTO redirects (id, from_path, to_path, type, created_at) VALUES (@id, @from, @to, @type, @createdAt)`,
   )
 
   db.transaction(() => {
@@ -68,7 +85,14 @@ function seed(db: Database.Database): void {
         date: p.date,
         intro: p.intro ? JSON.stringify(p.intro) : null,
         sections: JSON.stringify(p.sections),
+        title_ru: p.titleRu ?? null,
+        excerpt_ru: p.excerptRu ?? null,
+        intro_ru: p.introRu ? JSON.stringify(p.introRu) : null,
+        sections_ru: p.sectionsRu ? JSON.stringify(p.sectionsRu) : null,
       })
+    }
+    for (const r of redirects) {
+      insertRedirect.run(r)
     }
   })()
 }

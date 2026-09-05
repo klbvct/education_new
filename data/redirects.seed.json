@@ -1,0 +1,16 @@
+[
+  {
+    "id": "1d6c5c0c-1e59-46d4-b760-738967969578",
+    "from": "/blog/post-18",
+    "to": "/blog/test-na-profesiiu-dlia-pidlitka-u-2027-rotsi",
+    "type": "permanent",
+    "createdAt": "2026-09-05T08:05:07.307Z"
+  },
+  {
+    "id": "7ea5b011-0387-4f09-b5cc-369679c5f076",
+    "from": "/ru/blog/post-18",
+    "to": "/ru/blog/test-na-profesiiu-dlia-pidlitka-u-2027-rotsi",
+    "type": "permanent",
+    "createdAt": "2026-09-05T08:05:07.393Z"
+  }
+]
