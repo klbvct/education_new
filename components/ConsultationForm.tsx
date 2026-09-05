@@ -35,6 +35,8 @@ const STRINGS: Record<
     messagePlaceholder: string
     submittedTitle: string
     submittedText: string
+    submitting: string
+    submitError: string
   }
 > = {
   uk: {
@@ -48,6 +50,8 @@ const STRINGS: Record<
     messagePlaceholder: 'Коротко опишіть свій запит',
     submittedTitle: 'Заявку надіслано',
     submittedText: "Ми зв'яжемось з вами найближчим часом на обраний месенджер.",
+    submitting: 'Надсилаємо…',
+    submitError: 'Не вдалося надіслати заявку. Спробуйте ще раз.',
   },
   ru: {
     firstName: 'Имя',
@@ -60,6 +64,8 @@ const STRINGS: Record<
     messagePlaceholder: 'Коротко опишите свой запрос',
     submittedTitle: 'Заявка отправлена',
     submittedText: 'Мы свяжемся с вами в ближайшее время в выбранный мессенджер.',
+    submitting: 'Отправляем…',
+    submitError: 'Не удалось отправить заявку. Попробуйте ещё раз.',
   },
 }
 
@@ -110,6 +116,8 @@ export default function ConsultationForm({
 
   const [messenger, setMessenger] = useState<Messenger>('Telegram')
   const [submitted, setSubmitted] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const selectedService = service ? SERVICES.find((s) => s.id === service) : undefined
 
   if (submitted) {
@@ -126,9 +134,37 @@ export default function ConsultationForm({
 
   return (
     <form
-      onSubmit={(e) => {
+      onSubmit={async (e) => {
         e.preventDefault()
-        setSubmitted(true)
+        setError(null)
+        const formData = new FormData(e.currentTarget)
+        const serviceLabel = selectedService
+          ? `${SERVICE_TITLES[locale][selectedService.id]} (${selectedService.price} грн)`
+          : undefined
+
+        setIsSubmitting(true)
+        try {
+          const res = await fetch('/api/consultation-requests', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              firstName: formData.get('firstName'),
+              lastName: formData.get('lastName'),
+              email: formData.get('email'),
+              phone: formData.get('phone'),
+              messenger,
+              message: formData.get('message'),
+              serviceLabel,
+              locale,
+            }),
+          })
+          if (!res.ok) throw new Error()
+          setSubmitted(true)
+        } catch {
+          setError(t.submitError)
+        } finally {
+          setIsSubmitting(false)
+        }
       }}
       className="flex flex-col gap-3"
     >
@@ -234,11 +270,14 @@ export default function ConsultationForm({
         />
       </div>
 
+      {error && <p className="text-sm text-red-600">{error}</p>}
+
       <button
         type="submit"
-        className="mt-2 flex h-14 items-center justify-center gap-2 rounded-[32px] bg-primary text-base text-white transition hover:opacity-60 lg:h-12"
+        disabled={isSubmitting}
+        className="mt-2 flex h-14 items-center justify-center gap-2 rounded-[32px] bg-primary text-base text-white transition hover:opacity-60 disabled:opacity-50 lg:h-12"
       >
-        {resolvedSubmitLabel}
+        {isSubmitting ? t.submitting : resolvedSubmitLabel}
         <svg viewBox="0 0 448 512" width="18" height="18" fill="currentColor" aria-hidden="true">
           <path d="M446.7 98.6l-67.6 318.8c-5.1 22.5-18.4 28.1-37.3 17.5l-103-75.9-49.7 47.8c-5.5 5.5-10.1 10.1-20.6 10.1l7.4-104.9L367.5 151c8.3-7.4-1.8-11.5-12.9-4.1L117.8 284 16.2 252.2c-22.1-6.9-22.5-22.1 4.6-32.7L418.2 66.4c18.4-6.9 34.5 4.1 28.5 32.2z" />
         </svg>
