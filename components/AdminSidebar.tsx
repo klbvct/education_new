@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { useState } from 'react'
@@ -53,7 +54,13 @@ export default function AdminSidebar() {
         </button>
 
         <div className="mb-8 px-6 pt-6">
-          <h2 className="text-xl font-bold text-primary">Дизайн Освіти</h2>
+          <div className="flex items-center gap-2">
+            <Image src="/images/logo.svg" alt="" width={24} height={21} priority />
+            {/* Design system's documented brand blue (matches the logo fill), not the
+                `primary` token — tailwind.config.js's `primary` is `#0c68f5`, a known
+                drift from the design system's `#266AF6` (see CLAUDE.md). */}
+            <h2 className="text-xl font-bold text-[#266AF6]">Дизайн Освіти</h2>
+          </div>
           <p className="mt-1 text-sm text-gray-400">Адмінка</p>
         </div>
 

@@ -1,6 +1,17 @@
 import { NextResponse } from 'next/server'
-import { updatePost } from '../../../../../lib/posts'
+import { deletePost, updatePost } from '../../../../../lib/posts'
 import { parsePostBody } from '../../../../../lib/parse-post-body'
+
+export async function DELETE(
+  _request: Request,
+  { params }: { params: { id: string } },
+) {
+  const ok = await deletePost(params.id)
+  if (!ok) {
+    return NextResponse.json({ error: 'Статтю не знайдено' }, { status: 404 })
+  }
+  return NextResponse.json({ ok: true })
+}
 
 export async function PUT(
   request: Request,

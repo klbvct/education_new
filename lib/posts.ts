@@ -58,6 +58,11 @@ export async function addPost(
   return post
 }
 
+export async function deletePost(id: string): Promise<boolean> {
+  const result = getDb().prepare('DELETE FROM posts WHERE id = ?').run(id)
+  return result.changes > 0
+}
+
 export async function updatePost(
   id: string,
   input: Omit<BlogPost, 'id'>,

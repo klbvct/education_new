@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import Link from 'next/link'
 import Pagination from '../../../components/Pagination'
+import AdminPostActions from '../../../components/AdminPostActions'
 import { formatBlogDate, type BlogPost } from '../../../lib/blog-posts'
 
 export default function AdminPostsPage() {
@@ -81,12 +82,15 @@ export default function AdminPostsPage() {
                   </div>
                   <p className="text-sm text-gray-500">{post.excerpt}</p>
                 </div>
-                <Link
-                  href={`/admin/posts/${post.id}/edit`}
-                  className="flex h-10 shrink-0 items-center rounded-full border border-black/10 px-5 text-sm text-dark transition hover:border-primary hover:text-primary"
-                >
-                  Редагувати
-                </Link>
+                <div className="flex shrink-0 gap-3">
+                  <Link
+                    href={`/admin/posts/${post.id}/edit`}
+                    className="flex h-10 items-center rounded-full border border-black/10 px-5 text-sm text-dark transition hover:border-primary hover:text-primary"
+                  >
+                    Редагувати
+                  </Link>
+                  <AdminPostActions id={post.id} onDeleted={load} />
+                </div>
               </div>
             ))}
           </div>
