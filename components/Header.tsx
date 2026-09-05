@@ -6,19 +6,21 @@ import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { localeFromPathname, type Locale } from '../lib/locale'
 
+// "Для спеціалістів"/"Освіта за кордоном" point at separate live sites,
+// not routes in this project — see CLAUDE.md.
 const NAV_ITEMS: Record<Locale, { href: string; label: string }[]> = {
   uk: [
     { href: '/', label: 'Головна' },
-    { href: '/academy', label: 'Для спеціалістів' },
-    { href: '/abroad', label: 'Освіта за кордоном' },
+    { href: 'https://academy.education-design.com.ua', label: 'Для спеціалістів' },
+    { href: 'https://studyway.com.ua', label: 'Освіта за кордоном' },
     { href: '/blog', label: 'Блог' },
     { href: '/feedback', label: 'Відгуки' },
     { href: '/contacts', label: 'Контакти' },
   ],
   ru: [
     { href: '/ru', label: 'Главная' },
-    { href: '/ru/academy', label: 'Для специалистов' },
-    { href: '/ru/abroad', label: 'Образование за рубежом' },
+    { href: 'https://academy.education-design.com.ua', label: 'Для специалистов' },
+    { href: 'https://studyway.com.ua/ru/', label: 'Образование за рубежом' },
     { href: '/ru/blog', label: 'Блог' },
     { href: '/ru/feedback', label: 'Отзывы' },
     { href: '/ru/contacts', label: 'Контакты' },
