@@ -326,7 +326,7 @@ export default function HomePage({ content, locale }: { content: HomeContent; lo
         <h2 className="mb-12 text-3xl font-bold text-dark md:text-5xl">{content.basics.heading}</h2>
         <div className="grid grid-cols-1 gap-16 md:grid-cols-2">
           {content.basics.items.map((item) => (
-            <div key={item.title} className="flex flex-col items-center gap-4 text-center md:flex-row md:items-start md:text-left">
+            <div key={item.title} className="flex flex-col items-center gap-4 text-left md:flex-row md:items-start md:text-left">
               <item.icon className="h-14 w-14 shrink-0 text-primary" />
               <div>
                 <h3 className="mb-2 text-2xl font-medium text-primary">{item.title}</h3>
