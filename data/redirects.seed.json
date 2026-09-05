@@ -26,5 +26,495 @@
     "to": "/ru/blog/test-na-profesiiu-dlia-pidlitka",
     "type": "permanent",
     "createdAt": "2026-09-05T11:13:12.149Z"
+  },
+  {
+    "id": "c9f04839-e055-46de-8d53-2f3d281bbe6b",
+    "from": "/kontakty",
+    "to": "/contacts",
+    "type": "permanent",
+    "createdAt": "2026-09-05T19:28:25.185Z"
+  },
+  {
+    "id": "c82dfce9-5f08-4e0c-846e-aa88021ea5cc",
+    "from": "/vidguky",
+    "to": "/feedback",
+    "type": "permanent",
+    "createdAt": "2026-09-05T19:28:25.205Z"
+  },
+  {
+    "id": "40312643-6baa-452b-8827-4acefd05a2e5",
+    "from": "/ru/home",
+    "to": "/ru",
+    "type": "permanent",
+    "createdAt": "2026-09-05T19:28:25.205Z"
+  },
+  {
+    "id": "8b6a3162-0a64-4b21-b4ce-36cf02a17b89",
+    "from": "/ru/category/100-professij-na-50-let",
+    "to": "/ru",
+    "type": "permanent",
+    "createdAt": "2026-09-05T19:28:25.206Z"
+  },
+  {
+    "id": "e40debdd-4a6c-4721-a471-dd2072fef4e0",
+    "from": "/category/batkam",
+    "to": "/",
+    "type": "permanent",
+    "createdAt": "2026-09-05T19:28:25.206Z"
+  },
+  {
+    "id": "26efcba3-51c6-4bde-b446-4ae80d78bf26",
+    "from": "/ru/category/proforientatsiya-ru",
+    "to": "/ru",
+    "type": "permanent",
+    "createdAt": "2026-09-05T19:28:25.206Z"
+  },
+  {
+    "id": "8bf22bf1-a038-4033-8c4e-7c52756e7d30",
+    "from": "/category/proforientacia",
+    "to": "/",
+    "type": "permanent",
+    "createdAt": "2026-09-05T19:28:25.206Z"
+  },
+  {
+    "id": "24d5d132-062a-48b2-be02-33b7ed6f28dd",
+    "from": "/ru/category/roditelyam",
+    "to": "/ru",
+    "type": "permanent",
+    "createdAt": "2026-09-05T19:28:25.207Z"
+  },
+  {
+    "id": "0cc06f7f-76b7-4009-9641-ec0d7e28b7ff",
+    "from": "/category/trendi-v-osviti",
+    "to": "/",
+    "type": "permanent",
+    "createdAt": "2026-09-05T19:28:25.207Z"
+  },
+  {
+    "id": "3ff0a8c6-a58c-4817-9284-ab602c87c203",
+    "from": "/ru/category/trendy-v-obrazovanii",
+    "to": "/ru",
+    "type": "permanent",
+    "createdAt": "2026-09-05T19:28:25.207Z"
+  },
+  {
+    "id": "07acba7a-7b42-4393-945c-dde02339b6c3",
+    "from": "/blog-uk",
+    "to": "/blog",
+    "type": "permanent",
+    "createdAt": "2026-09-05T19:28:25.207Z"
+  },
+  {
+    "id": "cb9bee20-e0b8-4f5a-acdf-a34325960936",
+    "from": "/ru/roditelyam/15-sovetov-po-obrazovaniyu",
+    "to": "/ru",
+    "type": "permanent",
+    "createdAt": "2026-09-05T19:28:25.207Z"
+  },
+  {
+    "id": "bc660984-e659-4e20-8f38-81ec514d2126",
+    "from": "/ru/roditelyam/gotovi-k-izmeneniam-v-obrazovanii",
+    "to": "/ru",
+    "type": "permanent",
+    "createdAt": "2026-09-05T19:28:25.207Z"
+  },
+  {
+    "id": "98baca3c-5b0a-41fd-ba92-4a7981d40964",
+    "from": "/ru/trendy-v-obrazovanii/baza-dlia-sovremenih-profes",
+    "to": "/ru",
+    "type": "permanent",
+    "createdAt": "2026-09-05T19:28:25.207Z"
+  },
+  {
+    "id": "433b0e33-6ca6-4193-9d64-a61801c4c410",
+    "from": "/ru/roditelyam/kakie-professii-budut-vostreb-v-budushem",
+    "to": "/ru",
+    "type": "permanent",
+    "createdAt": "2026-09-05T19:28:25.208Z"
+  },
+  {
+    "id": "066bf0ac-4261-48ab-83ce-cb732bf90092",
+    "from": "/ru/100-professij-na-50-let/100-professij-na-blizhajshie-50-let",
+    "to": "/ru",
+    "type": "permanent",
+    "createdAt": "2026-09-05T19:28:25.208Z"
+  },
+  {
+    "id": "59f0aa0e-c975-41d0-afdb-097454ca4b1f",
+    "from": "/ru/100-professij-na-50-let/inzhener-massovogo-proizvodstva-maloj-aviaczii",
+    "to": "/ru",
+    "type": "permanent",
+    "createdAt": "2026-09-05T19:28:25.208Z"
+  },
+  {
+    "id": "9d9d6217-e13f-4ede-ad19-179eb6b522fa",
+    "from": "/ru/100-professij-na-50-let/kosmogeolog",
+    "to": "/ru",
+    "type": "permanent",
+    "createdAt": "2026-09-05T19:28:25.208Z"
+  },
+  {
+    "id": "22c354f4-a6e9-49f4-ac5b-910cb35c051a",
+    "from": "/ru/100-professij-na-50-let/portovyj-ekolog",
+    "to": "/ru",
+    "type": "permanent",
+    "createdAt": "2026-09-05T19:28:25.208Z"
+  },
+  {
+    "id": "51b96d6f-b295-4c0c-8c03-4a95cf057fd5",
+    "from": "/ru/100-professij-na-50-let/stroitel-umnykh-dorog",
+    "to": "/ru",
+    "type": "permanent",
+    "createdAt": "2026-09-05T19:28:25.208Z"
+  },
+  {
+    "id": "f0b84b29-155d-4892-ac4b-f0a4b9d0a7a4",
+    "from": "/ru/100-professij-na-50-let/oczenshhik-intellektualnoj-sobstvennosti",
+    "to": "/ru",
+    "type": "permanent",
+    "createdAt": "2026-09-05T19:28:25.208Z"
+  },
+  {
+    "id": "64b7dbe1-6bd8-4930-83ca-e4fb47a1a224",
+    "from": "/ru/100-professij-na-50-let/parkovyj-ekolog",
+    "to": "/ru",
+    "type": "permanent",
+    "createdAt": "2026-09-05T19:28:25.208Z"
+  },
+  {
+    "id": "fcb1a073-c6d2-4918-9856-be855f57e30f",
+    "from": "/ru/100-professij-na-50-let/meneger-detskich-rd",
+    "to": "/ru",
+    "type": "permanent",
+    "createdAt": "2026-09-05T19:28:25.209Z"
+  },
+  {
+    "id": "b7a0d4e8-d308-4070-aed8-d77ad9e943bb",
+    "from": "/ru/100-professij-na-50-let/korporativnii-antropolog",
+    "to": "/ru",
+    "type": "permanent",
+    "createdAt": "2026-09-05T19:28:25.209Z"
+  },
+  {
+    "id": "beae3852-03ed-4f67-9150-6b2e2c1dd555",
+    "from": "/ru/100-professij-na-50-let/geneticheskii-consultan",
+    "to": "/ru",
+    "type": "permanent",
+    "createdAt": "2026-09-05T19:28:25.209Z"
+  },
+  {
+    "id": "ab747e80-9d85-4a36-a7ec-dd6924179b74",
+    "from": "/ru/100-professij-na-50-let/desiiner-interfeisov",
+    "to": "/ru",
+    "type": "permanent",
+    "createdAt": "2026-09-05T19:28:25.209Z"
+  },
+  {
+    "id": "e825956f-d4a8-4814-9223-318859abe4f9",
+    "from": "/ru/100-professij-na-50-let/proektirovshhik-energonakopitelej",
+    "to": "/ru",
+    "type": "permanent",
+    "createdAt": "2026-09-05T19:28:25.209Z"
+  },
+  {
+    "id": "40a54d77-2c3d-4894-844c-9da069781149",
+    "from": "/ru/100-professij-na-50-let/proektirovshhik-nanotekhnologicheskikh-materialov",
+    "to": "/ru",
+    "type": "permanent",
+    "createdAt": "2026-09-05T19:28:25.209Z"
+  },
+  {
+    "id": "ca4384bb-e627-482f-a97b-29d0268e4e95",
+    "from": "/ru/100-professij-na-50-let/proektirovshhik-domashnikh-robotov",
+    "to": "/ru",
+    "type": "permanent",
+    "createdAt": "2026-09-05T19:28:25.209Z"
+  },
+  {
+    "id": "bc7410e9-f303-41fb-b67c-de7f67e0e024",
+    "from": "/ru/100-professij-na-50-let/mediator-soczialnykh-konfliktov",
+    "to": "/ru",
+    "type": "permanent",
+    "createdAt": "2026-09-05T19:28:25.209Z"
+  },
+  {
+    "id": "6740a395-e300-47f7-af64-847373cee799",
+    "from": "/ru/100-professij-na-50-let/razrabotchik-obrazovatelnoj-traektorii",
+    "to": "/ru",
+    "type": "permanent",
+    "createdAt": "2026-09-05T19:28:25.210Z"
+  },
+  {
+    "id": "65ddc55e-9f7e-4bcb-9734-935b5658d1ce",
+    "from": "/ru/trendy-v-obrazovanii/oshibki-pri-vybore-professii",
+    "to": "/ru",
+    "type": "permanent",
+    "createdAt": "2026-09-05T19:28:25.210Z"
+  },
+  {
+    "id": "c9a7cbb5-6a9b-4731-8bcb-6373fb361e77",
+    "from": "/ru/100-professij-na-50-let/elektrozapravshhik",
+    "to": "/ru",
+    "type": "permanent",
+    "createdAt": "2026-09-05T19:28:25.210Z"
+  },
+  {
+    "id": "8ee070ce-76dc-4865-bf86-0584f26e3128",
+    "from": "/ru/proforientatsiya-ru/kak-pomoch-rebenku-vybrat-budushhuyu-professiyu-ili-napravlenie",
+    "to": "/ru",
+    "type": "permanent",
+    "createdAt": "2026-09-05T19:28:25.210Z"
+  },
+  {
+    "id": "cd5b2031-12a6-4840-a5b2-e571764e7b62",
+    "from": "/ru/proforientatsiya-ru/chto-nuzhno-uchityvat-kogda-vy-planiruete-svoe-obrazovanie",
+    "to": "/ru",
+    "type": "permanent",
+    "createdAt": "2026-09-05T19:28:25.210Z"
+  },
+  {
+    "id": "863e91c6-8d7f-48b5-87ee-3c746d05769b",
+    "from": "/ru/100-professij-na-50-let/proektirovshhik-infrastruktury-umnogo-doma",
+    "to": "/ru",
+    "type": "permanent",
+    "createdAt": "2026-09-05T19:28:25.210Z"
+  },
+  {
+    "id": "24eeeaee-0b15-4740-bf5b-7f4091664ce7",
+    "from": "/proforientacia/epokha-velikoyi-transformacziyi-osviti-i-viboru-novikh-profesij",
+    "to": "/",
+    "type": "permanent",
+    "createdAt": "2026-09-05T19:28:25.210Z"
+  },
+  {
+    "id": "5c0b23ad-2e89-4586-9a17-2a09216991a4",
+    "from": "/proforientacia/karyerne-planuvannya-yak-stvoryty-strategiyu-vashogo-majbutnogo",
+    "to": "/",
+    "type": "permanent",
+    "createdAt": "2026-09-05T19:28:25.210Z"
+  },
+  {
+    "id": "a67c05bf-ef03-41f4-90a2-7cb6ed5f026b",
+    "from": "/ru/trendy-v-obrazovanii/chto-izuchat-v-ukrainskikh-vuzakh-perspektivno-a-chto-net",
+    "to": "/ru",
+    "type": "permanent",
+    "createdAt": "2026-09-05T19:28:25.211Z"
+  },
+  {
+    "id": "fc0de984-2dd0-4076-bfee-e02f199ecae6",
+    "from": "/ru/trendy-v-obrazovanii/pochemu-vostrebovany-gibridnye-professii",
+    "to": "/ru",
+    "type": "permanent",
+    "createdAt": "2026-09-05T19:28:25.211Z"
+  },
+  {
+    "id": "987ae103-b9ee-4c8d-b9a0-f9ed4d22e5e5",
+    "from": "/trendi-v-osviti/chomu-zatrebuvani-gibridni-profesiyi",
+    "to": "/",
+    "type": "permanent",
+    "createdAt": "2026-09-05T19:28:25.211Z"
+  },
+  {
+    "id": "df06d54a-96c4-4501-b743-ec6bd73c16ca",
+    "from": "/trendi-v-osviti/shho-vivchati-v-ukrayinskikh-vnz-perspektivno-a-shho-ni",
+    "to": "/",
+    "type": "permanent",
+    "createdAt": "2026-09-05T19:28:25.211Z"
+  },
+  {
+    "id": "a8ec3e79-62f4-4baa-bb99-7af6f64d8b41",
+    "from": "/proforientacia/medichna-osvita-yak-pobuduvati-svij-karyernij-shlyakh-v-ukrayini-ta-sviti",
+    "to": "/",
+    "type": "permanent",
+    "createdAt": "2026-09-05T19:28:25.211Z"
+  },
+  {
+    "id": "d3b1de30-8da8-4100-9879-36e482348acd",
+    "from": "/ru/proforientatsiya-ru/mozhet-li-proforientacziya-otvetit-na-vse-voprosy-pri-vybore-obucheniya",
+    "to": "/ru",
+    "type": "permanent",
+    "createdAt": "2026-09-05T19:28:25.211Z"
+  },
+  {
+    "id": "6f2645a7-2d7a-4b6c-a053-33ad12ebfd80",
+    "from": "/ru/trendy-v-obrazovanii/gibridnye-professii-ili-pochemu-my-bolshe-ne-delimsya-na-gumanitariev-i-tehnarej",
+    "to": "/ru",
+    "type": "permanent",
+    "createdAt": "2026-09-05T19:28:25.211Z"
+  },
+  {
+    "id": "86cd4574-08e8-454c-8266-82cf337dc16b",
+    "from": "/trendi-v-osviti/gibridni-profesiyi-abo-chomu-mi-bilshe-ne-dilimosya-na-gumanitariyiv-i-tekhnariv",
+    "to": "/",
+    "type": "permanent",
+    "createdAt": "2026-09-05T19:28:25.211Z"
+  },
+  {
+    "id": "6f907f89-d301-429e-9530-00920b40b432",
+    "from": "/proforientacia/konsultant-po-obrazovaniyu-za-rubezhom",
+    "to": "/",
+    "type": "permanent",
+    "createdAt": "2026-09-05T19:28:25.211Z"
+  },
+  {
+    "id": "78306fca-4846-40be-9e43-aa6f6d461ef5",
+    "from": "/ru/proforientatsiya-ru/konsultant-po-obrazovaniyu-za-rubezhom-2",
+    "to": "/ru",
+    "type": "permanent",
+    "createdAt": "2026-09-05T19:28:25.211Z"
+  },
+  {
+    "id": "f0c29dd7-5683-4f76-8a41-99ee7f2dbb1a",
+    "from": "/proforientacia/khto-takij-karyernij-konsultant-i-chim-dopomozhe-karyerne-konsultuvannya",
+    "to": "/",
+    "type": "permanent",
+    "createdAt": "2026-09-05T19:28:25.211Z"
+  },
+  {
+    "id": "e0f26985-c01a-4c6c-baa0-d83696ce7bc9",
+    "from": "/ru/proforientatsiya-ru/kto-takoj-karernyj-konsultant-i-chem-pomozhet-karernoe-konsultirovanie",
+    "to": "/ru",
+    "type": "permanent",
+    "createdAt": "2026-09-05T19:28:25.211Z"
+  },
+  {
+    "id": "a42612c7-5232-49bb-8abe-0c2398102c69",
+    "from": "/trendi-v-osviti/perspektivni-napryami-navchannya-u-koledzhi-dlya-ukrayinciv",
+    "to": "/",
+    "type": "permanent",
+    "createdAt": "2026-09-05T19:28:25.211Z"
+  },
+  {
+    "id": "ebb8cc07-933b-40da-a3d7-affaac4b483b",
+    "from": "/ru/trendy-v-obrazovanii/perspektivnye-napravleniya-obucheniya-v-kolledzhe-dlya-ukraincev",
+    "to": "/ru",
+    "type": "permanent",
+    "createdAt": "2026-09-05T19:28:25.211Z"
+  },
+  {
+    "id": "05d604d3-7779-4f43-974d-ec8dfc0a67e4",
+    "from": "/trendi-v-osviti/napryami-navchannya-v-universiteti-dlya-ukrayinciv",
+    "to": "/",
+    "type": "permanent",
+    "createdAt": "2026-09-05T19:28:25.212Z"
+  },
+  {
+    "id": "db0d0d15-e16f-4cbf-9b54-bc41002baef5",
+    "from": "/ru/trendy-v-obrazovanii/napravleniya-obucheniya-v-universitete-dlya-ukraincev",
+    "to": "/ru",
+    "type": "permanent",
+    "createdAt": "2026-09-05T19:28:25.212Z"
+  },
+  {
+    "id": "48413850-8d02-4b46-91c6-8a96adb5555d",
+    "from": "/proforientacia/najpopulyarnisha-profesiya-v-chehiyi",
+    "to": "/",
+    "type": "permanent",
+    "createdAt": "2026-09-05T19:28:25.212Z"
+  },
+  {
+    "id": "41416bf3-8a98-4bd0-8284-4838353a028f",
+    "from": "/ru/proforientatsiya-ru/samaya-vostrebovannaya-professiya-v-chehii",
+    "to": "/ru",
+    "type": "permanent",
+    "createdAt": "2026-09-05T19:28:25.212Z"
+  },
+  {
+    "id": "f671fcfe-a18f-4362-85c0-e627b97bfe44",
+    "from": "/ru/roditelyam/nuzhno-li-ukrainskim-studentam-postuplenie-na-magistraturu",
+    "to": "/ru/blog/vstup-na-magistraturu",
+    "type": "permanent",
+    "createdAt": "2026-09-05T19:28:25.212Z"
+  },
+  {
+    "id": "80de8aa2-fc48-41c4-b46e-0fbf1761d317",
+    "from": "/proforientacia/test-na-proforiyentacziyu-dlya-pidlitkiv",
+    "to": "/blog/test-na-proforiyentacziyu-dlya-pidlitkiv",
+    "type": "permanent",
+    "createdAt": "2026-09-05T19:28:25.212Z"
+  },
+  {
+    "id": "163757ac-5ce5-4f29-8f78-25bb50f111d3",
+    "from": "/batkam/kudi-postupati-pislya-9-klasu",
+    "to": "/blog/kudi-postupati-pislya-9-klasu",
+    "type": "permanent",
+    "createdAt": "2026-09-05T19:28:25.212Z"
+  },
+  {
+    "id": "cb238df4-2bf0-4962-869d-b549bc0cadd9",
+    "from": "/batkam/vstup-na-magistraturu",
+    "to": "/blog/vstup-na-magistraturu",
+    "type": "permanent",
+    "createdAt": "2026-09-05T19:28:25.212Z"
+  },
+  {
+    "id": "8454ba70-2b87-4277-bfbc-1ab639c2af3e",
+    "from": "/ru/proforientatsiya-ru/test-na-proforientacziyu-dlya-podrostkov",
+    "to": "/ru/blog/test-na-proforiyentacziyu-dlya-pidlitkiv",
+    "type": "permanent",
+    "createdAt": "2026-09-05T19:28:25.212Z"
+  },
+  {
+    "id": "47053401-0112-4964-8d67-f2ad4b893fb7",
+    "from": "/proforientacia/proforiyentacziya-dlya-doroslikh",
+    "to": "/blog/proforiyentacziya-dlya-doroslikh",
+    "type": "permanent",
+    "createdAt": "2026-09-05T19:28:25.212Z"
+  },
+  {
+    "id": "9dec234f-89dc-4e3f-a10f-f96d4191ad61",
+    "from": "/ru/proforientatsiya-ru/proforientacziya-dlya-vzroslykh",
+    "to": "/ru/blog/proforiyentacziya-dlya-doroslikh",
+    "type": "permanent",
+    "createdAt": "2026-09-05T19:28:25.213Z"
+  },
+  {
+    "id": "75861b96-9e9c-4b68-8f20-a54305a0fc6b",
+    "from": "/trendi-v-osviti/kudi-krashhe-vstupati-do-koledzhu-chi-universitetu-ukrayinczyam",
+    "to": "/blog/kudi-krashhe-vstupati-do-koledzhu-chi-universitetu-ukrayinczyam",
+    "type": "permanent",
+    "createdAt": "2026-09-05T19:28:25.213Z"
+  },
+  {
+    "id": "cc886cfb-2656-440a-96f8-d0c46ad0b68d",
+    "from": "/ru/trendy-v-obrazovanii/kuda-luchshe-postupat-v-kolledzh-ili-universitet-ukrainczam",
+    "to": "/ru/blog/kudi-krashhe-vstupati-do-koledzhu-chi-universitetu-ukrayinczyam",
+    "type": "permanent",
+    "createdAt": "2026-09-05T19:28:25.213Z"
+  },
+  {
+    "id": "51ceb799-3e67-44d2-8c6d-6dbde959bf80",
+    "from": "/trendi-v-osviti/kudi-vstupati-pislya-11-klasu",
+    "to": "/blog/kudi-vstupati-pislya-11-klasu",
+    "type": "permanent",
+    "createdAt": "2026-09-05T19:28:25.213Z"
+  },
+  {
+    "id": "02bcb80e-15c2-479d-95d9-7d0e5938ef9f",
+    "from": "/proforientacia/test-na-profesiyu-dlya-pidlitka",
+    "to": "/blog/test-na-profesiiu-dlia-pidlitka",
+    "type": "permanent",
+    "createdAt": "2026-09-05T19:28:25.213Z"
+  },
+  {
+    "id": "faac7da8-0cd9-4e29-a837-c32c1a4d0b20",
+    "from": "/ru/roditelyam/kuda-postupat-posle-9-klassa",
+    "to": "/ru/blog/kudi-postupati-pislya-9-klasu",
+    "type": "permanent",
+    "createdAt": "2026-09-05T19:28:25.213Z"
+  },
+  {
+    "id": "ef4bb2b4-bdcf-4208-8ad7-0c5abddb8473",
+    "from": "/ru/trendy-v-obrazovanii/kuda-postupat-posle-11-klassa",
+    "to": "/ru/blog/kudi-vstupati-pislya-11-klasu",
+    "type": "permanent",
+    "createdAt": "2026-09-05T19:28:25.213Z"
+  },
+  {
+    "id": "b5427b68-1814-458a-9bd3-ad59bc1efcfa",
+    "from": "/ru/proforientatsiya-ru/test-na-professiyu-dlya-podrostka",
+    "to": "/ru/blog/test-na-profesiiu-dlia-pidlitka",
+    "type": "permanent",
+    "createdAt": "2026-09-05T19:28:25.213Z"
   }
 ]
