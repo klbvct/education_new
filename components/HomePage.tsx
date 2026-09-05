@@ -46,7 +46,7 @@ export default function HomePage({ content, locale }: { content: HomeContent; lo
           </p>
           <Image
             src="/images/subtract.svg"
-            alt={content.hero.title}
+            alt=""
             width={64}
             height={64}
             className="mb-8"
