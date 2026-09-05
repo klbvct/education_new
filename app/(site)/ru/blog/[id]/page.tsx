@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { SITE_TITLE_SUFFIX } from '../../../../../lib/blog-posts'
+import { siteTitleSuffix } from '../../../../../lib/blog-posts'
 import { getPost } from '../../../../../lib/posts'
 import BlogArticlePage from '../../../../../components/BlogArticlePage'
 
@@ -13,7 +13,7 @@ export async function generateMetadata({
   const post = await getPost(params.id, 'ru')
   if (!post) return {}
   return {
-    title: `${post.title}${SITE_TITLE_SUFFIX}`,
+    title: `${post.title}${siteTitleSuffix('ru')}`,
     description: post.excerpt,
   }
 }

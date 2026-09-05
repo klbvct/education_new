@@ -16,7 +16,7 @@ export type ServiceId = (typeof SERVICES)[number]['id']
 
 const SERVICE_TITLES: Record<Locale, Record<ServiceId, string>> = {
   uk: { design: 'Дизайн Освіти', consultation: 'Консультація' },
-  ru: { design: 'Дизайн Освіти', consultation: 'Консультация' },
+  ru: { design: 'Дизайн Образования', consultation: 'Консультация' },
 }
 
 const inputClass =

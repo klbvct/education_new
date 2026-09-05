@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import ContactsPage from '../../../../components/ContactsPage'
 
 export const metadata: Metadata = {
-  title: 'Контакты — Дизайн Освіти',
+  title: 'Контакты — Дизайн Образования',
   description: 'Свяжитесь с нами: Telegram, адрес и контактная форма.',
 }
 

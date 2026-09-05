@@ -29,6 +29,11 @@ const COPYRIGHT: Record<Locale, string> = {
   ru: '© Все права защищены ООО "ОТЦ "ЕВРОПА"',
 }
 
+const BRAND_NAME: Record<Locale, string> = {
+  uk: 'Дизайн Освіти',
+  ru: 'Дизайн Образования',
+}
+
 export default function Footer() {
   const pathname = usePathname()
   const locale = localeFromPathname(pathname)
@@ -39,7 +44,7 @@ export default function Footer() {
       <div className="mx-auto flex max-w-container flex-col items-center px-4">
         <Link href={homeHref} className="mb-8 flex items-center gap-2">
           <Image src="/images/logo.svg" alt="" width={20} height={17} />
-          <span className="text-xl font-semibold text-primary">Дизайн Освіти</span>
+          <span className="text-xl font-semibold text-primary">{BRAND_NAME[locale]}</span>
         </Link>
         <nav className="mb-10 flex flex-wrap justify-center gap-10">
           {NAV_ITEMS[locale].map((item) => (

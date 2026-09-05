@@ -1,7 +1,7 @@
 'use client'
 
 import { useRef, useState } from 'react'
-import { SITE_TITLE_SUFFIX } from '../lib/blog-posts'
+import { siteTitleSuffix } from '../lib/blog-posts'
 import { slugify } from '../lib/slugify'
 
 // Yoast-style SEO length ranges: below `min` is too short, above `max` is
@@ -63,7 +63,10 @@ export default function PostForm({ mode, initial, initialRu }: PostFormProps) {
   const setActiveExcerpt = activeLang === 'ru' ? setExcerptRu : setExcerpt
   const setActiveBody = activeLang === 'ru' ? setBodyRu : setBody
 
-  const titleSeo = seoLengthHint(`${activeTitle}${SITE_TITLE_SUFFIX}`.length, TITLE_SEO_RANGE)
+  const titleSeo = seoLengthHint(
+    `${activeTitle}${siteTitleSuffix(activeLang)}`.length,
+    TITLE_SEO_RANGE,
+  )
   const excerptSeo = seoLengthHint(activeExcerpt.length, DESCRIPTION_SEO_RANGE)
 
   function insertAtCursor(snippet: string) {

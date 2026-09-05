@@ -25,6 +25,11 @@ const NAV_ITEMS: Record<Locale, { href: string; label: string }[]> = {
   ],
 }
 
+const BRAND_NAME: Record<Locale, string> = {
+  uk: 'Дизайн Освіти',
+  ru: 'Дизайн Образования',
+}
+
 const MENU_LABELS: Record<Locale, { open: string; close: string }> = {
   uk: { open: 'Відкрити меню', close: 'Закрити меню' },
   ru: { open: 'Открыть меню', close: 'Закрыть меню' },
@@ -73,7 +78,7 @@ export default function Header() {
         {isHome ? (
           <span className="flex max-w-[56%] items-center gap-2 p-2">
             <Image src="/images/logo.svg" alt="" width={24} height={21} priority />
-            <span className="text-lg font-semibold text-dark md:text-2xl">Дизайн Освіти</span>
+            <span className="text-lg font-semibold text-dark md:text-2xl">{BRAND_NAME[locale]}</span>
           </span>
         ) : (
           <Link
@@ -82,7 +87,7 @@ export default function Header() {
             onClick={() => setIsOpen(false)}
           >
             <Image src="/images/logo.svg" alt="" width={24} height={21} priority />
-            <span className="text-lg font-semibold text-dark md:text-2xl">Дизайн Освіти</span>
+            <span className="text-lg font-semibold text-dark md:text-2xl">{BRAND_NAME[locale]}</span>
           </Link>
         )}
 

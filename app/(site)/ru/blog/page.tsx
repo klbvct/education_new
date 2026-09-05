@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import BlogListPage from '../../../../components/BlogListPage'
 
 export const metadata: Metadata = {
-  title: 'Блог — Дизайн Освіти',
+  title: 'Блог — Дизайн Образования',
   description: 'Статьи и советы об образовании за рубежом и карьерном консультировании.',
 }
 

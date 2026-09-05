@@ -39,9 +39,13 @@ export type BlogPost = {
 }
 
 // Appended to post.title for the <title> tag — see generateMetadata in
-// app/(site)/blog/[id]/page.tsx. Shared so the admin's SEO length hint
-// (components/PostForm.tsx) counts the actual rendered title length.
-export const SITE_TITLE_SUFFIX = ' — Дизайн Освіти'
+// app/(site)/blog/[id]/page.tsx and app/(site)/ru/blog/[id]/page.tsx.
+// Shared so the admin's SEO length hint (components/PostForm.tsx) counts
+// the actual rendered title length. The brand name itself translates
+// ("Дизайн Освіти" -> "Дизайн Образования"), not just transliterates.
+export function siteTitleSuffix(locale: 'uk' | 'ru' = 'uk'): string {
+  return locale === 'ru' ? ' — Дизайн Образования' : ' — Дизайн Освіти'
+}
 
 export function formatBlogDate(iso: string, locale: 'uk' | 'ru' = 'uk') {
   return new Date(iso).toLocaleDateString(locale === 'ru' ? 'ru-RU' : 'uk-UA', {
