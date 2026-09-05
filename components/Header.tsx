@@ -16,12 +16,12 @@ const NAV_ITEMS: Record<Locale, { href: string; label: string }[]> = {
     { href: '/contacts', label: 'Контакти' },
   ],
   ru: [
-    { href: '/', label: 'Главная' },
-    { href: '/academy', label: 'Для специалистов' },
-    { href: '/abroad', label: 'Образование за рубежом' },
-    { href: '/blog', label: 'Блог' },
-    { href: '/feedback', label: 'Отзывы' },
-    { href: '/contacts', label: 'Контакты' },
+    { href: '/ru', label: 'Главная' },
+    { href: '/ru/academy', label: 'Для специалистов' },
+    { href: '/ru/abroad', label: 'Образование за рубежом' },
+    { href: '/ru/blog', label: 'Блог' },
+    { href: '/ru/feedback', label: 'Отзывы' },
+    { href: '/ru/contacts', label: 'Контакты' },
   ],
 }
 
