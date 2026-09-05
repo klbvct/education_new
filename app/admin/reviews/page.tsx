@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import Pagination from '../../../components/Pagination'
 import AdminReviewActions from '../../../components/AdminReviewActions'
@@ -17,6 +17,7 @@ export default function AdminReviewsPage() {
   const [page, setPage] = useState(1)
   const [pageSize, setPageSize] = useState(25)
   const [pagination, setPagination] = useState({ total: 0, totalPages: 1 })
+  const requestId = useRef(0)
 
   useEffect(() => {
     const t = setTimeout(() => setDebouncedSearch(search), 300)
@@ -27,7 +28,13 @@ export default function AdminReviewsPage() {
     setPage(1)
   }, [debouncedSearch, ratingFilter])
 
+  // A page-change and a debounced-search/filter update can both trigger a
+  // new load() before the previous fetch resolves (e.g. searching while
+  // on page 2+ first re-fetches that page, then resets to page 1) —
+  // without this guard, whichever response arrives last wins, even if
+  // it's the stale one, and it silently overwrites the correct results.
   const load = useCallback(() => {
+    const id = ++requestId.current
     setLoading(true)
     const params = new URLSearchParams({ page: String(page), pageSize: String(pageSize) })
     if (debouncedSearch) params.set('search', debouncedSearch)
@@ -35,11 +42,14 @@ export default function AdminReviewsPage() {
     fetch(`/api/admin/reviews?${params}`)
       .then((r) => r.json())
       .then((d) => {
+        if (id !== requestId.current) return
         setReviews(d.reviews ?? [])
         setPagination(d.pagination ?? { total: 0, totalPages: 1 })
       })
       .catch(console.error)
-      .finally(() => setLoading(false))
+      .finally(() => {
+        if (id === requestId.current) setLoading(false)
+      })
   }, [page, pageSize, debouncedSearch, ratingFilter])
 
   useEffect(() => {
