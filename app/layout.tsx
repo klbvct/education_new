@@ -1,7 +1,10 @@
 import type { Metadata } from 'next'
 import './globals.css'
+import HtmlLangSetter from '../components/HtmlLangSetter'
+import { siteUrl } from '../lib/seo'
 
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl()),
   title: 'Дизайн Освіти',
   description: 'Сучасна профорієнтаційна методика',
   manifest: '/images/favicon_io/site.webmanifest',
@@ -23,7 +26,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="uk">
-      <body className="font-sans">{children}</body>
+      <body className="font-sans">
+        <HtmlLangSetter />
+        {children}
+      </body>
     </html>
   )
 }

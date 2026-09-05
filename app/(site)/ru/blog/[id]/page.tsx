@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { siteTitleSuffix } from '../../../../../lib/blog-posts'
 import { getPost } from '../../../../../lib/posts'
+import { localizedAlternates } from '../../../../../lib/seo'
 import BlogArticlePage from '../../../../../components/BlogArticlePage'
 
 export const dynamic = 'force-dynamic'
@@ -15,6 +16,11 @@ export async function generateMetadata({
   return {
     title: `${post.title}${siteTitleSuffix('ru')}`,
     description: post.excerpt,
+    ...localizedAlternates({
+      canonical: `/ru/blog/${params.id}`,
+      uk: `/blog/${params.id}`,
+      ru: `/ru/blog/${params.id}`,
+    }),
   }
 }
 
