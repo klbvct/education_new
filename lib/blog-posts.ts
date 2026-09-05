@@ -62,6 +62,18 @@ function stripInlineMarkup(text: string): string {
   return text.replace(/\*\*([^*]+)\*\*/g, '$1').replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
 }
 
+// The article's first inline image, if it has one — used as the
+// per-post Open Graph/Twitter image (see app/(site)/blog/[id]/page.tsx),
+// falling back to the brand's default OG image when a post has none.
+export function getFirstImageUrl(sections: BlogSection[]): string | undefined {
+  for (const section of sections) {
+    for (const block of section.blocks ?? []) {
+      if (block.type === 'image') return block.src
+    }
+  }
+  return undefined
+}
+
 // Plain-text snippet pulled from the article body itself (first intro
 // paragraph, or else the first paragraph of the first section) — distinct
 // from `excerpt`, which is an admin-authored summary used for SEO meta

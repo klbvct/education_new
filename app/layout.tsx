@@ -1,12 +1,24 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import HtmlLangSetter from '../components/HtmlLangSetter'
-import { siteUrl } from '../lib/seo'
+import { DEFAULT_OG_IMAGE, siteUrl } from '../lib/seo'
 
+// Fallback social preview for any page that doesn't set its own
+// openGraph/twitter (e.g. /admin, /login) — every public page overrides
+// this via lib/seo.ts's socialMeta().
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl()),
   title: 'Дизайн Освіти',
   description: 'Сучасна профорієнтаційна методика',
+  openGraph: {
+    siteName: 'Дизайн Освіти',
+    type: 'website',
+    images: [{ url: DEFAULT_OG_IMAGE, width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    images: [DEFAULT_OG_IMAGE],
+  },
   manifest: '/images/favicon_io/site.webmanifest',
   icons: {
     icon: [

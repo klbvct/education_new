@@ -1,11 +1,15 @@
 import type { Metadata } from 'next'
 import ContactsPage from '../../../components/ContactsPage'
-import { localizedAlternates } from '../../../lib/seo'
+import { localizedAlternates, socialMeta } from '../../../lib/seo'
+
+const title = 'Контакти — Дизайн Освіти'
+const description = 'Зв’яжіться з нами: Telegram, адреса та контактна форма.'
 
 export const metadata: Metadata = {
-  title: 'Контакти — Дизайн Освіти',
-  description: 'Зв’яжіться з нами: Telegram, адреса та контактна форма.',
+  title,
+  description,
   ...localizedAlternates({ canonical: '/contacts', uk: '/contacts', ru: '/ru/contacts' }),
+  ...socialMeta({ title, description, path: '/contacts', locale: 'uk' }),
 }
 
 export default function Page() {

@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
-import { siteTitleSuffix } from '../../../../lib/blog-posts'
+import { getFirstImageUrl, siteTitleSuffix } from '../../../../lib/blog-posts'
 import { getPost } from '../../../../lib/posts'
-import { localizedAlternates } from '../../../../lib/seo'
+import { localizedAlternates, socialMeta } from '../../../../lib/seo'
 import BlogArticlePage from '../../../../components/BlogArticlePage'
 
 export const dynamic = 'force-dynamic'
@@ -14,13 +14,24 @@ export async function generateMetadata({
   const post = await getPost(params.id)
   if (!post) return {}
   const ruPost = await getPost(params.id, 'ru')
+  const title = `${post.title}${siteTitleSuffix('uk')}`
+  const description = post.excerpt
   return {
-    title: `${post.title}${siteTitleSuffix('uk')}`,
-    description: post.excerpt,
+    title,
+    description,
     ...localizedAlternates({
       canonical: `/blog/${params.id}`,
       uk: `/blog/${params.id}`,
       ru: ruPost ? `/ru/blog/${params.id}` : undefined,
+    }),
+    ...socialMeta({
+      title,
+      description,
+      path: `/blog/${params.id}`,
+      locale: 'uk',
+      type: 'article',
+      publishedTime: post.date,
+      image: getFirstImageUrl(post.sections),
     }),
   }
 }

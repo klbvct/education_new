@@ -1,8 +1,11 @@
 import type { Metadata } from 'next'
 import BlogListPage from '../../../../components/BlogListPage'
-import { localizedAlternates } from '../../../../lib/seo'
+import { localizedAlternates, socialMeta } from '../../../../lib/seo'
 
 export const dynamic = 'force-dynamic'
+
+const title = 'Блог — Дизайн Образования'
+const description = 'Статьи и советы об образовании за рубежом и карьерном консультировании.'
 
 export function generateMetadata({
   searchParams,
@@ -14,9 +17,10 @@ export function generateMetadata({
       ? `/ru/blog?page=${searchParams.page}`
       : '/ru/blog'
   return {
-    title: 'Блог — Дизайн Образования',
-    description: 'Статьи и советы об образовании за рубежом и карьерном консультировании.',
+    title,
+    description,
     ...localizedAlternates({ canonical, uk: '/blog', ru: '/ru/blog' }),
+    ...socialMeta({ title, description, path: canonical, locale: 'ru' }),
   }
 }
 

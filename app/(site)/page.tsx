@@ -1,13 +1,17 @@
 import type { Metadata } from 'next'
 import HomePage from '../../components/HomePage'
 import { homeContentUk } from '../../content/uk/home'
-import { localizedAlternates } from '../../lib/seo'
+import { localizedAlternates, socialMeta } from '../../lib/seo'
+
+const title = 'Дизайн Освіти — сучасна система освітнього проєктування'
+const description =
+  "Індивідуальна освітня траєкторія, профільне тестування та консультації з освіти, навчання і кар'єри."
 
 export const metadata: Metadata = {
-  title: 'Дизайн Освіти — сучасна система освітнього проєктування',
-  description:
-    "Індивідуальна освітня траєкторія, профільне тестування та консультації з освіти, навчання і кар'єри.",
+  title,
+  description,
   ...localizedAlternates({ canonical: '/', uk: '/', ru: '/ru' }),
+  ...socialMeta({ title, description, path: '/', locale: 'uk' }),
 }
 
 export default function Page() {
