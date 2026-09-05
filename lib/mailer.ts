@@ -15,8 +15,14 @@ export async function sendAdminNotification({
   const to = ADMIN_EMAIL || SMTP_USER
 
   if (!SMTP_USER || !SMTP_PASSWORD || !to) {
-    console.warn(
-      '[mailer] SMTP_USER/SMTP_PASSWORD/ADMIN_EMAIL not set — skipping admin notification email.',
+    console.log(
+      [
+        '[mailer] SMTP not configured — would have sent this email:',
+        `To: ${to || '(не вказано)'}`,
+        `Subject: ${subject}`,
+        '',
+        text,
+      ].join('\n'),
     )
     return
   }
