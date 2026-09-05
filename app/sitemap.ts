@@ -12,17 +12,42 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ['/feedback', '/ru/feedback'],
     ['/blog', '/ru/blog'],
   ]
-  const entries: MetadataRoute.Sitemap = staticPairs.flatMap(([uk, ru]) => [
-    { url: `${base}${uk}`, alternates: { languages: { uk: `${base}${uk}`, ru: `${base}${ru}` } } },
-    { url: `${base}${ru}` },
-  ])
+  // Sitemap-level hreflang must be reciprocal — every language version's
+  // entry lists the full set of alternates (including itself), not just
+  // the uk entry pointing at ru. See the per-page <link rel="alternate">
+  // tags (lib/seo.ts's localizedAlternates) for the same rule already
+  // applied there.
+  const entries: MetadataRoute.Sitemap = staticPairs.flatMap(([uk, ru]) => {
+    const languages = { uk: `${base}${uk}`, ru: `${base}${ru}` }
+    return [
+      { url: `${base}${uk}`, alternates: { languages } },
+      { url: `${base}${ru}`, alternates: { languages } },
+    ]
+  })
 
   const [ukPosts, ruPosts] = await Promise.all([getPosts('uk'), getPosts('ru')])
+  const ruPostIds = new Set(ruPosts.map((post) => post.id))
+
   for (const post of ukPosts) {
-    entries.push({ url: `${base}/blog/${post.id}`, lastModified: post.date })
+    const ukUrl = `${base}/blog/${post.id}`
+    const ruUrl = `${base}/ru/blog/${post.id}`
+    entries.push({
+      url: ukUrl,
+      lastModified: post.date,
+      // Only a translated post gets a ru alternate — matches
+      // generateMetadata in app/(site)/blog/[id]/page.tsx, which checks
+      // the same thing before linking hreflang="ru".
+      ...(ruPostIds.has(post.id) ? { alternates: { languages: { uk: ukUrl, ru: ruUrl } } } : {}),
+    })
   }
   for (const post of ruPosts) {
-    entries.push({ url: `${base}/ru/blog/${post.id}`, lastModified: post.date })
+    const ukUrl = `${base}/blog/${post.id}`
+    const ruUrl = `${base}/ru/blog/${post.id}`
+    entries.push({
+      url: ruUrl,
+      lastModified: post.date,
+      alternates: { languages: { uk: ukUrl, ru: ruUrl } },
+    })
   }
 
   return entries
