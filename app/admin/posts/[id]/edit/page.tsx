@@ -1,14 +1,15 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { getPost } from '../../../../../lib/posts'
+import { getPostTranslations } from '../../../../../lib/posts'
 import { serializePostBody } from '../../../../../lib/parse-post-body'
 import PostForm from '../../../../../components/PostForm'
 
 export const dynamic = 'force-dynamic'
 
 export default async function EditPostPage({ params }: { params: { id: string } }) {
-  const post = await getPost(params.id)
-  if (!post) notFound()
+  const translations = await getPostTranslations(params.id)
+  if (!translations) notFound()
+  const { uk: post, ru } = translations
 
   return (
     <div>
@@ -26,6 +27,15 @@ export default async function EditPostPage({ params }: { params: { id: string } 
             date: post.date,
             body: serializePostBody(post),
           }}
+          initialRu={
+            ru
+              ? {
+                  title: ru.title,
+                  excerpt: ru.excerpt,
+                  body: serializePostBody(ru),
+                }
+              : null
+          }
         />
       </div>
     </div>

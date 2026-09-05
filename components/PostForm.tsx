@@ -16,6 +16,8 @@ function seoLengthHint(length: number, { min, max }: { min: number; max: number 
   return { className: 'text-green-600', label: `${length} символів — добра довжина (${min}–${max})` }
 }
 
+type TranslationFields = { title: string; excerpt: string; body: string }
+
 type PostFormProps = {
   mode: 'new' | 'edit'
   initial: {
@@ -25,12 +27,13 @@ type PostFormProps = {
     date: string
     body: string
   }
+  initialRu?: TranslationFields | null
 }
 
 const inputClass =
   'h-12 w-full rounded-[16px] border border-black/10 bg-bg-secondary px-4 text-[16px] outline-none transition focus:border-primary focus:bg-white'
 
-export default function PostForm({ mode, initial }: PostFormProps) {
+export default function PostForm({ mode, initial, initialRu }: PostFormProps) {
   const textareaRef = useRef<HTMLTextAreaElement>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
 
@@ -40,24 +43,39 @@ export default function PostForm({ mode, initial }: PostFormProps) {
   const [excerpt, setExcerpt] = useState(initial.excerpt)
   const [date, setDate] = useState(initial.date)
   const [body, setBody] = useState(initial.body)
+
+  const [titleRu, setTitleRu] = useState(initialRu?.title ?? '')
+  const [excerptRu, setExcerptRu] = useState(initialRu?.excerpt ?? '')
+  const [bodyRu, setBodyRu] = useState(initialRu?.body ?? '')
+
+  const [activeLang, setActiveLang] = useState<'uk' | 'ru'>('uk')
+
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isUploading, setIsUploading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [success, setSuccess] = useState(false)
 
-  const titleSeo = seoLengthHint(`${title}${SITE_TITLE_SUFFIX}`.length, TITLE_SEO_RANGE)
-  const excerptSeo = seoLengthHint(excerpt.length, DESCRIPTION_SEO_RANGE)
+  const showTabs = mode === 'edit'
+  const activeTitle = activeLang === 'ru' ? titleRu : title
+  const activeExcerpt = activeLang === 'ru' ? excerptRu : excerpt
+  const activeBody = activeLang === 'ru' ? bodyRu : body
+  const setActiveTitle = activeLang === 'ru' ? setTitleRu : setTitle
+  const setActiveExcerpt = activeLang === 'ru' ? setExcerptRu : setExcerpt
+  const setActiveBody = activeLang === 'ru' ? setBodyRu : setBody
+
+  const titleSeo = seoLengthHint(`${activeTitle}${SITE_TITLE_SUFFIX}`.length, TITLE_SEO_RANGE)
+  const excerptSeo = seoLengthHint(activeExcerpt.length, DESCRIPTION_SEO_RANGE)
 
   function insertAtCursor(snippet: string) {
     const el = textareaRef.current
     if (!el) {
-      setBody((b) => `${b}\n\n${snippet}\n\n`)
+      setActiveBody((b) => `${b}\n\n${snippet}\n\n`)
       return
     }
-    const start = el.selectionStart ?? body.length
-    const end = el.selectionEnd ?? body.length
-    const next = `${body.slice(0, start)}\n\n${snippet}\n\n${body.slice(end)}`
-    setBody(next)
+    const start = el.selectionStart ?? activeBody.length
+    const end = el.selectionEnd ?? activeBody.length
+    const next = `${activeBody.slice(0, start)}\n\n${snippet}\n\n${activeBody.slice(end)}`
+    setActiveBody(next)
     requestAnimationFrame(() => {
       el.focus()
       const pos = start + snippet.length + 4
@@ -97,10 +115,16 @@ export default function PostForm({ mode, initial }: PostFormProps) {
     try {
       const url = mode === 'new' ? '/api/admin/posts' : `/api/admin/posts/${initial.id}`
       const method = mode === 'new' ? 'POST' : 'PUT'
+      const payload: Record<string, string> = { id, title, excerpt, date, body }
+      if (mode === 'edit') {
+        payload.titleRu = titleRu
+        payload.excerptRu = excerptRu
+        payload.bodyRu = bodyRu
+      }
       const res = await fetch(url, {
         method,
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id, title, excerpt, date, body }),
+        body: JSON.stringify(payload),
       })
       const data = await res.json().catch(() => ({}))
       if (!res.ok) {
@@ -141,39 +165,11 @@ export default function PostForm({ mode, initial }: PostFormProps) {
               : 'Генерується автоматично із заголовка — можна змінити вручну.'}
           </p>
         )}
-      </div>
-
-      <div className="max-w-2xl">
-        <label className="mb-2 block text-[16px] font-medium" htmlFor="title">
-          Заголовок
-        </label>
-        <input
-          id="title"
-          value={title}
-          onChange={(e) => {
-            const value = e.target.value
-            setTitle(value)
-            if (mode === 'new' && !idTouched) setId(slugify(value))
-          }}
-          required
-          className={inputClass}
-        />
-        <p className={`mt-1 text-xs ${titleSeo.className}`}>{titleSeo.label}</p>
-      </div>
-
-      <div className="max-w-2xl">
-        <label className="mb-2 block text-[16px] font-medium" htmlFor="excerpt">
-          Короткий опис (для SEO — мета-опис сторінки статті)
-        </label>
-        <textarea
-          id="excerpt"
-          value={excerpt}
-          onChange={(e) => setExcerpt(e.target.value)}
-          required
-          rows={2}
-          className="w-full resize-none rounded-2xl border border-black/10 bg-bg-secondary px-4 py-3 text-[16px] outline-none transition focus:border-primary focus:bg-white"
-        />
-        <p className={`mt-1 text-xs ${excerptSeo.className}`}>{excerptSeo.label}</p>
+        {mode === 'edit' && (
+          <p className="mt-1 text-xs text-gray-500">
+            Спільний для обох мов — статтю RU буде видно за тією ж адресою під «/ru».
+          </p>
+        )}
       </div>
 
       <div className="max-w-2xl">
@@ -188,6 +184,62 @@ export default function PostForm({ mode, initial }: PostFormProps) {
           required
           className={inputClass}
         />
+      </div>
+
+      {showTabs && (
+        <div className="flex gap-1 rounded-full bg-bg-secondary p-1" style={{ width: 'fit-content' }}>
+          <button
+            type="button"
+            onClick={() => setActiveLang('uk')}
+            className={`rounded-full px-4 py-2 text-sm font-medium transition ${
+              activeLang === 'uk' ? 'bg-primary text-white' : 'text-dark hover:text-primary'
+            }`}
+          >
+            Українська
+          </button>
+          <button
+            type="button"
+            onClick={() => setActiveLang('ru')}
+            className={`rounded-full px-4 py-2 text-sm font-medium transition ${
+              activeLang === 'ru' ? 'bg-primary text-white' : 'text-dark hover:text-primary'
+            }`}
+          >
+            Російська {!titleRu && <span className="opacity-70">— не перекладено</span>}
+          </button>
+        </div>
+      )}
+
+      <div className="max-w-2xl">
+        <label className="mb-2 block text-[16px] font-medium" htmlFor="title">
+          Заголовок
+        </label>
+        <input
+          id="title"
+          value={activeTitle}
+          onChange={(e) => {
+            const value = e.target.value
+            setActiveTitle(value)
+            if (mode === 'new' && activeLang === 'uk' && !idTouched) setId(slugify(value))
+          }}
+          required={activeLang === 'uk'}
+          className={inputClass}
+        />
+        <p className={`mt-1 text-xs ${titleSeo.className}`}>{titleSeo.label}</p>
+      </div>
+
+      <div className="max-w-2xl">
+        <label className="mb-2 block text-[16px] font-medium" htmlFor="excerpt">
+          Короткий опис (для SEO — мета-опис сторінки статті)
+        </label>
+        <textarea
+          id="excerpt"
+          value={activeExcerpt}
+          onChange={(e) => setActiveExcerpt(e.target.value)}
+          required={activeLang === 'uk'}
+          rows={2}
+          className="w-full resize-none rounded-2xl border border-black/10 bg-bg-secondary px-4 py-3 text-[16px] outline-none transition focus:border-primary focus:bg-white"
+        />
+        <p className={`mt-1 text-xs ${excerptSeo.className}`}>{excerptSeo.label}</p>
       </div>
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_320px] lg:items-stretch">
@@ -217,9 +269,9 @@ export default function PostForm({ mode, initial }: PostFormProps) {
           <textarea
             ref={textareaRef}
             id="body"
-            value={body}
-            onChange={(e) => setBody(e.target.value)}
-            required
+            value={activeBody}
+            onChange={(e) => setActiveBody(e.target.value)}
+            required={activeLang === 'uk'}
             className="w-full min-h-[560px] flex-1 resize-y rounded-2xl border border-black/10 bg-bg-secondary px-4 py-3 font-mono text-sm leading-6 outline-none transition focus:border-primary focus:bg-white"
           />
         </div>

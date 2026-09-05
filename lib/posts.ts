@@ -1,16 +1,17 @@
 import { promises as fs } from 'fs'
 import path from 'path'
-import type { BlogPost } from './blog-posts'
+import type { BlogPost, BlogSection } from './blog-posts'
 import { getDb } from './db'
+import type { Locale } from './locale'
 
 // Only files under here are ever unlinked — a defensive check against
 // deleting anything outside the uploads directory (see
 // app/api/admin/uploads/route.ts, the only writer of files here).
 const POSTS_IMAGES_DIR = path.join(process.cwd(), 'public', 'images', 'posts')
 
-function collectImageUrls(post: Pick<BlogPost, 'sections'>): string[] {
+function collectImageUrls(sections: BlogSection[]): string[] {
   const urls: string[] = []
-  for (const section of post.sections) {
+  for (const section of sections) {
     for (const block of section.blocks ?? []) {
       if (block.type === 'image') urls.push(block.src)
     }
@@ -37,9 +38,27 @@ type PostRow = {
   date: string
   intro: string | null
   sections: string
+  title_ru: string | null
+  excerpt_ru: string | null
+  intro_ru: string | null
+  sections_ru: string | null
 }
 
-function fromRow(row: PostRow): BlogPost {
+// For locale 'ru', a post only "exists" once it has been translated
+// (title_ru set) — see app/(site)/ru/blog/page.tsx and [id]/page.tsx,
+// which rely on this to list/404 accordingly.
+function fromRow(row: PostRow, locale: Locale): BlogPost | undefined {
+  if (locale === 'ru') {
+    if (!row.title_ru || !row.sections_ru) return undefined
+    return {
+      id: row.id,
+      title: row.title_ru,
+      excerpt: row.excerpt_ru ?? '',
+      date: row.date,
+      intro: row.intro_ru ? JSON.parse(row.intro_ru) : undefined,
+      sections: JSON.parse(row.sections_ru),
+    }
+  }
   return {
     id: row.id,
     title: row.title,
@@ -61,16 +80,32 @@ function toParams(post: BlogPost) {
   }
 }
 
-export async function getPosts(): Promise<BlogPost[]> {
+export async function getPosts(locale: Locale = 'uk'): Promise<BlogPost[]> {
   const rows = getDb().prepare('SELECT * FROM posts ORDER BY date DESC').all() as PostRow[]
-  return rows.map(fromRow)
+  return rows
+    .map((row) => fromRow(row, locale))
+    .filter((post): post is BlogPost => post !== undefined)
 }
 
-export async function getPost(id: string): Promise<BlogPost | undefined> {
+export async function getPost(id: string, locale: Locale = 'uk'): Promise<BlogPost | undefined> {
   const row = getDb().prepare('SELECT * FROM posts WHERE id = ?').get(id) as
     | PostRow
     | undefined
-  return row ? fromRow(row) : undefined
+  return row ? fromRow(row, locale) : undefined
+}
+
+// Both language versions of a post at once — used by the admin edit page
+// to populate the Українська/Російська tabs (see components/PostForm.tsx).
+export async function getPostTranslations(
+  id: string,
+): Promise<{ uk: BlogPost; ru: BlogPost | null } | undefined> {
+  const row = getDb().prepare('SELECT * FROM posts WHERE id = ?').get(id) as
+    | PostRow
+    | undefined
+  if (!row) return undefined
+  const uk = fromRow(row, 'uk')
+  if (!uk) return undefined
+  return { uk, ru: fromRow(row, 'ru') ?? null }
 }
 
 export async function addPost(
@@ -88,10 +123,17 @@ export async function addPost(
 }
 
 export async function deletePost(id: string): Promise<boolean> {
-  const post = await getPost(id)
+  const row = getDb().prepare('SELECT * FROM posts WHERE id = ?').get(id) as
+    | PostRow
+    | undefined
   const result = getDb().prepare('DELETE FROM posts WHERE id = ?').run(id)
-  if (result.changes > 0 && post) {
-    await deleteUploadedImages(collectImageUrls(post))
+  if (result.changes > 0 && row) {
+    const uk = fromRow(row, 'uk')
+    const ru = fromRow(row, 'ru')
+    await deleteUploadedImages([
+      ...(uk ? collectImageUrls(uk.sections) : []),
+      ...(ru ? collectImageUrls(ru.sections) : []),
+    ])
   }
   return result.changes > 0
 }
@@ -109,4 +151,28 @@ export async function updatePost(
     )
     .run(toParams(updated))
   return updated
+}
+
+// Sets/replaces just the Russian translation of a post — the UK
+// fields (and id, date) are untouched. The post must already exist in
+// Ukrainian (there's always a UK base version).
+export async function updatePostRu(
+  id: string,
+  input: Omit<BlogPost, 'id' | 'date'>,
+): Promise<BlogPost | null> {
+  const existing = await getPost(id)
+  if (!existing) return null
+  const params = {
+    id,
+    title_ru: input.title,
+    excerpt_ru: input.excerpt,
+    intro_ru: input.intro ? JSON.stringify(input.intro) : null,
+    sections_ru: JSON.stringify(input.sections),
+  }
+  getDb()
+    .prepare(
+      'UPDATE posts SET title_ru = @title_ru, excerpt_ru = @excerpt_ru, intro_ru = @intro_ru, sections_ru = @sections_ru WHERE id = @id',
+    )
+    .run(params)
+  return { ...input, id, date: existing.date }
 }

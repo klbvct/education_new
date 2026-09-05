@@ -3,6 +3,7 @@ import Link from 'next/link'
 type BlogPaginationProps = {
   currentPage: number
   totalPages: number
+  basePath?: string
 }
 
 const arrowClasses =
@@ -13,6 +14,7 @@ const arrowDisabledClasses =
 export default function BlogPagination({
   currentPage,
   totalPages,
+  basePath = '/blog',
 }: BlogPaginationProps) {
   if (totalPages <= 1) return null
 
@@ -25,7 +27,7 @@ export default function BlogPagination({
     >
       {currentPage > 1 ? (
         <Link
-          href={`/blog?page=${currentPage - 1}`}
+          href={`${basePath}?page=${currentPage - 1}`}
           aria-label="Попередня сторінка"
           className={arrowClasses}
         >
@@ -53,7 +55,7 @@ export default function BlogPagination({
         ) : (
           <Link
             key={page}
-            href={`/blog?page=${page}`}
+            href={`${basePath}?page=${page}`}
             className="flex h-12 w-12 items-center justify-center rounded-full border border-black/10 text-base text-dark transition hover:border-primary hover:text-primary"
           >
             {page}
@@ -63,7 +65,7 @@ export default function BlogPagination({
 
       {currentPage < totalPages ? (
         <Link
-          href={`/blog?page=${currentPage + 1}`}
+          href={`${basePath}?page=${currentPage + 1}`}
           aria-label="Наступна сторінка"
           className={arrowClasses}
         >

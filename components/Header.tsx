@@ -4,20 +4,45 @@ import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
+import { localeFromPathname, type Locale } from '../lib/locale'
 
-const NAV_ITEMS = [
-  { href: '/', label: 'Головна' },
-  { href: '/academy', label: 'Для спеціалістів' },
-  { href: '/abroad', label: 'Освіта за кордоном' },
-  { href: '/blog', label: 'Блог' },
-  { href: '/feedback', label: 'Відгуки' },
-  { href: '/contacts', label: 'Контакти' },
-  { href: '#', label: 'RU' },
-]
+const NAV_ITEMS: Record<Locale, { href: string; label: string }[]> = {
+  uk: [
+    { href: '/', label: 'Головна' },
+    { href: '/academy', label: 'Для спеціалістів' },
+    { href: '/abroad', label: 'Освіта за кордоном' },
+    { href: '/blog', label: 'Блог' },
+    { href: '/feedback', label: 'Відгуки' },
+    { href: '/contacts', label: 'Контакти' },
+  ],
+  ru: [
+    { href: '/', label: 'Главная' },
+    { href: '/academy', label: 'Для специалистов' },
+    { href: '/abroad', label: 'Образование за рубежом' },
+    { href: '/blog', label: 'Блог' },
+    { href: '/feedback', label: 'Отзывы' },
+    { href: '/contacts', label: 'Контакты' },
+  ],
+}
+
+const MENU_LABELS: Record<Locale, { open: string; close: string }> = {
+  uk: { open: 'Відкрити меню', close: 'Закрити меню' },
+  ru: { open: 'Открыть меню', close: 'Закрыть меню' },
+}
+
+// Strips the /ru prefix to get the equivalent Ukrainian path, for the
+// RU<->UA toggle link — see NAV_ITEMS.ru's own hrefs above for the
+// reverse direction.
+function toUkPathname(pathname: string) {
+  const stripped = pathname.slice('/ru'.length)
+  return stripped === '' ? '/' : stripped
+}
 
 export default function Header() {
   const pathname = usePathname()
-  const isHome = pathname === '/'
+  const locale = localeFromPathname(pathname)
+  const homeHref = locale === 'ru' ? '/ru' : '/'
+  const isHome = pathname === homeHref
   const [isOpen, setIsOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
 
@@ -27,6 +52,12 @@ export default function Header() {
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
+
+  const navItems = NAV_ITEMS[locale]
+  const toggleHref =
+    locale === 'ru' ? toUkPathname(pathname) : pathname === '/' ? '/ru' : `/ru${pathname}`
+  const toggleLabel = locale === 'ru' ? 'UA' : 'RU'
+  const menuLabels = MENU_LABELS[locale]
 
   return (
     <header
@@ -46,7 +77,7 @@ export default function Header() {
           </span>
         ) : (
           <Link
-            href="/"
+            href={homeHref}
             className="flex max-w-[56%] items-center gap-2 p-2"
             onClick={() => setIsOpen(false)}
           >
@@ -56,23 +87,31 @@ export default function Header() {
         )}
 
         <nav className="hidden items-center gap-10 md:flex">
-          {NAV_ITEMS.filter((item) => !isHome || item.href !== '/').map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={`text-lg transition-colors hover:text-primary ${
-                pathname === item.href ? 'text-primary' : 'text-dark'
-              }`}
-            >
-              {item.label}
-            </Link>
-          ))}
+          {navItems
+            .filter((item) => !isHome || item.href !== homeHref)
+            .map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={`text-lg transition-colors hover:text-primary ${
+                  pathname === item.href ? 'text-primary' : 'text-dark'
+                }`}
+              >
+                {item.label}
+              </Link>
+            ))}
+          <Link
+            href={toggleHref}
+            className="text-lg text-dark transition-colors hover:text-primary"
+          >
+            {toggleLabel}
+          </Link>
         </nav>
 
         <button
           type="button"
           onClick={() => setIsOpen((v) => !v)}
-          aria-label={isOpen ? 'Закрити меню' : 'Відкрити меню'}
+          aria-label={isOpen ? menuLabels.close : menuLabels.open}
           aria-expanded={isOpen}
           className="flex h-10 w-10 items-center justify-center text-dark md:hidden"
         >
@@ -90,18 +129,27 @@ export default function Header() {
 
       {isOpen && (
         <nav className="flex flex-col border-t border-black/5 bg-bg-secondary px-4 py-2 md:hidden">
-          {NAV_ITEMS.filter((item) => !isHome || item.href !== '/').map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              onClick={() => setIsOpen(false)}
-              className={`border-b border-black/5 py-3 text-lg transition-colors last:border-b-0 hover:text-primary ${
-                pathname === item.href ? 'text-primary' : 'text-dark'
-              }`}
-            >
-              {item.label}
-            </Link>
-          ))}
+          {navItems
+            .filter((item) => !isHome || item.href !== homeHref)
+            .map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                onClick={() => setIsOpen(false)}
+                className={`border-b border-black/5 py-3 text-lg transition-colors last:border-b-0 hover:text-primary ${
+                  pathname === item.href ? 'text-primary' : 'text-dark'
+                }`}
+              >
+                {item.label}
+              </Link>
+            ))}
+          <Link
+            href={toggleHref}
+            onClick={() => setIsOpen(false)}
+            className="border-b border-black/5 py-3 text-lg text-dark transition-colors last:border-b-0 hover:text-primary"
+          >
+            {toggleLabel}
+          </Link>
         </nav>
       )}
     </header>

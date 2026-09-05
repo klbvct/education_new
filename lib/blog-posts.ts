@@ -43,8 +43,8 @@ export type BlogPost = {
 // (components/PostForm.tsx) counts the actual rendered title length.
 export const SITE_TITLE_SUFFIX = ' — Дизайн Освіти'
 
-export function formatBlogDate(iso: string) {
-  return new Date(iso).toLocaleDateString('uk-UA', {
+export function formatBlogDate(iso: string, locale: 'uk' | 'ru' = 'uk') {
+  return new Date(iso).toLocaleDateString(locale === 'ru' ? 'ru-RU' : 'uk-UA', {
     day: 'numeric',
     month: 'long',
     year: 'numeric',

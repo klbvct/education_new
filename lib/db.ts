@@ -73,6 +73,22 @@ function seed(db: Database.Database): void {
   })()
 }
 
+// SQLite has no "ADD COLUMN IF NOT EXISTS" — needed so an existing
+// data/app.db (created before the RU translation columns existed) gets
+// them added on next start, without wiping/recreating the table.
+const POST_RU_COLUMNS = ['title_ru', 'excerpt_ru', 'intro_ru', 'sections_ru']
+
+function migratePostsRuColumns(db: Database.Database): void {
+  const existing = new Set(
+    (db.prepare('PRAGMA table_info(posts)').all() as { name: string }[]).map((c) => c.name),
+  )
+  for (const column of POST_RU_COLUMNS) {
+    if (!existing.has(column)) {
+      db.exec(`ALTER TABLE posts ADD COLUMN ${column} TEXT`)
+    }
+  }
+}
+
 let dbInstance: Database.Database | null = null
 
 export function getDb(): Database.Database {
@@ -97,7 +113,11 @@ export function getDb(): Database.Database {
       excerpt TEXT NOT NULL,
       date TEXT NOT NULL,
       intro TEXT,
-      sections TEXT NOT NULL
+      sections TEXT NOT NULL,
+      title_ru TEXT,
+      excerpt_ru TEXT,
+      intro_ru TEXT,
+      sections_ru TEXT
     );
     CREATE TABLE IF NOT EXISTS redirects (
       id TEXT PRIMARY KEY,
@@ -108,6 +128,7 @@ export function getDb(): Database.Database {
     );
   `)
 
+  migratePostsRuColumns(db)
   if (isNew) seed(db)
 
   dbInstance = db

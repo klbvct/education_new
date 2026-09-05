@@ -2,7 +2,19 @@
 
 import { useEffect, useState } from 'react'
 import { createPortal } from 'react-dom'
+import { usePathname } from 'next/navigation'
 import ConsultationForm, { type ServiceId } from './ConsultationForm'
+import { localeFromPathname } from '../lib/locale'
+
+const HEADING = {
+  uk: 'Замовити консультацію',
+  ru: 'Заказать консультацию',
+}
+
+const CLOSE_LABEL = {
+  uk: 'Закрити',
+  ru: 'Закрыть',
+}
 
 export default function OrderModal({
   isOpen,
@@ -13,6 +25,8 @@ export default function OrderModal({
   onClose: () => void
   service: ServiceId
 }) {
+  const pathname = usePathname()
+  const locale = localeFromPathname(pathname)
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
@@ -48,7 +62,7 @@ export default function OrderModal({
         <button
           type="button"
           onClick={onClose}
-          aria-label="Закрити"
+          aria-label={CLOSE_LABEL[locale]}
           className="absolute right-5 top-5 flex h-8 w-8 items-center justify-center rounded-full text-dark/60 transition hover:bg-bg-secondary hover:text-dark"
         >
           <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
@@ -56,7 +70,7 @@ export default function OrderModal({
           </svg>
         </button>
 
-        <h2 className="mb-4 pr-8 text-2xl font-medium">Замовити консультацію</h2>
+        <h2 className="mb-4 pr-8 text-2xl font-medium">{HEADING[locale]}</h2>
         <ConsultationForm service={service} />
       </div>
     </div>,
