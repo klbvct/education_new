@@ -38,6 +38,22 @@ export default function RootLayout({
 }) {
   return (
     <html lang="uk">
+      <head>
+        {/* A <link> lets the browser discover and fetch this in parallel
+            from the initial HTML; the @import this replaced inside
+            globals.css forced a serial fetch-then-fetch chain instead. */}
+        <link rel="stylesheet" href="/fonts/stylesheet.css" />
+        {/* Preloads the body-text weight so it's ready before first
+            paint, rather than only starting once stylesheet.css above
+            has been fetched and parsed. */}
+        <link
+          rel="preload"
+          href="/fonts/FuturaPT-Book.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
+      </head>
       <body className="font-sans">
         <HtmlLangSetter />
         {children}
