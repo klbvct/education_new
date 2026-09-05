@@ -15,8 +15,8 @@ export default function Footer() {
     <footer className="bg-[#1A1A1A] py-10">
       <div className="mx-auto flex max-w-container flex-col items-center px-4">
         <Link href="/" className="mb-8 flex items-center gap-2">
-          <Image src="/images/logo_footer.svg" alt="" width={20} height={17} />
-          <span className="text-xl font-regular text-white">Дизайн Освіти</span>
+          <Image src="/images/logo.svg" alt="" width={20} height={17} />
+          <span className="text-xl font-semibold text-primary">Дизайн Освіти</span>
         </Link>
         <nav className="mb-10 flex flex-wrap justify-center gap-10">
           {NAV_ITEMS.map((item) => (
