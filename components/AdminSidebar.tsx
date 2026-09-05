@@ -111,6 +111,24 @@ export default function AdminSidebar() {
             </svg>
             Відгуки
           </Link>
+
+          <Link
+            href="/admin/redirects"
+            onClick={close}
+            className={`flex items-center gap-3 rounded-lg px-4 py-3 text-sm font-medium transition ${
+              isActive('/admin/redirects') ? 'bg-primary text-white' : 'text-gray-300 hover:bg-gray-800'
+            }`}
+          >
+            <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M17 8l4 4m0 0l-4 4m4-4H3"
+              />
+            </svg>
+            Редиректи
+          </Link>
         </nav>
 
         <div className="mt-auto shrink-0 border-t border-gray-700 px-4 pb-6 pt-4">

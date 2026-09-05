@@ -1,9 +1,10 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
-import { notFound } from 'next/navigation'
+import { notFound, permanentRedirect, redirect } from 'next/navigation'
 import { formatBlogDate, SITE_TITLE_SUFFIX, type BlogBlock } from '../../../../lib/blog-posts'
 import { getPost, getPosts } from '../../../../lib/posts'
+import { findRedirect } from '../../../../lib/redirects'
 import ContactRequestForm from '../../../../components/ContactRequestForm'
 
 export const dynamic = 'force-dynamic'
@@ -110,7 +111,14 @@ export async function generateMetadata({
 export default async function BlogPostPage({ params }: { params: { id: string } }) {
   const allPosts = await getPosts()
   const index = allPosts.findIndex((p) => p.id === params.id)
-  if (index === -1) notFound()
+  if (index === -1) {
+    const found = await findRedirect(`/blog/${params.id}`)
+    if (found) {
+      if (found.type === 'temporary') redirect(found.to)
+      permanentRedirect(found.to)
+    }
+    notFound()
+  }
 
   const post = allPosts[index]
   const olderPost = allPosts[index + 1]

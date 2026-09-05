@@ -99,6 +99,13 @@ export function getDb(): Database.Database {
       intro TEXT,
       sections TEXT NOT NULL
     );
+    CREATE TABLE IF NOT EXISTS redirects (
+      id TEXT PRIMARY KEY,
+      from_path TEXT NOT NULL UNIQUE,
+      to_path TEXT NOT NULL,
+      type TEXT NOT NULL DEFAULT 'permanent',
+      created_at TEXT NOT NULL
+    );
   `)
 
   if (isNew) seed(db)
