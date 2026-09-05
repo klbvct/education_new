@@ -1,5 +1,34 @@
+import { promises as fs } from 'fs'
+import path from 'path'
 import type { BlogPost } from './blog-posts'
 import { getDb } from './db'
+
+// Only files under here are ever unlinked — a defensive check against
+// deleting anything outside the uploads directory (see
+// app/api/admin/uploads/route.ts, the only writer of files here).
+const POSTS_IMAGES_DIR = path.join(process.cwd(), 'public', 'images', 'posts')
+
+function collectImageUrls(post: Pick<BlogPost, 'sections'>): string[] {
+  const urls: string[] = []
+  for (const section of post.sections) {
+    for (const block of section.blocks ?? []) {
+      if (block.type === 'image') urls.push(block.src)
+    }
+  }
+  return urls
+}
+
+// Best-effort cleanup — a missing/already-deleted file, or an image src
+// that isn't one of our own uploads (external URL, hand-typed path),
+// is silently skipped rather than failing the post deletion itself.
+async function deleteUploadedImages(urls: string[]): Promise<void> {
+  for (const url of urls) {
+    if (!url.startsWith('/images/posts/')) continue
+    const resolved = path.resolve(path.join(process.cwd(), 'public', url))
+    if (!resolved.startsWith(POSTS_IMAGES_DIR)) continue
+    await fs.unlink(resolved).catch(() => {})
+  }
+}
 
 type PostRow = {
   id: string
@@ -59,7 +88,11 @@ export async function addPost(
 }
 
 export async function deletePost(id: string): Promise<boolean> {
+  const post = await getPost(id)
   const result = getDb().prepare('DELETE FROM posts WHERE id = ?').run(id)
+  if (result.changes > 0 && post) {
+    await deleteUploadedImages(collectImageUrls(post))
+  }
   return result.changes > 0
 }
 
