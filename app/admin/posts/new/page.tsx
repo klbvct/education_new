@@ -13,7 +13,7 @@ export default function NewPostPage() {
       <div>
         <PostForm
           mode="new"
-          initial={{ id: `post-${Date.now()}`, title: '', excerpt: '', date: today, body: '' }}
+          initial={{ id: '', title: '', excerpt: '', date: today, body: '' }}
         />
       </div>
     </div>

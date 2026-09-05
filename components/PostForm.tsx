@@ -2,6 +2,7 @@
 
 import { useRef, useState } from 'react'
 import { SITE_TITLE_SUFFIX } from '../lib/blog-posts'
+import { slugify } from '../lib/slugify'
 
 // Yoast-style SEO length ranges: below `min` is too short, above `max` is
 // too long, in between is the sweet spot Google tends not to truncate.
@@ -34,6 +35,7 @@ export default function PostForm({ mode, initial }: PostFormProps) {
   const fileInputRef = useRef<HTMLInputElement>(null)
 
   const [id, setId] = useState(initial.id)
+  const [idTouched, setIdTouched] = useState(mode === 'edit' || initial.id !== '')
   const [title, setTitle] = useState(initial.title)
   const [excerpt, setExcerpt] = useState(initial.excerpt)
   const [date, setDate] = useState(initial.date)
@@ -122,13 +124,23 @@ export default function PostForm({ mode, initial }: PostFormProps) {
         <input
           id="id"
           value={id}
-          onChange={(e) => setId(e.target.value)}
+          onChange={(e) => {
+            setId(e.target.value)
+            setIdTouched(true)
+          }}
           disabled={mode === 'edit'}
           required
           pattern="[a-z0-9-]+"
           className={`${inputClass} disabled:opacity-60`}
-          placeholder="post-19"
+          placeholder="yak-obraty-profesiyu"
         />
+        {mode === 'new' && (
+          <p className="mt-1 text-xs text-gray-500">
+            {idTouched
+              ? 'Змінено вручну — більше не оновлюється із заголовка.'
+              : 'Генерується автоматично із заголовка — можна змінити вручну.'}
+          </p>
+        )}
       </div>
 
       <div className="max-w-2xl">
@@ -138,7 +150,11 @@ export default function PostForm({ mode, initial }: PostFormProps) {
         <input
           id="title"
           value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          onChange={(e) => {
+            const value = e.target.value
+            setTitle(value)
+            if (mode === 'new' && !idTouched) setId(slugify(value))
+          }}
           required
           className={inputClass}
         />
