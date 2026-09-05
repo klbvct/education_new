@@ -1,7 +1,9 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import ConsultationModal from './ConsultationModal'
+import JsonLd from './JsonLd'
 import PricingOrderButton from './PricingOrderButton'
+import { homeJsonLd } from '../lib/jsonld'
 import type { HomeContent } from '../lib/home-content'
 import type { Locale } from '../lib/locale'
 
@@ -29,6 +31,7 @@ export default function HomePage({ content, locale }: { content: HomeContent; lo
 
   return (
     <main className="bg-bg-base">
+      <JsonLd data={homeJsonLd(locale, content.hero.authorBio)} />
       {/* Offer */}
       <section className="mx-auto grid max-w-container grid-cols-1 gap-10 px-4 pt-16 pb-16 md:grid-cols-2 md:pt-24 md:pb-20">
         <div>

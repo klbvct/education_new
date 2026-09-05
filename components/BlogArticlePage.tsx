@@ -1,10 +1,12 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { notFound, permanentRedirect, redirect } from 'next/navigation'
-import { formatBlogDate, type BlogBlock } from '../lib/blog-posts'
+import { formatBlogDate, getFirstImageUrl, type BlogBlock } from '../lib/blog-posts'
+import { blogPostingJsonLd, breadcrumbJsonLd } from '../lib/jsonld'
 import { getPost, getPosts } from '../lib/posts'
 import { findRedirect } from '../lib/redirects'
 import ContactRequestForm from './ContactRequestForm'
+import JsonLd from './JsonLd'
 import type { Locale } from '../lib/locale'
 
 const STRINGS: Record<
@@ -143,9 +145,26 @@ export default async function BlogArticlePage({ id, locale }: { id: string; loca
   const post = allPosts[index]
   const olderPost = allPosts[index + 1]
   const newerPost = allPosts[index - 1]
+  const postPath = `${blogBasePath}/${id}`
+  const homePath = locale === 'ru' ? '/ru' : '/'
 
   return (
     <main className="bg-bg-base">
+      <JsonLd
+        data={blogPostingJsonLd({
+          post,
+          locale,
+          path: postPath,
+          image: getFirstImageUrl(post.sections),
+        })}
+      />
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: locale === 'ru' ? 'Главная' : 'Головна', path: homePath },
+          { name: t.blogCrumb, path: blogBasePath },
+          { name: post.title, path: postPath },
+        ])}
+      />
       {/* Breadcrumbs */}
       <section className="bg-bg-base">
         <div className="mx-auto max-w-container px-4 py-3">
