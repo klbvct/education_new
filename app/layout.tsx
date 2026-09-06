@@ -41,7 +41,10 @@ export default function RootLayout({
       <head>
         {/* A <link> lets the browser discover and fetch this in parallel
             from the initial HTML; the @import this replaced inside
-            globals.css forced a serial fetch-then-fetch chain instead. */}
+            globals.css forced a serial fetch-then-fetch chain instead.
+            This is a self-hosted public/ file, not a bundled CSS module,
+            so next/font/Next's CSS pipeline doesn't apply here. */}
+        {/* eslint-disable-next-line @next/next/no-css-tags */}
         <link rel="stylesheet" href="/fonts/stylesheet.css" />
         {/* Preloads the body-text weight so it's ready before first
             paint, rather than only starting once stylesheet.css above
