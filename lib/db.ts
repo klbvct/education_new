@@ -33,6 +33,20 @@ type SeedRedirect = {
   createdAt: string
 }
 
+type SeedConsultationRequest = {
+  id: string
+  createdAt: string
+  firstName: string
+  lastName: string
+  email: string
+  phone: string
+  messenger: string
+  message: string
+  serviceLabel: string | null
+  locale: string
+  status: string
+}
+
 function readJson<T>(fileName: string): T[] {
   const file = path.join(process.cwd(), 'data', fileName)
   try {
@@ -55,6 +69,9 @@ function seed(db: Database.Database): void {
   const reviews = readLiveOrSeed<SeedReview>('reviews.json', 'reviews.seed.json')
   const posts = readLiveOrSeed<SeedPost>('posts.json', 'posts.seed.json')
   const redirects = readJson<SeedRedirect>('redirects.seed.json')
+  const consultationRequests = readJson<SeedConsultationRequest>(
+    'consultation-requests.seed.json',
+  )
 
   const insertReview = db.prepare(
     `INSERT INTO reviews (id, name, rating, text, created_at) VALUES (@id, @name, @rating, @text, @createdAt)`,
@@ -65,6 +82,10 @@ function seed(db: Database.Database): void {
   )
   const insertRedirect = db.prepare(
     `INSERT INTO redirects (id, from_path, to_path, type, created_at) VALUES (@id, @from, @to, @type, @createdAt)`,
+  )
+  const insertConsultationRequest = db.prepare(
+    `INSERT INTO consultation_requests (id, created_at, first_name, last_name, email, phone, messenger, message, service_label, locale, status)
+     VALUES (@id, @createdAt, @firstName, @lastName, @email, @phone, @messenger, @message, @serviceLabel, @locale, @status)`,
   )
 
   db.transaction(() => {
@@ -93,6 +114,9 @@ function seed(db: Database.Database): void {
     }
     for (const r of redirects) {
       insertRedirect.run(r)
+    }
+    for (const c of consultationRequests) {
+      insertConsultationRequest.run({ ...c, message: c.message ?? '', serviceLabel: c.serviceLabel ?? null })
     }
   })()
 }
@@ -149,6 +173,19 @@ export function getDb(): Database.Database {
       to_path TEXT NOT NULL,
       type TEXT NOT NULL DEFAULT 'permanent',
       created_at TEXT NOT NULL
+    );
+    CREATE TABLE IF NOT EXISTS consultation_requests (
+      id TEXT PRIMARY KEY,
+      created_at TEXT NOT NULL,
+      first_name TEXT NOT NULL,
+      last_name TEXT NOT NULL,
+      email TEXT NOT NULL,
+      phone TEXT NOT NULL,
+      messenger TEXT NOT NULL,
+      message TEXT NOT NULL DEFAULT '',
+      service_label TEXT,
+      locale TEXT NOT NULL DEFAULT 'uk',
+      status TEXT NOT NULL DEFAULT 'new'
     );
   `)
 

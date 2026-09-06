@@ -120,6 +120,26 @@ export default function AdminSidebar() {
           </Link>
 
           <Link
+            href="/admin/consultation-requests"
+            onClick={close}
+            className={`flex items-center gap-3 rounded-lg px-4 py-3 text-sm font-medium transition ${
+              isActive('/admin/consultation-requests')
+                ? 'bg-primary text-white'
+                : 'text-gray-300 hover:bg-gray-800'
+            }`}
+          >
+            <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+              />
+            </svg>
+            Заявки
+          </Link>
+
+          <Link
             href="/admin/redirects"
             onClick={close}
             className={`flex items-center gap-3 rounded-lg px-4 py-3 text-sm font-medium transition ${

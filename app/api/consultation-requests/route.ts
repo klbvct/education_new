@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server'
+import { addConsultationRequest } from '../../../lib/consultation-requests'
 import { sendAdminNotification } from '../../../lib/mailer'
 
 type Body = {
@@ -35,6 +36,17 @@ export async function POST(request: Request) {
   if (!/^\S+@\S+\.\S+$/.test(email)) {
     return NextResponse.json({ error: 'Некоректний email' }, { status: 400 })
   }
+
+  await addConsultationRequest({
+    firstName,
+    lastName,
+    email,
+    phone,
+    messenger,
+    message,
+    serviceLabel: serviceLabel || null,
+    locale,
+  })
 
   await sendAdminNotification({
     subject:
