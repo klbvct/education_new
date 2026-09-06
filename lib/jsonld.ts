@@ -25,7 +25,7 @@ const SOCIALS = [
 ]
 
 const LOGO_URL = '/images/favicon_io/android-chrome-512x512.png'
-const AUTHOR_IMAGE_URL = '/images/mariana.png'
+const AUTHOR_IMAGE_URL = '/images/mariana.webp'
 
 export function homeUrl(locale: Locale): string {
   return `${siteUrl()}${locale === 'ru' ? '/ru' : ''}`

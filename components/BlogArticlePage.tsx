@@ -195,7 +195,7 @@ export default async function BlogArticlePage({ id, locale }: { id: string; loca
 
             <div className="flex items-center gap-5 text-left">
               <Image
-                src="/images/mariana.png"
+                src="/images/mariana.webp"
                 alt={t.authorName}
                 width={56}
                 height={56}
@@ -250,7 +250,7 @@ export default async function BlogArticlePage({ id, locale }: { id: string; loca
 
             <div className="flex shrink-0 flex-col items-start text-left">
               <Image
-                src="/images/mariana.png"
+                src="/images/mariana.webp"
                 alt={t.authorName}
                 width={56}
                 height={56}

@@ -59,7 +59,7 @@ export default function HomePage({ content, locale }: { content: HomeContent; lo
         </div>
         <div className="flex justify-center md:justify-end">
           <Image
-            src="/images/mariana.png"
+            src="/images/mariana.webp"
             alt={content.hero.authorName}
             width={420}
             height={500}
@@ -219,7 +219,7 @@ export default function HomePage({ content, locale }: { content: HomeContent; lo
           <h2 className="mb-8 text-3xl font-bold text-dark md:text-5xl">{content.aboutMe.heading}</h2>
           <div className="grid grid-cols-1 items-center gap-10 md:grid-cols-2">
             <Image
-              src="/images/mariana_about.png"
+              src="/images/mariana.webp"
               alt={content.hero.authorName}
               width={480}
               height={560}
