@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { usePathname } from 'next/navigation'
 import { localeFromPathname, type Locale } from '../lib/locale'
+import { pushPurchaseEvent } from '../lib/analytics'
 
 const MESSENGERS = ['Telegram', 'WhatsApp', 'Viber'] as const
 
@@ -13,6 +14,10 @@ export const SERVICES = [
 
 type Messenger = (typeof MESSENGERS)[number]
 export type ServiceId = (typeof SERVICES)[number]['id']
+
+function parsePrice(price: string): number {
+  return Number(price.replace(/\D/g, ''))
+}
 
 const SERVICE_TITLES: Record<Locale, Record<ServiceId, string>> = {
   uk: { design: 'Дизайн Освіти', consultation: 'Консультація' },
@@ -138,6 +143,10 @@ export default function ConsultationForm({
         e.preventDefault()
         setError(null)
         const formData = new FormData(e.currentTarget)
+        const firstName = String(formData.get('firstName') ?? '')
+        const lastName = String(formData.get('lastName') ?? '')
+        const email = String(formData.get('email') ?? '')
+        const phone = String(formData.get('phone') ?? '')
         const serviceLabel = selectedService
           ? `${SERVICE_TITLES[locale][selectedService.id]} (${selectedService.price} грн)`
           : undefined
@@ -148,10 +157,10 @@ export default function ConsultationForm({
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-              firstName: formData.get('firstName'),
-              lastName: formData.get('lastName'),
-              email: formData.get('email'),
-              phone: formData.get('phone'),
+              firstName,
+              lastName,
+              email,
+              phone,
               messenger,
               message: formData.get('message'),
               serviceLabel,
@@ -159,6 +168,20 @@ export default function ConsultationForm({
             }),
           })
           if (!res.ok) throw new Error()
+          const data: { id?: string } = await res.json()
+          if (selectedService && data.id) {
+            pushPurchaseEvent({
+              transactionId: data.id,
+              items: [
+                {
+                  itemId: selectedService.id,
+                  itemName: SERVICE_TITLES[locale][selectedService.id],
+                  price: parsePrice(selectedService.price),
+                },
+              ],
+              userData: { firstName, lastName, email, phone },
+            })
+          }
           setSubmitted(true)
         } catch {
           setError(t.submitError)

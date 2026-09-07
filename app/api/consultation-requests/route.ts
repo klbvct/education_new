@@ -37,7 +37,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Некоректний email' }, { status: 400 })
   }
 
-  await addConsultationRequest({
+  const saved = await addConsultationRequest({
     firstName,
     lastName,
     email,
@@ -67,5 +67,5 @@ export async function POST(request: Request) {
       .join('\n'),
   })
 
-  return NextResponse.json({ ok: true }, { status: 201 })
+  return NextResponse.json({ ok: true, id: saved.id }, { status: 201 })
 }
