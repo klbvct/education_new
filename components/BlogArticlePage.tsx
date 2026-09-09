@@ -63,7 +63,28 @@ function renderRichText(text: string) {
   })
 }
 
-function BlogBlockView({ block }: { block: BlogBlock }) {
+// Content is authored as one ordered-list block per `<ol>`, so a run of
+// single-item ordered lists (a numbered label followed by an unordered
+// sub-list, repeated — see post kudi-krashhe-vstupati-do-koledzhu-...)
+// renders as separate `<ol>` elements that each restart at 1. Track a
+// running start number through any such chain — broken only by a
+// subheading, a real (>1-item) ordered list, or a non-list block — so
+// the numbers read 1, 2, 3, 4 instead of 1, 1, 1, 1.
+function computeOrderedListStarts(blocks: BlogBlock[]): (number | undefined)[] {
+  let chainCount = 0
+  return blocks.map((block) => {
+    if (block.type === 'list' && block.style === 'ordered' && block.items.length === 1) {
+      chainCount += 1
+      return chainCount
+    }
+    if (!(block.type === 'list' && block.style === 'unordered')) {
+      chainCount = 0
+    }
+    return undefined
+  })
+}
+
+function BlogBlockView({ block, orderedStart }: { block: BlogBlock; orderedStart?: number }) {
   if (block.type === 'paragraph') {
     return <p className="mb-2.5 text-base leading-6 text-dark">{renderRichText(block.text)}</p>
   }
@@ -81,17 +102,16 @@ function BlogBlockView({ block }: { block: BlogBlock }) {
       </div>
     )
   }
-  const ListTag = block.style === 'ordered' ? 'ol' : 'ul'
+  const items = block.items.map((item, i) => <li key={i}>{renderRichText(item)}</li>)
+  if (block.style === 'ordered') {
+    return (
+      <ol start={orderedStart} className="my-[18px] pl-10 text-base leading-6 text-dark list-decimal">
+        {items}
+      </ol>
+    )
+  }
   return (
-    <ListTag
-      className={`my-[18px] pl-10 text-base leading-6 text-dark ${
-        block.style === 'ordered' ? 'list-decimal' : 'list-disc'
-      }`}
-    >
-      {block.items.map((item, i) => (
-        <li key={i}>{renderRichText(item)}</li>
-      ))}
-    </ListTag>
+    <ul className="my-[18px] pl-10 text-base leading-6 text-dark list-disc">{items}</ul>
   )
 }
 
@@ -299,7 +319,12 @@ export default async function BlogArticlePage({ id, locale }: { id: string; loca
                   </h2>
                   <div className="[&>*:last-child]:mb-0">
                     {section.blocks
-                      ? section.blocks.map((block, j) => <BlogBlockView key={j} block={block} />)
+                      ? (() => {
+                          const orderedStarts = computeOrderedListStarts(section.blocks)
+                          return section.blocks.map((block, j) => (
+                            <BlogBlockView key={j} block={block} orderedStart={orderedStarts[j]} />
+                          ))
+                        })()
                       : section.paragraphs?.map((paragraph, j) => (
                           <p key={j} className="mb-2.5 text-base leading-6 text-dark">
                             {renderRichText(paragraph)}
