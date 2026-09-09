@@ -61,7 +61,16 @@ export default function AdminSidebar() {
                 drift from the design system's `#266AF6` (see CLAUDE.md). */}
             <h2 className="text-xl font-bold text-[#266AF6]">Дизайн Освіти</h2>
           </div>
-          <p className="mt-1 text-sm text-gray-400">Адмінка</p>
+          <p className="mt-1 text-sm text-gray-400">Адміністративна панель</p>
+          <Link
+            href="/" 
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={close}
+            className="mt-4 inline-block rounded-lg bg-gray-800 px-4 py-2 text-sm font-medium text-gray-300 transition hover:bg-gray-700"
+          >
+            Перейти на сайт
+          </Link>
         </div>
 
         <nav className="flex-1 space-y-1 px-4">
