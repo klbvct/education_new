@@ -47,7 +47,7 @@ const STRINGS: Record<
 function renderRichText(text: string) {
   return text.split(/(\*\*[^*]+\*\*|\[[^\]]+\]\([^)]+\))/g).map((part, i) => {
     const bold = part.match(/^\*\*([^*]+)\*\*$/)
-    if (bold) return <strong key={i}>{bold[1]}</strong>
+    if (bold) return <strong key={i} className="font-semibold">{bold[1]}</strong>
 
     const link = part.match(/^\[([^\]]+)\]\(([^)]+)\)$/)
     if (link) {
