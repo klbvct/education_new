@@ -89,7 +89,7 @@ function BlogBlockView({ block }: { block: BlogBlock }) {
       }`}
     >
       {block.items.map((item, i) => (
-        <li key={i}>{item}</li>
+        <li key={i}>{renderRichText(item)}</li>
       ))}
     </ListTag>
   )
