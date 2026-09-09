@@ -215,7 +215,7 @@ export default async function BlogArticlePage({ id, locale }: { id: string; loca
 
             <div className="flex items-center gap-5 text-left">
               <Image
-                src="/images/mariana.webp"
+                src="/images/marianna_article.webp"
                 alt={t.authorName}
                 width={56}
                 height={56}
