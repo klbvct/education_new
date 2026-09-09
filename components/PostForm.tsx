@@ -349,7 +349,9 @@ export default function PostForm({ mode, initial, initialRu }: PostFormProps) {
             <p className="font-medium">
               <code className="rounded bg-black/5 px-1 py-0.5">**жирний текст**</code>
             </p>
-            <p className="text-gray-600">Жирний текст прямо всередині абзацу.</p>
+            <p className="text-gray-600">
+              Жирний текст всередині абзацу або пункту списку.
+            </p>
           </div>
 
           <div>
