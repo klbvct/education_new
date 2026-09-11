@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import CourseRequestForm from './CourseRequestForm'
 import { IconGlobe, IconInfinity, IconLayers, IconForesight } from './HomeIcons'
 import type { Locale } from '../lib/locale'
@@ -6,6 +7,7 @@ const STRINGS: Record<
   Locale,
   {
     hiddenTitle: string
+    authorName: string
     heroTag: string
     heroTitle: string
     heroSubtitle: string
@@ -25,6 +27,7 @@ const STRINGS: Record<
 > = {
   uk: {
     hiddenTitle: 'Курс для спеціалістів',
+    authorName: "Мар'яна Калабухова",
     heroTag: 'Новий курс',
     heroTitle: 'Курс для спеціалістів [назва курсу]',
     heroSubtitle:
@@ -58,6 +61,7 @@ const STRINGS: Record<
   },
   ru: {
     hiddenTitle: 'Курс для специалистов',
+    authorName: 'Марьяна Калабухова',
     heroTag: 'Новый курс',
     heroTitle: 'Курс для специалистов [название курса]',
     heroSubtitle:
@@ -99,22 +103,34 @@ export default function CoursePage({ locale }: { locale: Locale }) {
       <h1 className="sr-only">{t.hiddenTitle}</h1>
 
       {/* Hero */}
-      <section className="mx-auto max-w-container px-4 py-16 md:py-24">
-        <span className="mb-4 inline-block rounded-full bg-primary/[0.06] px-4 py-2 text-sm font-medium text-primary">
-          {t.heroTag}
-        </span>
-        <h2 className="mb-6 max-w-[800px] text-3xl font-bold text-dark md:text-5xl">{t.heroTitle}</h2>
-        <p className="mb-8 max-w-[600px] text-base leading-6">{t.heroSubtitle}</p>
-        <div className="mb-8 text-4xl font-medium text-primary">{t.priceLabel}</div>
-        <a
-          href="#course-form"
-          className="inline-flex h-14 items-center justify-center gap-2 rounded-[32px] bg-primary px-8 text-base text-white transition hover:opacity-60 lg:h-12"
-        >
-          {t.heroCta}
-          <svg viewBox="0 0 448 512" width="18" height="18" fill="currentColor" aria-hidden="true">
-            <path d="M446.7 98.6l-67.6 318.8c-5.1 22.5-18.4 28.1-37.3 17.5l-103-75.9-49.7 47.8c-5.5 5.5-10.1 10.1-20.6 10.1l7.4-104.9L367.5 151c8.3-7.4-1.8-11.5-12.9-4.1L117.8 284 16.2 252.2c-22.1-6.9-22.5-22.1 4.6-32.7L418.2 66.4c18.4-6.9 34.5 4.1 28.5 32.2z" />
-          </svg>
-        </a>
+      <section className="mx-auto grid max-w-container grid-cols-1 items-center gap-10 px-4 py-16 md:grid-cols-2 md:py-24">
+        <div>
+          <span className="mb-4 inline-block rounded-full bg-primary/[0.06] px-4 py-2 text-sm font-medium text-primary">
+            {t.heroTag}
+          </span>
+          <h2 className="mb-6 max-w-[800px] text-3xl font-bold text-dark md:text-5xl">{t.heroTitle}</h2>
+          <p className="mb-8 max-w-[600px] text-base leading-6">{t.heroSubtitle}</p>
+          <div className="mb-8 text-4xl font-medium text-primary">{t.priceLabel}</div>
+          <a
+            href="#course-form"
+            className="inline-flex h-14 items-center justify-center gap-2 rounded-[32px] bg-primary px-8 text-base text-white transition hover:opacity-60 lg:h-12"
+          >
+            {t.heroCta}
+            <svg viewBox="0 0 448 512" width="18" height="18" fill="currentColor" aria-hidden="true">
+              <path d="M446.7 98.6l-67.6 318.8c-5.1 22.5-18.4 28.1-37.3 17.5l-103-75.9-49.7 47.8c-5.5 5.5-10.1 10.1-20.6 10.1l7.4-104.9L367.5 151c8.3-7.4-1.8-11.5-12.9-4.1L117.8 284 16.2 252.2c-22.1-6.9-22.5-22.1 4.6-32.7L418.2 66.4c18.4-6.9 34.5 4.1 28.5 32.2z" />
+            </svg>
+          </a>
+        </div>
+        <div className="flex justify-center md:justify-end">
+          <Image
+            src="/images/marianna_course.webp"
+            alt={t.authorName}
+            width={420}
+            height={420}
+            className="h-auto w-full max-w-[360px]"
+            priority
+          />
+        </div>
       </section>
 
       {/* For whom */}
