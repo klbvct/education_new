@@ -2,6 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import ConsultationModal from './ConsultationModal'
 import JsonLd from './JsonLd'
+import LiteYouTube from './LiteYouTube'
 import PricingOrderButton from './PricingOrderButton'
 import { homeJsonLd } from '../lib/jsonld'
 import type { HomeContent } from '../lib/home-content'
@@ -92,14 +93,7 @@ export default function HomePage({ content, locale }: { content: HomeContent; lo
               ))}
             </div>
             <div className="aspect-video overflow-hidden rounded-2xl">
-              <iframe
-                className="h-full w-full"
-                src="https://www.youtube.com/embed/j9enEB92tLM?controls=0"
-                title={content.hero.title}
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                referrerPolicy="strict-origin-when-cross-origin"
-                allowFullScreen
-              />
+              <LiteYouTube videoId="j9enEB92tLM" title={content.hero.title} />
             </div>
           </div>
           <div className="mx-auto mt-8 max-w-[320px]">
