@@ -115,6 +115,7 @@ export default function CourseRequestForm() {
               message: formData.get('message'),
               serviceLabel,
               locale,
+              requestType: 'course',
             }),
           })
           if (!res.ok) throw new Error()

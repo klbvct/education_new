@@ -11,6 +11,7 @@ type Body = {
   message?: string
   serviceLabel?: string
   locale?: string
+  requestType?: string
 }
 
 export async function POST(request: Request) {
@@ -29,6 +30,7 @@ export async function POST(request: Request) {
   const message = (body.message ?? '').trim()
   const serviceLabel = (body.serviceLabel ?? '').trim()
   const locale = body.locale === 'ru' ? 'ru' : 'uk'
+  const isCourse = body.requestType === 'course'
 
   if (!firstName || !lastName || !email || !phone || !messenger) {
     return NextResponse.json({ error: "Заповніть усі обов'язкові поля" }, { status: 400 })
@@ -49,8 +51,11 @@ export async function POST(request: Request) {
   })
 
   await sendAdminNotification({
-    subject:
-      locale === 'ru'
+    subject: isCourse
+      ? locale === 'ru'
+        ? 'Новая заявка на Курс - Дизайн Образования'
+        : 'Нова заявка на Курс - Дизайн Освіти'
+      : locale === 'ru'
         ? `Новая заявка на консультацию${serviceLabel ? ` — ${serviceLabel}` : ''}`
         : `Нова заявка на консультацію${serviceLabel ? ` — ${serviceLabel}` : ''}`,
     text: [
