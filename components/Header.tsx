@@ -78,18 +78,18 @@ export default function Header() {
         }`}
       >
         {isHome ? (
-          <span className="flex max-w-[56%] items-center gap-2 p-2">
+          <span className="flex max-w-[75%] items-center gap-2 p-2 md:max-w-[56%]">
             <Image src="/images/logo.svg" alt="" width={24} height={21} priority />
-            <span className="text-lg font-semibold text-dark md:text-2xl">{BRAND_NAME[locale]}</span>
+            <span className="whitespace-nowrap text-lg font-semibold text-dark md:text-2xl">{BRAND_NAME[locale]}</span>
           </span>
         ) : (
           <Link
             href={homeHref}
-            className="flex max-w-[56%] items-center gap-2 p-2"
+            className="flex max-w-[75%] items-center gap-2 p-2 md:max-w-[56%]"
             onClick={() => setIsOpen(false)}
           >
             <Image src="/images/logo.svg" alt="" width={24} height={21} priority />
-            <span className="text-lg font-semibold text-dark md:text-2xl">{BRAND_NAME[locale]}</span>
+            <span className="whitespace-nowrap text-lg font-semibold text-dark md:text-2xl">{BRAND_NAME[locale]}</span>
           </Link>
         )}
 
