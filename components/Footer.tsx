@@ -10,6 +10,7 @@ import { localeFromPathname, type Locale } from '../lib/locale'
 const NAV_ITEMS: Record<Locale, { href: string; label: string }[]> = {
   uk: [
     { href: '/', label: 'Головна' },
+    { href: '/course', label: 'Курс' },
     { href: 'https://academy.education-design.com.ua', label: 'Для спеціалістів' },
     { href: 'https://studyway.com.ua', label: 'Освіта за кордоном' },
     { href: '/blog', label: 'Блог' },
@@ -18,6 +19,7 @@ const NAV_ITEMS: Record<Locale, { href: string; label: string }[]> = {
   ],
   ru: [
     { href: '/ru', label: 'Главная' },
+    { href: '/ru/course', label: 'Курс' },
     { href: 'https://academy.education-design.com.ua', label: 'Для специалистов' },
     { href: 'https://studyway.com.ua/ru/', label: 'Образование за рубежом' },
     { href: '/ru/blog', label: 'Блог' },
