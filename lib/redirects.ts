@@ -42,11 +42,25 @@ function normalizePath(input: string): string | null {
   return trimmed
 }
 
+// A wildcard `from` matches a whole subtree, e.g. "/wp-admin/*" matches
+// "/wp-admin" and everything under it. The "*" must be the sole, trailing
+// path segment — "/wp-admin/*/x" or "/wp-a*min" are not supported.
+function isWildcard(from: string): boolean {
+  return from.endsWith('/*')
+}
+
+function wildcardPrefix(from: string): string {
+  return from.slice(0, -2)
+}
+
 function validate(input: { from: string; to: string }): { from: string; to: string } {
   const from = normalizePath(input.from)
   const to = normalizePath(input.to)
 
   if (!from || /^https?:\/\//i.test(from)) {
+    throw new Error('invalid-from')
+  }
+  if (from.includes('*') && !isWildcard(from)) {
     throw new Error('invalid-from')
   }
   if (!to) {
@@ -67,10 +81,29 @@ export async function getRedirects(): Promise<Redirect[]> {
 }
 
 export async function findRedirect(path: string): Promise<Redirect | undefined> {
-  const row = getDb().prepare('SELECT * FROM redirects WHERE from_path = ?').get(path) as
+  const db = getDb()
+
+  const exact = db.prepare('SELECT * FROM redirects WHERE from_path = ?').get(path) as
     | RedirectRow
     | undefined
-  return row ? fromRow(row) : undefined
+  if (exact) return fromRow(exact)
+
+  // LIKE's special chars are "%"/"_", not "*", so this is a literal
+  // suffix filter, not a pattern match — the real prefix check happens
+  // below in JS. Ties (e.g. two exact-duplicate prefixes, impossible
+  // today since `from_path` is UNIQUE) fall back to whichever sorts
+  // first; the longest prefix always wins over a shorter/blanket one.
+  const wildcards = db
+    .prepare("SELECT * FROM redirects WHERE from_path LIKE '%/*'")
+    .all() as RedirectRow[]
+  const matches = wildcards.filter((row) => {
+    const prefix = wildcardPrefix(row.from_path)
+    return path === prefix || path.startsWith(`${prefix}/`)
+  })
+  if (matches.length === 0) return undefined
+
+  matches.sort((a, b) => b.from_path.length - a.from_path.length)
+  return fromRow(matches[0])
 }
 
 export async function addRedirect(input: {

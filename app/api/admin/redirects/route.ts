@@ -4,7 +4,11 @@ import { addRedirect, getRedirects, type RedirectType } from '../../../../lib/re
 function errorMessage(err: unknown): { message: string; status: number } {
   if (err instanceof Error) {
     if (err.message === 'invalid-from') {
-      return { message: 'URL «Звідки» має починатися з «/»', status: 400 }
+      return {
+        message:
+          'URL «Звідки» має починатися з «/»; «*» дозволена лише в кінці, як окремий сегмент («/wp-admin/*»)',
+        status: 400,
+      }
     }
     if (err.message === 'invalid-to') {
       return { message: 'URL «Куди» обов’язковий', status: 400 }

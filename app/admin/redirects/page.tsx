@@ -268,7 +268,8 @@ export default function AdminRedirectsPage() {
         <h1 className="mb-2 text-2xl font-bold text-gray-900">Редиректи</h1>
         <p className="text-sm text-gray-500">
           Спрацьовують лише для URL, які інакше показали б 404 (видалена стаття, стара
-          адреса) — на живі сторінки сайту вплив не мають.
+          адреса) — на живі сторінки сайту вплив не мають. Можна вказати ціле піддерево:
+          «/wp-admin/*» перенаправить будь-який URL, що починається з /wp-admin.
         </p>
       </div>
 
