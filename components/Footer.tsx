@@ -10,19 +10,19 @@ import { localeFromPathname, type Locale } from '../lib/locale'
 // only through the course, so that link goes to its login page.
 const NAV_ITEMS: Record<Locale, { href: string; label: string }[]> = {
   uk: [
+    { href: '/course', label: 'Курс' },
     { href: '/', label: 'Головна' },
     { href: 'https://academy.education-design.com.ua/login', label: 'Вхід для фахівців' },
     { href: 'https://studyway.com.ua', label: 'Освіта за кордоном' },
-    { href: '/course', label: 'Курс' },
     { href: '/blog', label: 'Блог' },
     { href: '/feedback', label: 'Відгуки' },
     { href: '/contacts', label: 'Контакти' },
   ],
   ru: [
+    { href: '/ru/course', label: 'Курс' },
     { href: '/ru', label: 'Главная' },
     { href: 'https://academy.education-design.com.ua/login', label: 'Вход для специалистов' },
     { href: 'https://studyway.com.ua/ru/', label: 'Образование за рубежом' },
-    { href: '/ru/course', label: 'Курс' },
     { href: '/ru/blog', label: 'Блог' },
     { href: '/ru/feedback', label: 'Отзывы' },
     { href: '/ru/contacts', label: 'Контакты' },

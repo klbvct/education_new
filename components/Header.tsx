@@ -10,17 +10,17 @@ import { localeFromPathname, type Locale } from '../lib/locale'
 // this project — see CLAUDE.md.
 const NAV_ITEMS: Record<Locale, { href: string; label: string }[]> = {
   uk: [
+    { href: '/course', label: 'Курс' },
     { href: '/', label: 'Головна' },
     { href: 'https://studyway.com.ua', label: 'Освіта за кордоном' },
-    { href: '/course', label: 'Курс' },
     { href: '/blog', label: 'Блог' },
     { href: '/feedback', label: 'Відгуки' },
     { href: '/contacts', label: 'Контакти' },
   ],
   ru: [
+    { href: '/ru/course', label: 'Курс' },
     { href: '/ru', label: 'Главная' },
     { href: 'https://studyway.com.ua/ru/', label: 'Образование за рубежом' },
-    { href: '/ru/course', label: 'Курс' },
     { href: '/ru/blog', label: 'Блог' },
     { href: '/ru/feedback', label: 'Отзывы' },
     { href: '/ru/contacts', label: 'Контакты' },
