@@ -335,7 +335,7 @@ const STRINGS: Record<
           'Ні, ви самі визначаєте, на яких умовах консультуєте своїх клієнтів.',
       },
     ],
-    formSectionTitle: 'Дизайн Освіти\nкурс для фахівців',
+    formSectionTitle: 'Дизайн Освіти курс для фахівців',
     priceLabel: 'Вартість',
     priceValue: '350 €',
     formHeading: 'Залишити заявку',
@@ -601,14 +601,14 @@ const STRINGS: Record<
           'Нет, вы сами определяете, на каких условиях консультируете своих клиентов.',
       },
     ],
-    formSectionTitle: 'Дизайн Образования\nкурс для специалистов',
+    formSectionTitle: 'Дизайн Образования курс для специалистов',
     priceLabel: 'Стоимость',
     priceValue: '350 €',
     formHeading: 'Оставить заявку',
   },
 }
 
-const sectionHeading = 'text-[34px] font-semibold leading-[1.05] text-dark md:text-[48px]'
+const sectionHeading = 'text-3xl font-semibold text-dark md:text-[48px] md:leading-[1.05]'
 const blueGradient = 'bg-[linear-gradient(150deg,#0a4fc4_0%,#266af6_100%)]'
 
 export default function CoursePage({ locale }: { locale: Locale }) {
@@ -619,9 +619,9 @@ export default function CoursePage({ locale }: { locale: Locale }) {
   return (
     <main className="bg-bg-base text-dark">
       {/* Hero */}
-      <section className="mx-auto flex max-w-container flex-col-reverse items-center gap-10 px-4 pb-16 pt-10 md:flex-row md:items-start md:pb-20 md:pt-24">
+      <section className="mx-auto flex max-w-container flex-col items-center gap-10 px-4 pb-16 pt-16 md:flex-row md:items-start md:pb-20 md:pt-24">
         <div className="flex flex-1 flex-col gap-6 md:gap-[30px]">
-          <h1 className="text-[36px] font-semibold leading-none md:text-[48px]">
+          <h1 className="text-3xl font-semibold leading-none md:text-[48px]">
             {t.heroTitle}
             <br />
             <span className="text-primary">{t.heroTitleAccent}</span>
@@ -672,7 +672,7 @@ export default function CoursePage({ locale }: { locale: Locale }) {
       </section>
 
       {/* About */}
-      <section id="course-about" className="mx-auto max-w-container scroll-mt-20 px-4 py-16">
+      <section id="course-about" className="mx-auto max-w-container scroll-mt-20 px-4 pb-16 pt-4">
         <h2 className={`mb-8 ${sectionHeading}`}>{t.aboutHeading}</h2>
         <div className="flex flex-col gap-12 lg:flex-row lg:gap-16">
           <div className="flex flex-col gap-3.5 lg:w-[468px] lg:shrink-0">
@@ -683,7 +683,7 @@ export default function CoursePage({ locale }: { locale: Locale }) {
               </p>
             ))}
           </div>
-          <div className="grid flex-1 auto-rows-fr grid-cols-1 gap-4 sm:grid-cols-2">
+          <div className="grid flex-1 grid-cols-1 gap-4 sm:auto-rows-fr sm:grid-cols-2">
             {aboutCards.map((card) => (
               <div
                 key={card.title}
@@ -703,7 +703,7 @@ export default function CoursePage({ locale }: { locale: Locale }) {
       {/* Audience */}
       <section className="bg-primary/[0.03] py-16 md:py-28">
         <div className="mx-auto flex max-w-container flex-col gap-8 px-4">
-          <h2 className="text-[30px] font-semibold leading-[1.1] md:text-[44px] md:leading-[48px]">
+          <h2 className="text-3xl font-semibold md:text-[44px] md:leading-[48px]">
             {t.audienceHeading}
           </h2>
           <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3">
@@ -724,7 +724,7 @@ export default function CoursePage({ locale }: { locale: Locale }) {
       <section className={`${blueGradient} py-16 text-white md:py-20`}>
         <div className="mx-auto flex max-w-container flex-col gap-14 px-4">
           <div className="flex flex-col gap-5">
-            <h2 className="max-w-[900px] text-[34px] font-semibold leading-[1.15] md:text-[52px]">{t.whyHeading}</h2>
+            <h2 className="max-w-[900px] text-3xl font-semibold md:text-[52px] md:leading-[1.15]">{t.whyHeading}</h2>
             <p className="text-[16px] font-medium leading-[1.25] text-white/90 md:text-[24px]">{t.whySubheading}</p>
             <p className="text-[14px] leading-[1.55] text-white/80 md:text-[16px]">{t.whyText}</p>
           </div>
@@ -780,8 +780,8 @@ export default function CoursePage({ locale }: { locale: Locale }) {
       </section>
 
       {/* How the learning works */}
-      <section className="mx-auto max-w-container px-4 py-16">
-        <h2 className={`py-8 ${sectionHeading}`}>{t.howHeading}</h2>
+      <section className="mx-auto max-w-container px-4 pb-16">
+        <h2 className={`pb-8 md:pt-8 ${sectionHeading}`}>{t.howHeading}</h2>
         <div className="grid grid-cols-1 gap-10 md:grid-cols-3 md:gap-12">
           {t.howSteps.map((step, i) => (
             <div key={step.title} className="flex flex-col">
@@ -801,8 +801,8 @@ export default function CoursePage({ locale }: { locale: Locale }) {
       </section>
 
       {/* Results */}
-      <section className="mx-auto max-w-container px-4 py-16">
-        <h2 className="pb-8 pt-8 text-[30px] font-semibold leading-[1.15] md:text-[44px] md:leading-[50px]">
+      <section className="mx-auto max-w-container px-4 pb-16">
+        <h2 className="pb-8 text-3xl font-semibold md:pt-8 md:text-[44px] md:leading-[50px]">
           {t.resultsHeading}
         </h2>
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-10">
@@ -820,7 +820,7 @@ export default function CoursePage({ locale }: { locale: Locale }) {
       {/* What will and won't be on the course */}
       <section className="bg-[#f2f4f8] py-16 md:py-32">
         <div className="mx-auto flex max-w-container flex-col gap-12 px-4">
-          <h2 className="text-[30px] font-semibold leading-[1.15] md:text-[45px] md:leading-[50px]">{t.willHeading}</h2>
+          <h2 className="text-3xl font-semibold md:text-[45px] md:leading-[50px]">{t.willHeading}</h2>
           <div className="mx-auto flex w-full max-w-[1040px] flex-col gap-10">
             <div className="grid grid-cols-1 gap-10 md:grid-cols-2">
               <div className="rounded-2xl bg-primary p-8 pb-12 text-white shadow-[4px_8px_20px_rgba(8,24,111,0.2)] md:p-10 md:pb-16">
@@ -911,29 +911,29 @@ export default function CoursePage({ locale }: { locale: Locale }) {
       </section>
 
       {/* Price + form */}
-      <section id="course-form" className={`${blueGradient} scroll-mt-20 py-16 md:py-20`}>
-        <div className="mx-auto flex max-w-container flex-col items-center gap-12 px-4 lg:flex-row lg:gap-16">
-          <div className="flex w-full flex-1 flex-col gap-8 text-white">
-            <h2 className="whitespace-pre-line text-[36px] font-semibold leading-[1.1] md:text-[48px]">{t.formSectionTitle}</h2>
+      <section id="course-form" className={`${blueGradient} scroll-mt-20 py-12 md:py-14`}>
+        <div className="mx-auto flex max-w-container flex-col items-center gap-10 px-4 lg:flex-row lg:gap-16">
+          <div className="flex w-full flex-1 flex-col gap-6 text-white">
+            <h2 className="whitespace-pre-line text-[24px] font-semibold leading-[1.1] md:text-[32px]">{t.formSectionTitle}</h2>
             <dl className="flex flex-col">
               {facts.map((fact) => (
-                <div key={fact.label} className="flex flex-col gap-1.5 border-b border-white/25 py-[18px]">
-                  <dt className="text-[16px] font-medium uppercase leading-none tracking-[0.08em] text-white/75">
+                <div key={fact.label} className="flex flex-col gap-1.5 border-b border-white/25 py-3.5">
+                  <dt className="text-[13px] uppercase leading-none tracking-[0.12em] text-white/70">
                     {fact.label}
                   </dt>
-                  <dd className="text-[22px] font-medium leading-[1.3]">{fact.value}</dd>
+                  <dd className="text-[18px] font-medium leading-[1.3]">{fact.value}</dd>
                 </div>
               ))}
-              <div className="flex flex-col gap-1.5 py-[18px]">
-                <dt className="text-[16px] font-medium uppercase leading-none tracking-[0.08em] text-white/75">
+              <div className="flex flex-col gap-1.5 py-3.5">
+                <dt className="text-[13px] uppercase leading-none tracking-[0.12em] text-white/70">
                   {t.priceLabel}
                 </dt>
-                <dd className="text-[44px] font-semibold leading-[1.1]">{t.priceValue}</dd>
+                <dd className="text-4xl font-medium leading-[1.1]">{t.priceValue}</dd>
               </div>
             </dl>
           </div>
-          <div className="w-full flex-1 rounded-2xl bg-white p-6 shadow-[0_38px_28px_rgba(8,23,111,0.25)] md:p-10">
-            <h2 className="mb-4 text-[28px] font-semibold leading-[1.2]">{t.formHeading}</h2>
+          <div className="w-full flex-1 rounded-2xl bg-white p-6 shadow-[0_38px_28px_rgba(8,23,111,0.25)] md:px-8 md:py-7">
+            <h2 className="mb-3 text-2xl font-medium">{t.formHeading}</h2>
             <CourseRequestForm />
           </div>
         </div>

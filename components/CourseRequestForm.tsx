@@ -16,7 +16,7 @@ const SERVICE_LABEL: Record<Locale, string> = {
 }
 
 const inputClass =
-  'h-12 w-full rounded-[32px] border border-transparent bg-bg-secondary px-6 text-[16px] outline-none transition focus:border-primary focus:bg-white'
+  'h-11 w-full rounded-[32px] border border-transparent bg-bg-secondary px-5 text-[16px] outline-none transition focus:border-primary focus:bg-white'
 
 const STRINGS: Record<
   Locale,
@@ -144,11 +144,11 @@ export default function CourseRequestForm() {
           setIsSubmitting(false)
         }
       }}
-      className="flex flex-col gap-4"
+      className="flex flex-col gap-3"
     >
-      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+      <div className="grid grid-cols-2 gap-3">
         <div>
-          <label className="mb-2 block text-[16px] font-medium" htmlFor="course-firstName">
+          <label className="mb-1.5 block text-[15px] font-medium" htmlFor="course-firstName">
             {t.firstName} <span className="text-primary">*</span>
           </label>
           <input
@@ -160,7 +160,7 @@ export default function CourseRequestForm() {
           />
         </div>
         <div>
-          <label className="mb-2 block text-[16px] font-medium" htmlFor="course-lastName">
+          <label className="mb-1.5 block text-[15px] font-medium" htmlFor="course-lastName">
             {t.lastName} <span className="text-primary">*</span>
           </label>
           <input
@@ -175,7 +175,7 @@ export default function CourseRequestForm() {
 
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
         <div>
-          <label className="mb-2 block text-[16px] font-medium" htmlFor="course-email">
+          <label className="mb-1.5 block text-[15px] font-medium" htmlFor="course-email">
             Email <span className="text-primary">*</span>
           </label>
           <input
@@ -188,7 +188,7 @@ export default function CourseRequestForm() {
           />
         </div>
         <div>
-          <label className="mb-2 block text-[16px] font-medium" htmlFor="course-phone">
+          <label className="mb-1.5 block text-[15px] font-medium" htmlFor="course-phone">
             Телефон <span className="text-primary">*</span>
           </label>
           <input
@@ -203,7 +203,7 @@ export default function CourseRequestForm() {
       </div>
 
       <div>
-        <span className="mb-2 block text-[16px] font-medium">
+        <span className="mb-1.5 block text-[15px] font-medium">
           {t.messenger} <span className="text-primary">*</span>
         </span>
         <div className="flex flex-wrap gap-2">
@@ -213,7 +213,7 @@ export default function CourseRequestForm() {
               type="button"
               onClick={() => setMessenger(m)}
               aria-pressed={messenger === m}
-              className={`h-10 rounded-full px-5 text-[16px] transition ${
+              className={`h-9 rounded-full px-4 text-[15px] transition ${
                 messenger === m
                   ? 'bg-primary text-white'
                   : 'bg-bg-secondary text-dark hover:bg-primary/10'
@@ -227,13 +227,13 @@ export default function CourseRequestForm() {
 
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
         <div>
-          <label className="mb-2 block text-[16px] font-medium" htmlFor="course-city">
+          <label className="mb-1.5 block text-[15px] font-medium" htmlFor="course-city">
             {t.city} <span className="text-primary">*</span>
           </label>
           <input id="course-city" name="city" required className={inputClass} placeholder={t.cityPlaceholder} />
         </div>
         <div>
-          <label className="mb-2 block text-[16px] font-medium" htmlFor="course-organization">
+          <label className="mb-1.5 block text-[15px] font-medium" htmlFor="course-organization">
             {t.organization} <span className="text-primary">*</span>
           </label>
           <input
@@ -251,7 +251,7 @@ export default function CourseRequestForm() {
       <button
         type="submit"
         disabled={isSubmitting}
-        className="flex h-14 items-center justify-center gap-3 rounded-[32px] bg-primary text-[17px] text-white transition hover:opacity-60 disabled:opacity-50"
+        className="mt-2 flex h-14 items-center justify-center gap-2 rounded-[32px] bg-primary text-base text-white transition hover:opacity-60 disabled:opacity-50 lg:h-12"
       >
         {isSubmitting ? t.submitting : t.submit}
         <svg viewBox="0 0 448 512" width="18" height="18" fill="currentColor" aria-hidden="true">
