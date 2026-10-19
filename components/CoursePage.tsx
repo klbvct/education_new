@@ -335,7 +335,7 @@ const STRINGS: Record<
           'Ні, ви самі визначаєте, на яких умовах консультуєте своїх клієнтів.',
       },
     ],
-    formSectionTitle: 'Дизайн Освіти курс для фахівців',
+    formSectionTitle: 'Дизайн Освіти\nкурс для фахівців',
     priceLabel: 'Вартість',
     priceValue: '350 €',
     formHeading: 'Залишити заявку',
@@ -601,7 +601,7 @@ const STRINGS: Record<
           'Нет, вы сами определяете, на каких условиях консультируете своих клиентов.',
       },
     ],
-    formSectionTitle: 'Дизайн Образования курс для специалистов',
+    formSectionTitle: 'Дизайн Образования\nкурс для специалистов',
     priceLabel: 'Стоимость',
     priceValue: '350 €',
     formHeading: 'Оставить заявку',
@@ -914,7 +914,7 @@ export default function CoursePage({ locale }: { locale: Locale }) {
       <section id="course-form" className={`${blueGradient} scroll-mt-20 py-16 md:py-20`}>
         <div className="mx-auto flex max-w-container flex-col items-center gap-12 px-4 lg:flex-row lg:gap-16">
           <div className="flex w-full flex-1 flex-col gap-8 text-white">
-            <h2 className="text-[36px] font-semibold leading-[1.1] md:text-[48px]">{t.formSectionTitle}</h2>
+            <h2 className="whitespace-pre-line text-[36px] font-semibold leading-[1.1] md:text-[48px]">{t.formSectionTitle}</h2>
             <dl className="flex flex-col">
               {facts.map((fact) => (
                 <div key={fact.label} className="flex flex-col gap-1.5 border-b border-white/25 py-[18px]">

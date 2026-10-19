@@ -8,8 +8,8 @@ import { pushPurchaseEvent } from '../lib/analytics'
 const MESSENGERS = ['Telegram', 'WhatsApp', 'Viber'] as const
 type Messenger = (typeof MESSENGERS)[number]
 
-const COURSE_PRICE = 350
-const COURSE_CURRENCY = 'EUR'
+// 350 € converted to UAH — the site reports all purchases in UAH.
+const COURSE_PRICE = 17850
 const SERVICE_LABEL: Record<Locale, string> = {
   uk: 'Курс',
   ru: 'Курс',
@@ -134,7 +134,6 @@ export default function CourseRequestForm() {
             pushPurchaseEvent({
               transactionId: data.id,
               items: [{ itemId: 'course', itemName: serviceLabel, price: COURSE_PRICE }],
-              currency: COURSE_CURRENCY,
               userData: { firstName, lastName, email, phone },
             })
           }
