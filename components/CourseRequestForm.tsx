@@ -8,7 +8,8 @@ import { pushPurchaseEvent } from '../lib/analytics'
 const MESSENGERS = ['Telegram', 'WhatsApp', 'Viber'] as const
 type Messenger = (typeof MESSENGERS)[number]
 
-const COURSE_PRICE = 20000
+const COURSE_PRICE = 350
+const COURSE_CURRENCY = 'EUR'
 const SERVICE_LABEL: Record<Locale, string> = {
   uk: 'Курс',
   ru: 'Курс',
@@ -25,9 +26,10 @@ const STRINGS: Record<
     lastName: string
     lastNamePlaceholder: string
     messenger: string
-    message: string
-    messageOptional: string
-    messagePlaceholder: string
+    city: string
+    cityPlaceholder: string
+    organization: string
+    organizationPlaceholder: string
     submit: string
     submitting: string
     submitError: string
@@ -41,9 +43,10 @@ const STRINGS: Record<
     lastName: 'Прізвище',
     lastNamePlaceholder: 'Ваше прізвище',
     messenger: 'Зручний месенджер',
-    message: 'Повідомлення',
-    messageOptional: "(необов'язково)",
-    messagePlaceholder: 'Розкажіть коротко про себе',
+    city: 'Місто',
+    cityPlaceholder: 'Ваше місто',
+    organization: 'Спеціаліст / Організація',
+    organizationPlaceholder: 'Спеціаліст / Школа',
     submit: 'Записатися на курс',
     submitting: 'Надсилаємо…',
     submitError: 'Не вдалося надіслати заявку. Спробуйте ще раз.',
@@ -56,9 +59,10 @@ const STRINGS: Record<
     lastName: 'Фамилия',
     lastNamePlaceholder: 'Ваша фамилия',
     messenger: 'Удобный мессенджер',
-    message: 'Сообщение',
-    messageOptional: '(необязательно)',
-    messagePlaceholder: 'Расскажите коротко о себе',
+    city: 'Город',
+    cityPlaceholder: 'Ваш город',
+    organization: 'Специалист / Организация',
+    organizationPlaceholder: 'Специалист / Школа',
     submit: 'Записаться на курс',
     submitting: 'Отправляем…',
     submitError: 'Не удалось отправить заявку. Попробуйте ещё раз.',
@@ -100,6 +104,12 @@ export default function CourseRequestForm() {
         const lastName = String(formData.get('lastName') ?? '')
         const email = String(formData.get('email') ?? '')
         const phone = String(formData.get('phone') ?? '')
+        // The consultation-requests API has no dedicated columns for these,
+        // so they travel in the free-text message (shown in the admin email).
+        const message = [
+          `${t.city}: ${String(formData.get('city') ?? '').trim()}`,
+          `${t.organization}: ${String(formData.get('organization') ?? '').trim()}`,
+        ].join('\n')
 
         setIsSubmitting(true)
         try {
@@ -112,7 +122,7 @@ export default function CourseRequestForm() {
               email,
               phone,
               messenger,
-              message: formData.get('message'),
+              message,
               serviceLabel,
               locale,
               requestType: 'course',
@@ -124,6 +134,7 @@ export default function CourseRequestForm() {
             pushPurchaseEvent({
               transactionId: data.id,
               items: [{ itemId: 'course', itemName: serviceLabel, price: COURSE_PRICE }],
+              currency: COURSE_CURRENCY,
               userData: { firstName, lastName, email, phone },
             })
           }
@@ -134,9 +145,9 @@ export default function CourseRequestForm() {
           setIsSubmitting(false)
         }
       }}
-      className="flex flex-col gap-3"
+      className="flex flex-col gap-4"
     >
-      <div className="grid grid-cols-2 gap-3">
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
         <div>
           <label className="mb-2 block text-[16px] font-medium" htmlFor="course-firstName">
             {t.firstName} <span className="text-primary">*</span>
@@ -215,16 +226,25 @@ export default function CourseRequestForm() {
         </div>
       </div>
 
-      <div>
-        <label className="mb-2 block text-[16px] font-medium" htmlFor="course-message">
-          {t.message} <span className="font-normal text-gray-500">{t.messageOptional}</span>
-        </label>
-        <textarea
-          id="course-message"
-          name="message"
-          className="h-12 w-full resize-none rounded-2xl border border-transparent bg-bg-secondary px-5 py-3 text-[16px] outline-none transition focus:border-primary focus:bg-white sm:h-20"
-          placeholder={t.messagePlaceholder}
-        />
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+        <div>
+          <label className="mb-2 block text-[16px] font-medium" htmlFor="course-city">
+            {t.city} <span className="text-primary">*</span>
+          </label>
+          <input id="course-city" name="city" required className={inputClass} placeholder={t.cityPlaceholder} />
+        </div>
+        <div>
+          <label className="mb-2 block text-[16px] font-medium" htmlFor="course-organization">
+            {t.organization} <span className="text-primary">*</span>
+          </label>
+          <input
+            id="course-organization"
+            name="organization"
+            required
+            className={inputClass}
+            placeholder={t.organizationPlaceholder}
+          />
+        </div>
       </div>
 
       {error && <p className="text-sm text-red-600">{error}</p>}
@@ -232,7 +252,7 @@ export default function CourseRequestForm() {
       <button
         type="submit"
         disabled={isSubmitting}
-        className="mt-2 flex h-14 items-center justify-center gap-2 rounded-[32px] bg-primary text-base text-white transition hover:opacity-60 disabled:opacity-50 lg:h-12"
+        className="flex h-14 items-center justify-center gap-3 rounded-[32px] bg-primary text-[17px] text-white transition hover:opacity-60 disabled:opacity-50"
       >
         {isSubmitting ? t.submitting : t.submit}
         <svg viewBox="0 0 448 512" width="18" height="18" fill="currentColor" aria-hidden="true">
