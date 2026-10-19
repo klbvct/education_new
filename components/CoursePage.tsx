@@ -1,7 +1,9 @@
 import Image from 'next/image'
 import CourseRequestForm from './CourseRequestForm'
 import CourseAccordion from './CourseAccordion'
+import JsonLd from './JsonLd'
 import type { Locale } from '../lib/locale'
+import { courseJsonLd, faqJsonLd } from '../lib/jsonld'
 
 // Layout follows the "Course Page — Education Design" Figma file (frame
 // "Main", node 1:22). Icons are the SVGs exported from that file, served
@@ -12,6 +14,11 @@ type Card = { icon: string; title: string; text: string }
 type TitledText = { title: string; text: string }
 type ContrastItem = { before: string; after: string }
 type Module = { label: string; title: string; topics: string[] }
+
+// Structured-data values (JSON-LD) — keep in sync with the "Початок" fact
+// and priceValue in STRINGS below.
+const COURSE_START_DATE = '2026-11-26'
+const COURSE_PRICE_EUR = 350
 
 const COURSE_FACT_ICONS = [
   '/images/course/fact-format.svg',
@@ -618,6 +625,18 @@ export default function CoursePage({ locale }: { locale: Locale }) {
 
   return (
     <main className="bg-bg-base text-dark">
+      <JsonLd
+        data={courseJsonLd({
+          locale,
+          path: locale === 'ru' ? '/ru/course' : '/course',
+          name: `${t.heroTitle} — ${t.heroTitleAccent}`,
+          description: t.heroLead,
+          price: COURSE_PRICE_EUR,
+          priceCurrency: 'EUR',
+          startDate: COURSE_START_DATE,
+        })}
+      />
+      <JsonLd data={faqJsonLd(t.faq)} />
       {/* Hero */}
       <section className="mx-auto flex max-w-container flex-col items-center gap-10 px-4 pb-16 pt-16 md:flex-row md:items-start md:pb-20 md:pt-24">
         <div className="flex flex-1 flex-col gap-6 md:gap-[30px]">

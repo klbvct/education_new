@@ -97,6 +97,58 @@ export function blogPostingJsonLd(opts: {
   }
 }
 
+// Course + its single online run, for /course and /ru/course. The course
+// itself is taught in Ukrainian on both pages; only the page copy differs.
+export function courseJsonLd(opts: {
+  locale: Locale
+  path: string
+  name: string
+  description: string
+  price: number
+  priceCurrency: string
+  startDate: string
+}) {
+  const { locale, path, name, description, price, priceCurrency, startDate } = opts
+  const url = `${siteUrl()}${path}`
+  const provider = { '@type': 'Organization', name: BRAND_NAME[locale], url: homeUrl(locale) }
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Course',
+    name,
+    description,
+    url,
+    inLanguage: 'uk',
+    provider,
+    offers: {
+      '@type': 'Offer',
+      category: 'Paid',
+      price,
+      priceCurrency,
+      url,
+      availability: 'https://schema.org/InStock',
+    },
+    hasCourseInstance: {
+      '@type': 'CourseInstance',
+      courseMode: 'Online',
+      startDate,
+      inLanguage: 'uk',
+      instructor: { '@type': 'Person', name: AUTHOR_NAME[locale], image: `${siteUrl()}${AUTHOR_IMAGE_URL}` },
+    },
+  }
+}
+
+export function faqJsonLd(items: { question: string; answer: string }[]) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: items.map((item) => ({
+      '@type': 'Question',
+      name: item.question,
+      acceptedAnswer: { '@type': 'Answer', text: item.answer },
+    })),
+  }
+}
+
 export function breadcrumbJsonLd(items: { name: string; path: string }[]) {
   return {
     '@context': 'https://schema.org',

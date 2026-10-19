@@ -2,8 +2,9 @@ import type { Metadata } from 'next'
 import CoursePage from '../../../components/CoursePage'
 import { localizedAlternates, socialMeta } from '../../../lib/seo'
 
-const title = 'Курс для спеціалістів — Дизайн Освіти'
-const description = 'Курс для спеціалістів від "Дизайн Освіти": програма, вартість і форма запису.'
+const title = 'Курс для фахівців з освітнього консультування — Дизайн Освіти'
+const description =
+  'Онлайн-курс для освітніх консультантів, психологів і педагогів: авторська методологія «Дизайн Освіти» замість класичної профорієнтації. 4 модулі, старт 26.11.2026.'
 
 export const metadata: Metadata = {
   title,

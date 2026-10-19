@@ -45,7 +45,11 @@ export default function CourseAccordion({ items }: { items: CourseAccordionItem[
                 <Image src={isOpen ? '/images/course/chevron-up.svg' : '/images/course/plus.svg'} width={16} height={16} alt="" />
               </span>
             </button>
-            {isOpen && <div className="pb-8">{item.body}</div>}
+            {/* Collapsed bodies stay in the HTML (just hidden) so search
+                engines still index every FAQ answer and module topic. */}
+            <div className="pb-8" hidden={!isOpen}>
+              {item.body}
+            </div>
           </div>
         )
       })}
