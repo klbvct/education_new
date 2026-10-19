@@ -635,7 +635,7 @@ export default function CoursePage({ locale }: { locale: Locale }) {
             </p>
             <p>{t.heroDisciplines}</p>
           </div>
-          <a href="#course-about" className="mx-auto pt-5 transition hover:opacity-60" aria-label={t.aboutHeading}>
+          <a href="#course-about" className="mx-auto hidden pt-5 transition md:block hover:opacity-60" aria-label={t.aboutHeading}>
             <Image src="/images/course/hero-arrow.svg" width={33} height={33} alt="" className="rotate-90" />
           </a>
         </div>
