@@ -9,8 +9,8 @@ export type CourseAccordionItem = {
   body: ReactNode
 }
 
-// Shared by the "Програма курсу" and "Часті запитання" sections of
-// CoursePage — the first item starts open, like in the Figma mockup.
+// Used by the "Часті запитання" section of CoursePage — the first item
+// starts open, like in the Figma mockup.
 export default function CourseAccordion({ items }: { items: CourseAccordionItem[] }) {
   const [openIndex, setOpenIndex] = useState<number | null>(0)
 
@@ -46,7 +46,7 @@ export default function CourseAccordion({ items }: { items: CourseAccordionItem[
               </span>
             </button>
             {/* Collapsed bodies stay in the HTML (just hidden) so search
-                engines still index every FAQ answer and module topic. */}
+                engines still index every FAQ answer. */}
             <div className="pb-8" hidden={!isOpen}>
               {item.body}
             </div>
