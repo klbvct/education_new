@@ -824,14 +824,20 @@ export default function CoursePage({ locale }: { locale: Locale }) {
         <h2 className={`mb-10 ${sectionHeading}`}>{t.programHeading}</h2>
         {/* Module titles only — the per-module topic lists were removed on
             purpose so the detailed syllabus isn't public. */}
-        <ol className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
-          {t.modules.map((mod) => (
-            <li
-              key={mod.label}
-              className="flex flex-col gap-4 rounded-3xl border border-black/5 bg-white p-6 shadow-[0_38px_28px_rgba(191,204,225,0.2)] md:p-8"
-            >
-              <span className="text-[16px] font-medium uppercase tracking-[0.06em] text-primary">{mod.label}</span>
-              <h3 className="text-[18px] font-medium leading-[1.35] text-dark md:text-[20px]">{mod.title}</h3>
+        {/* Same step style as "Як проходить навчання", with the module
+            label in a pill instead of a numbered circle. */}
+        <ol className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
+          {t.modules.map((mod, i) => (
+            <li key={mod.label} className="flex flex-col">
+              <div className="mb-5 flex items-center">
+                <span className="flex h-12 shrink-0 items-center justify-center rounded-full bg-primary px-6 text-[15px] font-semibold uppercase tracking-[0.06em] text-white shadow-[0_10px_12px_rgba(38,106,246,0.3)]">
+                  {mod.label}
+                </span>
+                {i < t.modules.length - 1 && (
+                  <span className="ml-6 hidden flex-1 border-t-2 border-dashed border-primary/30 lg:block" />
+                )}
+              </div>
+              <h3 className="text-[20px] font-semibold leading-[28px] lg:pr-6">{mod.title}</h3>
             </li>
           ))}
         </ol>
