@@ -14,7 +14,7 @@ const CLOSE_LABEL = {
 // "Отримати програму курсу" trigger under the /course program block: opens
 // the same CourseRequestForm as the bottom of the page, in a popup styled
 // like OrderModal (portaled to document.body for the same reason).
-export default function CourseProgramButton({ label }: { label: string }) {
+export default function CourseProgramButton({ label, submitLabel }: { label: string; submitLabel: string }) {
   const pathname = usePathname()
   const locale = localeFromPathname(pathname)
   const [isOpen, setIsOpen] = useState(false)
@@ -76,7 +76,7 @@ export default function CourseProgramButton({ label }: { label: string }) {
               </button>
 
               <h2 className="mb-4 pr-8 text-2xl font-medium">{label}</h2>
-              <CourseRequestForm idPrefix="course-program" />
+              <CourseRequestForm idPrefix="course-program" submitLabel={submitLabel} />
             </div>
           </div>,
           document.body,

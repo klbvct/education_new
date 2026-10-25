@@ -72,8 +72,15 @@ const STRINGS: Record<
 }
 
 // idPrefix keeps input ids unique when a second copy of the form is open in
-// the CourseProgramButton popup alongside the one at the bottom of the page.
-export default function CourseRequestForm({ idPrefix = 'course' }: { idPrefix?: string }) {
+// the CourseProgramButton popup alongside the one at the bottom of the page;
+// submitLabel lets that popup word its button differently.
+export default function CourseRequestForm({
+  idPrefix = 'course',
+  submitLabel,
+}: {
+  idPrefix?: string
+  submitLabel?: string
+}) {
   const pathname = usePathname()
   const locale = localeFromPathname(pathname)
   const t = STRINGS[locale]
@@ -255,7 +262,7 @@ export default function CourseRequestForm({ idPrefix = 'course' }: { idPrefix?: 
         disabled={isSubmitting}
         className="mt-2 flex h-14 items-center justify-center gap-2 rounded-[32px] bg-primary text-base text-white transition hover:opacity-60 disabled:opacity-50 lg:h-12"
       >
-        {isSubmitting ? t.submitting : t.submit}
+        {isSubmitting ? t.submitting : (submitLabel ?? t.submit)}
         <svg viewBox="0 0 448 512" width="18" height="18" fill="currentColor" aria-hidden="true">
           <path d="M446.7 98.6l-67.6 318.8c-5.1 22.5-18.4 28.1-37.3 17.5l-103-75.9-49.7 47.8c-5.5 5.5-10.1 10.1-20.6 10.1l7.4-104.9L367.5 151c8.3-7.4-1.8-11.5-12.9-4.1L117.8 284 16.2 252.2c-22.1-6.9-22.5-22.1 4.6-32.7L418.2 66.4c18.4-6.9 34.5 4.1 28.5 32.2z" />
         </svg>

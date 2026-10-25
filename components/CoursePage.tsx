@@ -74,6 +74,7 @@ const STRINGS: Record<
     feeText: string
     programHeading: string
     programButton: string
+    programSubmit: string
     modules: Module[]
     faqHeading: string
     faq: { question: string; answer: string }[]
@@ -261,6 +262,7 @@ const STRINGS: Record<
       'Ніяких витрат на користування системою або методикою після проходження курсу. Витрати виникають лише при покупці тестування.',
     programHeading: 'Програма курсу',
     programButton: 'Отримати програму курсу',
+    programSubmit: 'Надіслати заявку',
     modules: [
       {
         label: 'Модуль 1',
@@ -490,6 +492,7 @@ const STRINGS: Record<
       'Никаких расходов на пользование системой или методикой после прохождения курса. Расходы возникают только при покупке тестирования.',
     programHeading: 'Программа курса',
     programButton: 'Получить программу курса',
+    programSubmit: 'Отправить заявку',
     modules: [
       {
         label: 'Модуль 1',
@@ -733,7 +736,7 @@ export default function CoursePage({ locale }: { locale: Locale }) {
           {t.howSteps.map((step, i) => (
             <div key={step.title} className="flex flex-col">
               <div className="mb-5 flex items-center">
-                <span className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-primary text-[22px] font-semibold text-white shadow-[0_10px_12px_rgba(38,106,246,0.3)]">
+                <span className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-primary text-[22px] font-semibold text-white">
                   {String(i + 1).padStart(2, '0')}
                 </span>
                 {i < t.howSteps.length - 1 && (
@@ -839,7 +842,7 @@ export default function CoursePage({ locale }: { locale: Locale }) {
               className="flex flex-col rounded-[20px] border border-primary/20 bg-white p-5 lg:rounded-none lg:border-0 lg:bg-transparent lg:p-0"
             >
               <div className="mb-5 flex items-center">
-                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-primary text-[20px] font-semibold text-white shadow-[0_10px_12px_rgba(38,106,246,0.3)]">
+                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-primary text-[20px] font-semibold text-white">
                   {i + 1}
                 </span>
                 <span className="ml-4 text-[18px] font-semibold uppercase tracking-[0.06em] text-primary">
@@ -854,7 +857,7 @@ export default function CoursePage({ locale }: { locale: Locale }) {
           ))}
         </ol>
         <div className="mt-10 flex justify-center">
-          <CourseProgramButton label={t.programButton} />
+          <CourseProgramButton label={t.programButton} submitLabel={t.programSubmit} />
         </div>
       </section>
 
