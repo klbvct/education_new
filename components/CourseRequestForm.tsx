@@ -71,7 +71,9 @@ const STRINGS: Record<
   },
 }
 
-export default function CourseRequestForm() {
+// idPrefix keeps input ids unique when a second copy of the form is open in
+// the CourseProgramButton popup alongside the one at the bottom of the page.
+export default function CourseRequestForm({ idPrefix = 'course' }: { idPrefix?: string }) {
   const pathname = usePathname()
   const locale = localeFromPathname(pathname)
   const t = STRINGS[locale]
@@ -148,11 +150,11 @@ export default function CourseRequestForm() {
     >
       <div className="grid grid-cols-2 gap-3">
         <div>
-          <label className="mb-1.5 block text-[18px] font-medium" htmlFor="course-firstName">
+          <label className="mb-1.5 block text-[18px] font-medium" htmlFor={`${idPrefix}-firstName`}>
             {t.firstName} <span className="text-primary">*</span>
           </label>
           <input
-            id="course-firstName"
+            id={`${idPrefix}-firstName`}
             name="firstName"
             required
             className={inputClass}
@@ -160,11 +162,11 @@ export default function CourseRequestForm() {
           />
         </div>
         <div>
-          <label className="mb-1.5 block text-[18px] font-medium" htmlFor="course-lastName">
+          <label className="mb-1.5 block text-[18px] font-medium" htmlFor={`${idPrefix}-lastName`}>
             {t.lastName} <span className="text-primary">*</span>
           </label>
           <input
-            id="course-lastName"
+            id={`${idPrefix}-lastName`}
             name="lastName"
             required
             className={inputClass}
@@ -175,11 +177,11 @@ export default function CourseRequestForm() {
 
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
         <div>
-          <label className="mb-1.5 block text-[18px] font-medium" htmlFor="course-email">
+          <label className="mb-1.5 block text-[18px] font-medium" htmlFor={`${idPrefix}-email`}>
             Email <span className="text-primary">*</span>
           </label>
           <input
-            id="course-email"
+            id={`${idPrefix}-email`}
             name="email"
             type="email"
             required
@@ -188,11 +190,11 @@ export default function CourseRequestForm() {
           />
         </div>
         <div>
-          <label className="mb-1.5 block text-[18px] font-medium" htmlFor="course-phone">
+          <label className="mb-1.5 block text-[18px] font-medium" htmlFor={`${idPrefix}-phone`}>
             Телефон <span className="text-primary">*</span>
           </label>
           <input
-            id="course-phone"
+            id={`${idPrefix}-phone`}
             name="phone"
             type="tel"
             required
@@ -227,17 +229,17 @@ export default function CourseRequestForm() {
 
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
         <div>
-          <label className="mb-1.5 block text-[18px] font-medium" htmlFor="course-city">
+          <label className="mb-1.5 block text-[18px] font-medium" htmlFor={`${idPrefix}-city`}>
             {t.city} <span className="text-primary">*</span>
           </label>
-          <input id="course-city" name="city" required className={inputClass} placeholder={t.cityPlaceholder} />
+          <input id={`${idPrefix}-city`} name="city" required className={inputClass} placeholder={t.cityPlaceholder} />
         </div>
         <div>
-          <label className="mb-1.5 block text-[18px] font-medium" htmlFor="course-organization">
+          <label className="mb-1.5 block text-[18px] font-medium" htmlFor={`${idPrefix}-organization`}>
             {t.organization} <span className="text-primary">*</span>
           </label>
           <input
-            id="course-organization"
+            id={`${idPrefix}-organization`}
             name="organization"
             required
             className={inputClass}

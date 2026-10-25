@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import CourseRequestForm from './CourseRequestForm'
 import CourseAccordion from './CourseAccordion'
+import CourseProgramButton from './CourseProgramButton'
 import JsonLd from './JsonLd'
 import type { Locale } from '../lib/locale'
 import { courseJsonLd, faqJsonLd } from '../lib/jsonld'
@@ -72,6 +73,7 @@ const STRINGS: Record<
     feeTitle: string
     feeText: string
     programHeading: string
+    programButton: string
     modules: Module[]
     faqHeading: string
     faq: { question: string; answer: string }[]
@@ -258,6 +260,7 @@ const STRINGS: Record<
     feeText:
       'Ніяких витрат на користування системою або методикою після проходження курсу. Витрати виникають лише при покупці тестування.',
     programHeading: 'Програма курсу',
+    programButton: 'Отримати програму курсу',
     modules: [
       {
         label: 'Модуль 1',
@@ -486,6 +489,7 @@ const STRINGS: Record<
     feeText:
       'Никаких расходов на пользование системой или методикой после прохождения курса. Расходы возникают только при покупке тестирования.',
     programHeading: 'Программа курса',
+    programButton: 'Получить программу курса',
     modules: [
       {
         label: 'Модуль 1',
@@ -824,14 +828,22 @@ export default function CoursePage({ locale }: { locale: Locale }) {
         <h2 className={`mb-10 ${sectionHeading}`}>{t.programHeading}</h2>
         {/* Module titles only — the per-module topic lists were removed on
             purpose so the detailed syllabus isn't public. */}
-        {/* Same step style as "Як проходить навчання", with the module
-            label in a pill instead of a numbered circle. */}
-        <ol className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
+        {/* Same step style as "Як проходить навчання": the module number in
+            a circle with the "Модуль" word beside it. Below lg each module is
+            a bordered card; on desktop the cards drop the border and are
+            joined by dashed connectors instead. */}
+        <ol className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4 lg:gap-8">
           {t.modules.map((mod, i) => (
-            <li key={mod.label} className="flex flex-col">
+            <li
+              key={mod.label}
+              className="flex flex-col rounded-[20px] border border-primary/20 bg-white p-5 lg:rounded-none lg:border-0 lg:bg-transparent lg:p-0"
+            >
               <div className="mb-5 flex items-center">
-                <span className="flex h-12 shrink-0 items-center justify-center rounded-full bg-primary px-6 text-[18px] font-semibold uppercase tracking-[0.06em] text-white shadow-[0_10px_12px_rgba(38,106,246,0.3)]">
-                  {mod.label}
+                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-primary text-[20px] font-semibold text-white shadow-[0_10px_12px_rgba(38,106,246,0.3)]">
+                  {i + 1}
+                </span>
+                <span className="ml-4 text-[18px] font-semibold uppercase tracking-[0.06em] text-primary">
+                  {mod.label.replace(/\s*\d+$/, '')}
                 </span>
                 {i < t.modules.length - 1 && (
                   <span className="ml-6 hidden flex-1 border-t-2 border-dashed border-primary/30 lg:block" />
@@ -841,6 +853,9 @@ export default function CoursePage({ locale }: { locale: Locale }) {
             </li>
           ))}
         </ol>
+        <div className="mt-10 flex justify-center">
+          <CourseProgramButton label={t.programButton} />
+        </div>
       </section>
 
       {/* FAQ */}
