@@ -93,7 +93,7 @@ const STRINGS: Record<
     heroDisciplines:
       'І корисні знання на перетині декількох дисциплін: педагогіки, психології, філософії, методики',
     facts: [
-      { label: 'Формат', value: 'онлайн курс (без запису)' },
+      { label: 'Формат', value: 'онлайн курс' },
       { label: 'Тривалість', value: '4 модулі' },
       { label: 'Початок', value: '21.11.2026' },
       { label: 'Мова', value: 'українська' },
@@ -322,7 +322,7 @@ const STRINGS: Record<
     heroDisciplines:
       'И полезные знания на пересечении нескольких дисциплин: педагогики, психологии, философии, методики',
     facts: [
-      { label: 'Формат', value: 'онлайн-курс (без записи)' },
+      { label: 'Формат', value: 'онлайн-курс' },
       { label: 'Длительность', value: '4 модуля' },
       { label: 'Начало', value: '21.11.2026' },
       { label: 'Язык', value: 'украинский' },
@@ -549,6 +549,12 @@ const blueGradient = 'bg-[linear-gradient(150deg,#0a4fc4_0%,#266af6_100%)]'
 export default function CoursePage({ locale }: { locale: Locale }) {
   const t = STRINGS[locale]
   const facts: Fact[] = t.facts.map((f, i) => ({ ...f, icon: COURSE_FACT_ICONS[i] }))
+  // The hero bar also ends with the price; the bottom form block lists the
+  // same facts but shows the price separately, so it's only appended here.
+  const heroFacts: Fact[] = [
+    ...facts,
+    { label: t.priceLabel, value: t.priceValue, icon: '/images/course/fact-price.svg' },
+  ]
   const aboutCards: Card[] = t.aboutCards.map((c, i) => ({ ...c, icon: ABOUT_ICONS[i] }))
 
   return (
@@ -596,18 +602,18 @@ export default function CoursePage({ locale }: { locale: Locale }) {
 
       {/* Key facts */}
       <section className="mx-auto max-w-container px-4 pb-12">
-        <div className="grid grid-cols-1 gap-6 rounded-3xl bg-primary px-6 py-8 shadow-[4px_8px_20px_rgba(8,24,111,0.2)] sm:grid-cols-2 lg:flex lg:items-center lg:gap-12 lg:px-12 lg:py-10">
-          {facts.map((fact, i) => (
+        <div className="grid grid-cols-1 gap-6 rounded-3xl bg-primary px-6 py-8 shadow-[4px_8px_20px_rgba(8,24,111,0.2)] sm:grid-cols-2 lg:grid-cols-3 lg:px-10 lg:py-10 xl:flex xl:items-center xl:justify-between xl:gap-6">
+          {heroFacts.map((fact, i) => (
             <div
               key={fact.label}
-              className={`flex items-center gap-4 py-1 ${i > 0 ? 'lg:border-l lg:border-white/20 lg:pl-8' : ''}`}
+              className={`flex items-center gap-4 py-1 ${i > 0 ? 'xl:border-l xl:border-white/20 xl:pl-6' : ''}`}
             >
               <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-white/[0.14]">
                 <Image src={fact.icon} width={26} height={26} alt="" />
               </span>
               <span className="flex flex-col gap-1.5">
                 <span className="text-[18px] uppercase leading-none tracking-[0.12em] text-white/70">{fact.label}</span>
-                <span className="text-[20px] font-medium leading-[26px] text-white">{fact.value}</span>
+                <span className="whitespace-pre-line text-[20px] font-medium leading-[26px] text-white">{fact.value}</span>
               </span>
             </div>
           ))}
@@ -878,7 +884,7 @@ export default function CoursePage({ locale }: { locale: Locale }) {
                   <dt className="text-[18px] uppercase leading-none tracking-[0.12em] text-white/70">
                     {fact.label}
                   </dt>
-                  <dd className="text-[18px] font-medium leading-[1.3]">{fact.value}</dd>
+                  <dd className="whitespace-pre-line text-[18px] font-medium leading-[1.3]">{fact.value}</dd>
                 </div>
               ))}
               <div className="flex flex-col gap-1.5 py-3.5">
