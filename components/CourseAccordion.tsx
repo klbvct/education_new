@@ -28,7 +28,7 @@ export default function CourseAccordion({ items }: { items: CourseAccordionItem[
             >
               <span className="flex flex-col gap-2 md:flex-row md:items-center md:gap-6">
                 {item.label && (
-                  <span className="w-[110px] shrink-0 text-[16px] font-medium uppercase tracking-[0.06em] text-primary">
+                  <span className="w-[110px] shrink-0 text-[18px] font-medium uppercase tracking-[0.06em] text-primary">
                     {item.label}
                   </span>
                 )}

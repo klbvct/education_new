@@ -13,7 +13,7 @@ function ChipRow({ items, connector }: { items: string[]; connector: string }) {
     <div className="mb-4 flex flex-wrap items-center gap-2">
       {items.map((label, i) => (
         <span key={label} className="flex items-center gap-2">
-          <span className="rounded-full bg-primary/[0.06] px-4 py-2 text-sm font-medium text-primary">
+          <span className="rounded-full bg-primary/[0.06] px-4 py-2 text-[18px] font-medium text-primary">
             {label}
           </span>
           {i < items.length - 1 && (
@@ -52,7 +52,7 @@ export default function HomePage({ content, locale }: { content: HomeContent; lo
             height={64}
             className="mb-8"
           />
-          <p className="max-w-[500px] text-[16px] leading-6">
+          <p className="max-w-[500px] text-[18px] leading-6">
             <span className="font-medium">{content.hero.authorName}</span>
             <br />
             {content.hero.authorBio}
@@ -76,7 +76,7 @@ export default function HomePage({ content, locale }: { content: HomeContent; lo
           {content.profits.map((item) => (
             <div key={item.text} className="flex flex-col items-center">
               <Image src={item.icon} alt="" width={40} height={40} />
-              <p className="mt-4 text-center text-[16px] text-white">{item.text}</p>
+              <p className="mt-4 text-center text-[18px] text-white">{item.text}</p>
             </div>
           ))}
         </div>
@@ -165,13 +165,13 @@ export default function HomePage({ content, locale }: { content: HomeContent; lo
 
               {step.quote && (
                 <div className="mb-4 flex flex-wrap items-center gap-3">
-                  <span className="rounded-full bg-primary/[0.06] px-4 py-2 text-sm text-gray-500">
+                  <span className="rounded-full bg-primary/[0.06] px-4 py-2 text-[18px] text-gray-500">
                     «{step.quote.from}»
                   </span>
                   <span className="text-primary" aria-hidden="true">
                     →
                   </span>
-                  <span className="rounded-full bg-primary px-4 py-2 text-sm font-medium text-white">
+                  <span className="rounded-full bg-primary px-4 py-2 text-[18px] font-medium text-white">
                     «{step.quote.to}»
                   </span>
                 </div>
@@ -189,7 +189,7 @@ export default function HomePage({ content, locale }: { content: HomeContent; lo
                         className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-primary"
                         aria-hidden="true"
                       />
-                      <p className="text-[16px] leading-6">{item}</p>
+                      <p className="text-[18px] leading-6">{item}</p>
                     </div>
                   ))}
                 </div>
@@ -300,7 +300,7 @@ export default function HomePage({ content, locale }: { content: HomeContent; lo
                           height={20}
                           className="mt-0.5"
                         />
-                        <p className="text-[16px] leading-6">{item}</p>
+                        <p className="text-[18px] leading-6">{item}</p>
                       </li>
                     ))}
                   </ul>

@@ -25,7 +25,7 @@ const SERVICE_TITLES: Record<Locale, Record<ServiceId, string>> = {
 }
 
 const inputClass =
-  'h-12 w-full rounded-[32px] border border-transparent bg-bg-secondary px-6 text-[16px] outline-none transition focus:border-primary focus:bg-white'
+  'h-12 w-full rounded-[32px] border border-transparent bg-bg-secondary px-6 text-[18px] outline-none transition focus:border-primary focus:bg-white'
 
 const STRINGS: Record<
   Locale,
@@ -97,7 +97,7 @@ export function ServicePicker({
               : 'border-black/10 hover:border-primary/40'
           }`}
         >
-          <span className="text-[16px] font-medium">{SERVICE_TITLES[locale][s.id]}</span>
+          <span className="text-[18px] font-medium">{SERVICE_TITLES[locale][s.id]}</span>
           <span className="font-semibold text-primary">{s.price} грн</span>
         </button>
       ))}
@@ -193,7 +193,7 @@ export default function ConsultationForm({
     >
       {showServiceSummary && selectedService && (
         <div>
-          <span className="mr-2 text-[16px] font-medium">
+          <span className="mr-2 text-[18px] font-medium">
             {SERVICE_TITLES[locale][selectedService.id]}
           </span>
           <span className="font-semibold text-primary">
@@ -204,7 +204,7 @@ export default function ConsultationForm({
 
       <div className="grid grid-cols-2 gap-3">
         <div>
-          <label className="mb-2 block text-[16px] font-medium" htmlFor="firstName">
+          <label className="mb-2 block text-[18px] font-medium" htmlFor="firstName">
             {t.firstName} <span className="text-primary">*</span>
           </label>
           <input
@@ -216,7 +216,7 @@ export default function ConsultationForm({
           />
         </div>
         <div>
-          <label className="mb-2 block text-[16px] font-medium" htmlFor="lastName">
+          <label className="mb-2 block text-[18px] font-medium" htmlFor="lastName">
             {t.lastName} <span className="text-primary">*</span>
           </label>
           <input
@@ -231,7 +231,7 @@ export default function ConsultationForm({
 
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
         <div>
-          <label className="mb-2 block text-[16px] font-medium" htmlFor="email">
+          <label className="mb-2 block text-[18px] font-medium" htmlFor="email">
             Email <span className="text-primary">*</span>
           </label>
           <input
@@ -244,7 +244,7 @@ export default function ConsultationForm({
           />
         </div>
         <div>
-          <label className="mb-2 block text-[16px] font-medium" htmlFor="phone">
+          <label className="mb-2 block text-[18px] font-medium" htmlFor="phone">
             Телефон <span className="text-primary">*</span>
           </label>
           <input
@@ -259,7 +259,7 @@ export default function ConsultationForm({
       </div>
 
       <div>
-        <span className="mb-2 block text-[16px] font-medium">
+        <span className="mb-2 block text-[18px] font-medium">
           {t.messenger} <span className="text-primary">*</span>
         </span>
         <div className="flex flex-wrap gap-2">
@@ -269,7 +269,7 @@ export default function ConsultationForm({
               type="button"
               onClick={() => setMessenger(m)}
               aria-pressed={messenger === m}
-              className={`h-10 rounded-full px-5 text-[16px] transition ${
+              className={`h-10 rounded-full px-5 text-[18px] transition ${
                 messenger === m
                   ? 'bg-primary text-white'
                   : 'bg-bg-secondary text-dark hover:bg-primary/10'
@@ -282,18 +282,18 @@ export default function ConsultationForm({
       </div>
 
       <div>
-        <label className="mb-2 block text-[16px] font-medium" htmlFor="message">
+        <label className="mb-2 block text-[18px] font-medium" htmlFor="message">
           {t.message} <span className="font-normal text-gray-500">{t.messageOptional}</span>
         </label>
         <textarea
           id="message"
           name="message"
-          className="h-12 w-full resize-none rounded-2xl border border-transparent bg-bg-secondary px-5 py-3 text-[16px] outline-none transition focus:border-primary focus:bg-white sm:h-20"
+          className="h-12 w-full resize-none rounded-2xl border border-transparent bg-bg-secondary px-5 py-3 text-[18px] outline-none transition focus:border-primary focus:bg-white sm:h-20"
           placeholder={t.messagePlaceholder}
         />
       </div>
 
-      {error && <p className="text-sm text-red-600">{error}</p>}
+      {error && <p className="text-[18px] text-red-600">{error}</p>}
 
       <button
         type="submit"

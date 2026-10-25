@@ -10,8 +10,8 @@ import { localeFromPathname, type Locale } from '../lib/locale'
 // only through the course, so that link goes to its login page.
 const NAV_ITEMS: Record<Locale, { href: string; label: string }[]> = {
   uk: [
-    { href: '/course', label: 'Курс' },
     { href: '/', label: 'Головна' },
+    { href: '/course', label: 'Курс' },
     { href: 'https://academy.education-design.com.ua/login', label: 'Вхід для фахівців' },
     { href: 'https://studyway.com.ua', label: 'Освіта за кордоном' },
     { href: '/blog', label: 'Блог' },
@@ -19,8 +19,8 @@ const NAV_ITEMS: Record<Locale, { href: string; label: string }[]> = {
     { href: '/contacts', label: 'Контакти' },
   ],
   ru: [
-    { href: '/ru/course', label: 'Курс' },
     { href: '/ru', label: 'Главная' },
+    { href: '/ru/course', label: 'Курс' },
     { href: 'https://academy.education-design.com.ua/login', label: 'Вход для специалистов' },
     { href: 'https://studyway.com.ua/ru/', label: 'Образование за рубежом' },
     { href: '/ru/blog', label: 'Блог' },
@@ -62,7 +62,7 @@ export default function Footer() {
             </Link>
           ))}
         </nav>
-        <small className="text-sm text-white/50">{COPYRIGHT[locale]}</small>
+        <small className="text-[18px] text-white/50">{COPYRIGHT[locale]}</small>
       </div>
     </footer>
   )

@@ -188,7 +188,7 @@ export default async function BlogArticlePage({ id, locale }: { id: string; loca
       {/* Breadcrumbs */}
       <section className="bg-bg-base">
         <div className="mx-auto max-w-container px-4 py-3">
-          <nav className="flex items-center text-sm text-gray-500">
+          <nav className="flex items-center text-[18px] text-gray-500">
             <Link href={blogBasePath} className="shrink-0 transition hover:text-primary">
               {t.blogCrumb}
             </Link>
@@ -210,7 +210,7 @@ export default async function BlogArticlePage({ id, locale }: { id: string; loca
               <h1 className="mb-8 max-w-2xl text-3xl font-bold leading-tight text-dark">
                 {post.title}
               </h1>
-              <p className="mb-4 text-sm text-gray-500">{formatBlogDate(post.date, locale)}</p>
+              <p className="mb-4 text-[18px] text-gray-500">{formatBlogDate(post.date, locale)}</p>
             </div>
 
             <div className="flex items-center gap-5 text-left">
@@ -223,7 +223,7 @@ export default async function BlogArticlePage({ id, locale }: { id: string; loca
               />
               <div>
                 <p className="font-medium">{t.authorName}</p>
-                <p className="text-sm text-gray-500">{t.authorBio}</p>
+                <p className="text-[18px] text-gray-500">{t.authorBio}</p>
               </div>
             </div>
 
@@ -264,7 +264,7 @@ export default async function BlogArticlePage({ id, locale }: { id: string; loca
                 <h1 className="mb-8 max-w-2xl text-3xl font-bold leading-tight text-dark md:text-4xl">
                   {post.title}
                 </h1>
-                <p className="text-sm text-gray-500">{formatBlogDate(post.date, locale)}</p>
+                <p className="text-[18px] text-gray-500">{formatBlogDate(post.date, locale)}</p>
               </div>
             </div>
 
@@ -277,7 +277,7 @@ export default async function BlogArticlePage({ id, locale }: { id: string; loca
                 className="h-14 w-14 rounded-full object-cover"
               />
               <p className="mt-3 font-medium">{t.authorName}</p>
-              <p className="text-sm text-gray-500">{t.authorBio}</p>
+              <p className="text-[18px] text-gray-500">{t.authorBio}</p>
             </div>
           </div>
         </div>
@@ -342,7 +342,7 @@ export default async function BlogArticlePage({ id, locale }: { id: string; loca
                     href={`${blogBasePath}/${newerPost.id}`}
                     className="flex flex-col gap-1 text-left transition hover:text-primary"
                   >
-                    <span className="text-sm text-gray-500">{t.nextArticle}</span>
+                    <span className="text-[18px] text-gray-500">{t.nextArticle}</span>
                     <span className="font-medium">{newerPost.title}</span>
                   </Link>
                 ) : (
@@ -353,7 +353,7 @@ export default async function BlogArticlePage({ id, locale }: { id: string; loca
                     href={`${blogBasePath}/${olderPost.id}`}
                     className="flex flex-col gap-1 text-left transition hover:text-primary sm:items-end sm:text-right"
                   >
-                    <span className="text-sm text-gray-500">{t.prevArticle}</span>
+                    <span className="text-[18px] text-gray-500">{t.prevArticle}</span>
                     <span className="font-medium">{olderPost.title}</span>
                   </Link>
                 )}

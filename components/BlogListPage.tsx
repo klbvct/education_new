@@ -40,7 +40,7 @@ function AccentCard({
       <p className="text-base leading-6 text-white/90">
         {truncateExcerpt(getBodyExcerpt(post), ACCENT_EXCERPT_LENGTH)}
       </p>
-      <span className="mt-auto text-sm text-white/70">{formatBlogDate(post.date, locale)}</span>
+      <span className="mt-auto text-[18px] text-white/70">{formatBlogDate(post.date, locale)}</span>
     </Link>
   )
 }
@@ -61,7 +61,7 @@ function RegularCard({
     >
       <h2 className="text-xl font-medium leading-tight">{post.title}</h2>
       <p className="text-base leading-6 text-gray-500">{truncateExcerpt(getBodyExcerpt(post))}</p>
-      <span className="mt-auto text-sm text-gray-500">{formatBlogDate(post.date, locale)}</span>
+      <span className="mt-auto text-[18px] text-gray-500">{formatBlogDate(post.date, locale)}</span>
     </Link>
   )
 }

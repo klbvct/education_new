@@ -53,7 +53,7 @@ export default function ReviewCard({ review }: { review: Review }) {
         )}
       </p>
 
-      <span className="mt-auto text-sm text-gray-500">
+      <span className="mt-auto text-[18px] text-gray-500">
         {new Date(review.createdAt).toLocaleDateString(t.dateLocale)}
       </span>
     </div>
