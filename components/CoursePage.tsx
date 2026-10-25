@@ -19,7 +19,7 @@ type Module = { label: string; title: string }
 // Structured-data values (JSON-LD) — keep in sync with the "Початок" fact
 // and priceValue in STRINGS below.
 const COURSE_START_DATE = '2026-11-26'
-const COURSE_PRICE_EUR = 350
+const COURSE_PRICE_EUR = 295
 
 const COURSE_FACT_ICONS = [
   '/images/course/fact-format.svg',
@@ -309,7 +309,7 @@ const STRINGS: Record<
     ],
     formSectionTitle: 'Дизайн Освіти курс для фахівців',
     priceLabel: 'Вартість',
-    priceValue: '350 €',
+    priceValue: '295 €',
     formHeading: 'Залишити заявку',
   },
   ru: {
@@ -538,7 +538,7 @@ const STRINGS: Record<
     ],
     formSectionTitle: 'Дизайн Образования курс для специалистов',
     priceLabel: 'Стоимость',
-    priceValue: '350 €',
+    priceValue: '295 €',
     formHeading: 'Оставить заявку',
   },
 }

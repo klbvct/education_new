@@ -8,8 +8,8 @@ import { pushPurchaseEvent } from '../lib/analytics'
 const MESSENGERS = ['Telegram', 'WhatsApp', 'Viber'] as const
 type Messenger = (typeof MESSENGERS)[number]
 
-// 350 € converted to UAH — the site reports all purchases in UAH.
-const COURSE_PRICE = 17850
+// 295 € converted to UAH and rounded — the site reports all purchases in UAH.
+const COURSE_PRICE = 15000
 const SERVICE_LABEL: Record<Locale, string> = {
   uk: 'Курс',
   ru: 'Курс',
