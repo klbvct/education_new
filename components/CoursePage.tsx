@@ -578,10 +578,10 @@ export default function CoursePage({ locale }: { locale: Locale }) {
           </h1>
           <div className="flex flex-col gap-3 text-[18px] leading-7">
             <p>{t.heroLead}</p>
-            <p>
+            <p className="font-medium text-primary">
               {t.heroGetPrefix}
               <br />
-              <span className="font-medium text-primary">{t.heroGetAccent}</span>
+              {t.heroGetAccent}
             </p>
             <p>{t.heroDisciplines}</p>
           </div>
