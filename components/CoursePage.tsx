@@ -825,14 +825,14 @@ export default function CoursePage({ locale }: { locale: Locale }) {
         {/* Module titles only — the per-module topic lists were removed on
             purpose so the detailed syllabus isn't public. */}
         {/* Same step style as "Як проходить навчання": the module number in
-            a circle with the "Модуль" word beside it. Below lg each module is
-            a bordered card; on desktop the cards drop the border and are
+            a circle with the "Модуль" word beside it. Below lg modules are
+            separated by a dashed blue bottom border; on desktop they are
             joined by dashed connectors instead. */}
-        <ol className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4 lg:gap-8">
+        <ol className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
           {t.modules.map((mod, i) => (
             <li
               key={mod.label}
-              className="flex flex-col rounded-[20px] border border-primary/20 bg-white p-5 lg:rounded-none lg:border-0 lg:bg-transparent lg:p-0"
+              className="flex flex-col border-b-2 border-dashed border-primary/40 pb-6 last:border-b-0 last:pb-0 lg:border-b-0 lg:pb-0"
             >
               <div className="mb-5 flex items-center">
                 <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-primary text-[20px] font-semibold text-white">
