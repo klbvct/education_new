@@ -18,7 +18,7 @@ type Module = { label: string; title: string }
 
 // Structured-data values (JSON-LD) — keep in sync with the "Початок" fact
 // and priceValue in STRINGS below.
-const COURSE_START_DATE = '2026-11-26'
+const COURSE_START_DATE = '2026-11-21'
 const COURSE_PRICE_EUR = 295
 
 const COURSE_FACT_ICONS = [
@@ -95,7 +95,7 @@ const STRINGS: Record<
     facts: [
       { label: 'Формат', value: 'онлайн курс (без запису)' },
       { label: 'Тривалість', value: '4 модулі' },
-      { label: 'Початок', value: '26.11.2026' },
+      { label: 'Початок', value: '21.11.2026' },
       { label: 'Мова', value: 'українська' },
     ],
     aboutHeading: 'Про курс',
@@ -324,7 +324,7 @@ const STRINGS: Record<
     facts: [
       { label: 'Формат', value: 'онлайн-курс (без записи)' },
       { label: 'Длительность', value: '4 модуля' },
-      { label: 'Начало', value: '26.11.2026' },
+      { label: 'Начало', value: '21.11.2026' },
       { label: 'Язык', value: 'украинский' },
     ],
     aboutHeading: 'О курсе',
