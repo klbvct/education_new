@@ -584,7 +584,7 @@ export default function CoursePage({ locale }: { locale: Locale }) {
         </div>
         <div className="flex flex-1 justify-center md:justify-end">
           <Image
-            src="/images/course/marianna.webp"
+            src="/images/course/marianna_course.webp"
             alt={t.authorName}
             width={500}
             height={500}
@@ -696,7 +696,7 @@ export default function CoursePage({ locale }: { locale: Locale }) {
         <h2 className={`mb-8 ${sectionHeading}`}>{t.authorHeading}</h2>
         <div className="flex flex-col items-center gap-10 md:flex-row md:justify-center md:gap-16 lg:gap-28 lg:pl-[72px]">
           <Image
-            src="/images/course/marianna.webp"
+            src="/images/course/marianna_course.webp"
             alt={t.authorName}
             width={420}
             height={420}
