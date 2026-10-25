@@ -41,8 +41,7 @@ const STRINGS: Record<
     heroTitle: string
     heroTitleAccent: string
     heroLead: string
-    heroGetPrefix: string
-    heroGetAccent: string
+    heroGet: string
     heroDisciplines: string
     facts: { label: string; value: string }[]
     aboutHeading: string
@@ -90,8 +89,7 @@ const STRINGS: Record<
     heroTitleAccent: 'курс для фахівців',
     heroLead:
       'Сучасна методологія для освітніх консультантів, педагогів, психологів, представників шкіл, фахівців з розробки освітніх стратегій, методистів',
-    heroGetPrefix: 'Ви отримаєте не просто інформацію, а',
-    heroGetAccent: 'нову професійну реалізацію',
+    heroGet: 'Ви отримаєте не просто інформацію, а нову професійну реалізацію',
     heroDisciplines:
       'І корисні знання на перетині декількох дисциплін: педагогіки, психології, філософії, методики',
     facts: [
@@ -320,8 +318,7 @@ const STRINGS: Record<
     heroTitleAccent: 'курс для специалистов',
     heroLead:
       'Современная методология для образовательных консультантов, педагогов, психологов, представителей школ, специалистов по разработке образовательных стратегий, методистов',
-    heroGetPrefix: 'Вы получите не просто информацию, а',
-    heroGetAccent: 'новую профессиональную реализацию',
+    heroGet: 'Вы получите не просто информацию, а новую профессиональную реализацию',
     heroDisciplines:
       'И полезные знания на пересечении нескольких дисциплин: педагогики, психологии, философии, методики',
     facts: [
@@ -578,11 +575,7 @@ export default function CoursePage({ locale }: { locale: Locale }) {
           </h1>
           <div className="flex flex-col gap-3 text-[18px] leading-7">
             <p>{t.heroLead}</p>
-            <p className="font-medium text-primary">
-              {t.heroGetPrefix}
-              <br />
-              {t.heroGetAccent}
-            </p>
+            <p className="font-medium text-primary">{t.heroGet}</p>
             <p>{t.heroDisciplines}</p>
           </div>
           <a href="#course-about" className="mx-auto hidden pt-5 transition md:block hover:opacity-60" aria-label={t.aboutHeading}>
