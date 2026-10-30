@@ -105,14 +105,16 @@ export default function Header() {
         )}
 
         <div className="flex items-center gap-1 md:gap-10">
-          <nav className="hidden items-center gap-10 md:flex">
+          {/* RU labels are longer ("Образование за рубежом"), so the RU nav
+              gets tighter gaps to stay on one line next to the brand name. */}
+          <nav className={`hidden items-center md:flex ${locale === 'ru' ? 'gap-6' : 'gap-10'}`}>
             {navItems
               .filter((item) => !isHome || item.href !== homeHref)
               .map((item) => (
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`text-lg transition-colors hover:text-primary ${
+                  className={`whitespace-nowrap text-lg transition-colors hover:text-primary ${
                     pathname === item.href ? 'text-primary' : 'text-dark'
                   }`}
                 >
