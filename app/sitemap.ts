@@ -9,6 +9,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticPairs: [string, string][] = [
     ['/', '/ru'],
     ['/course', '/ru/course'],
+    ['/test', '/ru/test'],
     ['/contacts', '/ru/contacts'],
     ['/feedback', '/ru/feedback'],
     ['/blog', '/ru/blog'],
