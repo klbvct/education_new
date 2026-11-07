@@ -1,139 +1,325 @@
+import Image from 'next/image'
+import type { ReactNode } from 'react'
+import Link from 'next/link'
 import type { Locale } from '../lib/locale'
+import { homeContentUk } from '../content/uk/home'
 
-// The test itself, payment and the report all live in the academy app; this
-// page only explains the offer and sends the visitor to registration there.
+// Based on the old academy landing (../academy/app/page.tsx), reworked for parents and the design system.
+// The test itself, payment and the report all live in the academy app; this page sends visitors to registration there.
+// Prices are written here by hand: change them together with the academy settings.
 const REGISTER_URL = 'https://academy.education-design.com.ua/register'
-const LOGIN_URL = 'https://academy.education-design.com.ua/login'
 
-const STRINGS: Record<
-  Locale,
-  {
-    title: string
-    lead: string
-    cta: string
-    login: string
-    price: string
-    priceNote: string
-    stepsHeading: string
-    steps: { title: string; text: string }[]
-    includedHeading: string
-    included: string[]
-    consultHeading: string
-    consultText: string
-    consultPrice: string
-  }
-> = {
-  uk: {
-    title: 'Профорієнтаційне тестування',
-    lead: 'Пройдіть тест самостійно у зручному темпі й отримайте повний звіт із персональними рекомендаціями у власному кабінеті.',
-    cta: 'Створити кабінет',
-    login: 'Вже маєте кабінет? Увійти',
+// Inline icons, as in HomeIcons.tsx: no icon package
+const icon = (paths: ReactNode) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="h-7 w-7" aria-hidden="true">
+    {paths}
+  </svg>
+)
+const ICONS = {
+  target: icon(<><circle cx="12" cy="12" r="9" /><circle cx="12" cy="12" r="5" /><circle cx="12" cy="12" r="1" /></>),
+  trend: icon(<><path d="M3 17l6-6 4 4 8-8" /><path d="M15 7h6v6" /></>),
+  question: icon(<><circle cx="12" cy="12" r="9" /><path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .8-1 1.5V14" /><path d="M12 17h.01" /></>),
+  cap: icon(<><path d="M2 9l10-5 10 5-10 5z" /><path d="M6 11v5c0 1 3 3 6 3s6-2 6-3v-5" /></>),
+  globe: icon(<><circle cx="12" cy="12" r="9" /><ellipse cx="12" cy="12" rx="4" ry="9" /><path d="M3 12h18" /></>),
+  check: icon(<><circle cx="12" cy="12" r="9" /><path d="m8.5 12 2.5 2.5 4.5-5" /></>),
+  bolt: icon(<path d="M13 2 4 14h7l-1 8 9-12h-7z" />),
+  flask: icon(<><path d="M9 3h6" /><path d="M10 3v6L4 20a1 1 0 0 0 .9 1.5h14.2A1 1 0 0 0 20 20l-6-11V3" /><path d="M7 15h10" /></>),
+  chip: icon(<><rect x="6" y="6" width="12" height="12" rx="2" /><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4" /></>),
+  box: icon(<><path d="M21 8 12 3 3 8v8l9 5 9-5z" /><path d="M3 8l9 5 9-5M12 13v8" /></>),
+  brain: icon(<><path d="M9 4a3 3 0 0 0-3 3 3 3 0 0 0-2 5 3 3 0 0 0 2 5 3 3 0 0 0 6 1V5a2 2 0 0 0-3-1z" /><path d="M15 4a3 3 0 0 1 3 3 3 3 0 0 1 2 5 3 3 0 0 1-2 5 3 3 0 0 1-6 1" /></>),
+  map: icon(<><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2z" /><path d="M9 4v14M15 6v14" /></>),
+}
+
+type Item = { icon: ReactNode; title?: string; text: string }
+
+type TestingStrings = {
+  hero: { title: string; lead: string; cta: string; price: string; priceNote: string }
+  author: { heading: string; items: string[]; reviewsCta: string }
+  problems: { heading: string; items: Item[] }
+  advantages: { heading: string; items: Item[] }
+  steps: { heading: string; items: string[] }
+  results: { heading: string; items: string[]; note: string; modulesHeading: string; modules: string[] }
+  faq: { heading: string; items: { q: string; a: string }[] }
+  cta: { heading: string; text: string; button: string }
+}
+
+const UK: TestingStrings = {
+  hero: {
+    title: 'Допоможіть дитині визначити напрям навчання',
+    lead: 'Онлайн-тестування й детальний звіт із рекомендаціями, щоб разом скласти чітку стратегію освіти та вибору майбутньої професії.',
+    cta: 'Розпочати тестування',
     price: '2 500 грн',
-    priceNote: 'Рекомендації входять у вартість',
-    stepsHeading: 'Як це працює',
-    steps: [
-      { title: 'Створіть кабінет', text: 'Реєстрація займає кілька хвилин.' },
-      { title: 'Оплатіть тест', text: 'Доступ відкривається автоматично після оплати.' },
-      { title: 'Пройдіть 8 модулів', text: 'Прогрес зберігається, тож можна робити паузи.' },
-      { title: 'Отримайте звіт', text: 'Звіт і рекомендації з’являться в кабінеті одразу після завершення.' },
-    ],
-    includedHeading: 'Що ви отримаєте',
-    included: [
-      'Повний звіт за 8 модулями тестування',
-      'Персональні рекомендації',
-      'Постійний доступ до результатів у кабінеті',
-      'Можливість завантажити або надрукувати звіт',
-    ],
-    consultHeading: 'Консультація за результатами',
-    consultText:
-      'Після тесту можна записатися на консультацію з Мар’яною Калабуховою, авторкою методики Дизайн Освіти. Ви пропонуєте зручний час, а після його узгодження отримуєте рахунок. Консультація не входить у вартість тесту.',
-    consultPrice: '5 500 грн',
+    priceNote: 'повний доступ',
   },
-  ru: {
-    title: 'Профориентационное тестирование',
-    lead: 'Пройдите тест самостоятельно в удобном темпе и получите полный отчёт с персональными рекомендациями в собственном кабинете.',
-    cta: 'Создать кабинет',
-    login: 'Уже есть кабинет? Войти',
-    price: '2 500 грн',
-    priceNote: 'Рекомендации входят в стоимость',
-    stepsHeading: 'Как это работает',
-    steps: [
-      { title: 'Создайте кабинет', text: 'Регистрация занимает несколько минут.' },
-      { title: 'Оплатите тест', text: 'Доступ открывается автоматически после оплаты.' },
-      { title: 'Пройдите 8 модулей', text: 'Прогресс сохраняется, поэтому можно делать паузы.' },
-      { title: 'Получите отчёт', text: 'Отчёт и рекомендации появятся в кабинете сразу после завершения.' },
-    ],
-    includedHeading: 'Что вы получите',
-    included: [
-      'Полный отчёт по 8 модулям тестирования',
-      'Персональные рекомендации',
-      'Постоянный доступ к результатам в кабинете',
-      'Возможность скачать или распечатать отчёт',
-    ],
-    consultHeading: 'Консультация по результатам',
-    consultText:
-      'После теста можно записаться на консультацию с Марьяной Калабуховой, автором методики Дизайн Образования. Вы предлагаете удобное время, а после его согласования получаете счёт. Консультация не входит в стоимость теста.',
-    consultPrice: '5 500 грн',
+  author: {
+    heading: 'Автор методики',
+    items: homeContentUk.aboutMe.items,
+    reviewsCta: homeContentUk.aboutMe.reviewsCta,
   },
+  problems: {
+    heading: 'Чи знайоме вам це?',
+    items: [
+      { icon: ICONS.target, text: 'Дитина не може визначити свої таланти та здібності' },
+      { icon: ICONS.trend, text: 'Не знає, в якій сфері зможе успішно розвиватися' },
+      { icon: ICONS.question, text: 'Сумнівається у своїх силах і правильності вибору' },
+      { icon: ICONS.cap, text: 'Наближається вступ, а напрям навчання не обрано' },
+      { icon: ICONS.globe, text: "Хочете обрати актуальну галузь для майбутньої кар'єри дитини" },
+      { icon: ICONS.check, text: 'Хочете, щоб вибір професії й навчання був упевненим' },
+    ],
+  },
+  advantages: {
+    heading: 'Чому Дизайн Освіти?',
+    items: [
+      { icon: ICONS.bolt, title: 'Швидко, доступно, самостійно', text: 'Дитина проходить тест у будь-який зручний момент, без зайвих кроків.' },
+      { icon: ICONS.flask, title: 'Сучасна авторська методика', text: 'Тест поєднує перевірені міжнародні методики з урахуванням глобальних тенденцій в освіті.' },
+      { icon: ICONS.chip, title: 'Тренди ринку праці та штучного інтелекту', text: 'Аналіз враховує вплив штучного інтелекту й технологій на ринок праці, щоб вибір був актуальним сьогодні й завтра.' },
+      { icon: ICONS.box, title: 'Усе в одному кабінеті', text: 'Особистий кабінет, онлайн-тест, детальний звіт і рекомендації в одному місці.' },
+      { icon: ICONS.brain, title: 'Здібності, а не лише інтереси', text: 'Аналізуємо когнітивні здібності, сильні й слабкі сторони, на які можна спиратися у виборі.' },
+      { icon: ICONS.map, title: 'Індивідуальна освітня карта', text: 'Не просто перелік професій, а карта галузей, у яких дитина може досягти успіху.' },
+    ],
+  },
+  steps: {
+    heading: 'Як це працює',
+    items: [
+      'Реєстрація і створення особистого кабінету.',
+      'Оплата доступу до тестування карткою через WayForPay.',
+      'Дитина проходить тест у зручний час, це близько 60 хвилин. Чесні відповіді дають точніші результати.',
+      'Тест складається з 8 модулів. До кожного є опис та інструкція, прогрес можна зберегти й продовжити пізніше.',
+      'Одразу після завершення ви отримуєте розгорнутий аналіз: спрямованість, типи мислення, мотивацію, цінності, інтереси й особливості сприйняття.',
+      'Звіт містить рекомендації до вибору напрямів навчання.',
+      'Результати назавжди залишаються в особистому кабінеті.',
+    ],
+  },
+  results: {
+    heading: 'Що ви отримаєте після тестування',
+    items: [
+      'Структуроване розуміння сильних сторін, мислення й потенціалу дитини',
+      'Чітке бачення, в яких сферах вона зможе реалізуватися найефективніше',
+      'Визначення її типу навчання та розвитку',
+      'Розуміння, які напрями їй підходять, а які ні, і чому',
+      'Основу для усвідомлених освітніх рішень',
+      'Природні схильності та потенційні зони росту',
+    ],
+    note: 'Після тестування ви разом із дитиною зрозумієте, куди рухатися далі. Невизначеність перетвориться на стратегію.',
+    modulesHeading: '8 модулів тесту',
+    modules: [
+      'Професійна спрямованість',
+      'Інтереси та здібності в навчанні',
+      'Типи мислення',
+      'Цінності',
+      'Типи інтелекту',
+      'Мотивація',
+      'Професійні інтереси за Голландом',
+      'Тип сприйняття інформації',
+    ],
+  },
+  faq: {
+    heading: 'Часті запитання',
+    items: [
+      { q: 'Для якого віку тест?', a: 'Для підлітків від 14 років.' },
+      { q: 'Скільки триває тест?', a: 'Близько 60 хвилин. Прогрес зберігається, тож дитина може зробити паузу й продовжити пізніше.' },
+      { q: 'Чи можна пройти тест кілька разів?', a: 'Ні, у кожному кабінеті тест проходять один раз, щоб результати були точними.' },
+      { q: 'Як довго доступні результати?', a: 'Постійно. Звіт зберігається в кабінеті, його можна завантажити або роздрукувати.' },
+    ],
+  },
+  cta: {
+    heading: 'Допоможіть дитині зробити свідомий вибір',
+    text: 'Пройдіть тестування й отримайте персональні рекомендації.',
+    button: 'Розпочати тестування',
+  },
+}
+
+// Russian copy follows once the Ukrainian page is approved
+const STRINGS: Record<Locale, TestingStrings> = { uk: UK, ru: UK }
+
+const H2 = 'text-3xl font-bold leading-tight text-dark md:text-4xl'
+const BUTTON = 'inline-flex h-14 items-center justify-center gap-2 rounded-[32px] px-8 text-base transition hover:opacity-60 lg:h-12'
+const ARROW = (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <path d="M5 12h14M13 6l6 6-6 6" />
+  </svg>
+)
+
+function VideoFrame({ src, autoPlay }: { src: string; autoPlay?: boolean }) {
+  return (
+    <div className="overflow-hidden rounded-[24px] border border-black/[.06] bg-white shadow-[0_38px_56px_rgba(191,204,225,0.39)]">
+      <video className="block aspect-video w-full object-cover" src={src} muted loop playsInline autoPlay={autoPlay} preload="metadata" />
+    </div>
+  )
 }
 
 export default function TestingPage({ locale }: { locale: Locale }) {
   const t = STRINGS[locale]
 
   return (
-    <main className="bg-bg-base">
-      <section className="mx-auto max-w-container px-4 py-16 md:px-16 lg:px-28">
-        <h1 className="text-4xl font-semibold text-dark md:text-5xl">{t.title}</h1>
-        <p className="mt-6 max-w-2xl text-dark">{t.lead}</p>
-        <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-6">
-          <a
-            href={REGISTER_URL}
-            className="inline-flex h-14 items-center justify-center rounded-[32px] bg-primary px-10 font-medium text-white transition hover:opacity-60"
-          >
-            {t.cta}
-          </a>
+    <main className="bg-white text-dark">
+      {/* Hero */}
+      <section className="pt-16 pb-20 md:pt-20 md:pb-28">
+        <div className="mx-auto grid max-w-container grid-cols-1 items-center gap-12 px-4 lg:grid-cols-2">
           <div>
-            <p className="text-2xl font-semibold text-dark">{t.price}</p>
-            <p className="text-sm text-muted">{t.priceNote}</p>
+            <h1 className="mb-6 text-4xl font-bold leading-tight tracking-tight md:text-5xl">{t.hero.title}</h1>
+            <p className="mb-10 text-lg text-[#757474]">{t.hero.lead}</p>
+            <a href={REGISTER_URL} className={`${BUTTON} bg-primary text-white`}>{t.hero.cta}{ARROW}</a>
+            <div className="mt-4 flex flex-wrap items-center gap-3">
+              <span className="text-2xl font-bold">{t.hero.price}</span>
+              <span className="h-6 w-px bg-black/[.12]" />
+              <span className="text-base text-[#757474]">{t.hero.priceNote}</span>
+            </div>
+          </div>
+          <VideoFrame src="/test/report-preview.mp4" autoPlay />
+        </div>
+      </section>
+
+      {/* Author, the same block as «Про мене» on the homepage */}
+      <section className="bg-bg-base py-20">
+        <div className="mx-auto max-w-container px-4">
+          <h2 className={`${H2} mb-12`}>{t.author.heading}</h2>
+          <div className="grid grid-cols-1 items-center gap-10 md:grid-cols-2">
+            <Image
+              src="/images/mariana.webp"
+              alt={homeContentUk.hero.authorName}
+              width={480}
+              height={560}
+              className="mx-auto h-auto w-full max-w-[420px] rounded-2xl"
+            />
+            <div>
+              <div className="space-y-4">
+                {t.author.items.map((text) => (
+                  <div key={text} className="grid grid-cols-[24px_1fr] gap-3">
+                    <Image src="/images/check_circle_24px.svg" alt="" width={20} height={20} className="mt-1" />
+                    <p className="text-base leading-6">{text}</p>
+                  </div>
+                ))}
+              </div>
+              <div className="mx-auto mt-8 max-w-[320px]">
+                <Link href={locale === 'ru' ? '/ru/feedback' : '/feedback'} className={`${BUTTON} w-full bg-primary text-white`}>
+                  {t.author.reviewsCta}
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                  </svg>
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
-        <a href={LOGIN_URL} className="mt-6 inline-block text-primary transition hover:opacity-60">
-          {t.login}
-        </a>
       </section>
 
-      <section className="bg-white">
-        <div className="mx-auto max-w-container px-4 py-16 md:px-16 lg:px-28">
-          <h2 className="text-3xl font-semibold text-dark">{t.stepsHeading}</h2>
-          <ol className="mt-8 grid gap-6 md:grid-cols-2">
-            {t.steps.map((step, i) => (
-              <li key={step.title} className="flex gap-4 rounded-[30px] bg-bg-secondary p-6">
-                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary font-medium text-white">
-                  {i + 1}
-                </span>
+      {/* Problems */}
+      <section className="py-20">
+        <div className="mx-auto max-w-container px-4">
+          <h2 className={`${H2} mb-12`}>{t.problems.heading}</h2>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {t.problems.items.map((p) => (
+              <div key={p.text} className="flex items-start gap-4 rounded-[16px] border border-black/[.06] bg-white p-5">
+                <span className="shrink-0 text-primary">{p.icon}</span>
+                <p className="text-base leading-relaxed">{p.text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Advantages */}
+      <section className="bg-bg-base py-20">
+        <div className="mx-auto max-w-container px-4">
+          <h2 className={`${H2} mb-12`}>{t.advantages.heading}</h2>
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+            {t.advantages.items.map((a, i) => (
+              <div key={a.title} className="flex items-start gap-4 rounded-[16px] border border-black/[.06] bg-white p-6">
+                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-[16px] bg-primary/[0.06] text-primary">{a.icon}</span>
                 <div>
-                  <h3 className="font-semibold text-dark">{step.title}</h3>
-                  <p className="mt-1 text-dark">{step.text}</p>
+                  <div className="mb-1 text-[13px] font-medium text-primary">{String(i + 1).padStart(2, '0')}</div>
+                  <h3 className="mb-2 text-lg font-medium leading-snug">{a.title}</h3>
+                  <p className="text-base leading-relaxed text-[#757474]">{a.text}</p>
                 </div>
-              </li>
+              </div>
             ))}
-          </ol>
+          </div>
         </div>
       </section>
 
-      <section className="mx-auto grid max-w-container gap-10 px-4 py-16 md:grid-cols-2 md:px-16 lg:px-28">
-        <div>
-          <h2 className="text-3xl font-semibold text-dark">{t.includedHeading}</h2>
-          <ul className="mt-6 list-disc space-y-3 pl-5 text-dark">
-            {t.included.map((item) => (
-              <li key={item}>{item}</li>
-            ))}
-          </ul>
+      {/* How it works */}
+      <section className="py-20">
+        <div className="mx-auto max-w-container px-4">
+          <h2 className={`${H2} mb-12`}>{t.steps.heading}</h2>
+          <div className="grid grid-cols-1 items-center gap-14 lg:grid-cols-2">
+            <ol className="space-y-3">
+              {t.steps.items.map((s, i) => (
+                <li key={s} className="flex items-center gap-4">
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary text-[13px] font-medium text-white">{i + 1}</span>
+                  <p className="flex-1 rounded-[16px] border border-black/[.06] bg-white px-4 py-3 text-base leading-relaxed">{s}</p>
+                </li>
+              ))}
+            </ol>
+            <VideoFrame src="/test/how-it-works.mp4" autoPlay />
+          </div>
         </div>
-        <div className="rounded-[30px] bg-white p-8">
-          <h2 className="text-2xl font-semibold text-dark">{t.consultHeading}</h2>
-          <p className="mt-4 text-dark">{t.consultText}</p>
-          <p className="mt-4 text-2xl font-semibold text-dark">{t.consultPrice}</p>
+      </section>
+
+      {/* Results */}
+      <section className="bg-bg-base py-20">
+        <div className="mx-auto max-w-container px-4">
+          <h2 className={`${H2} mb-12`}>{t.results.heading}</h2>
+          <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-2">
+            <div className="flex flex-col gap-3">
+              {t.results.items.map((item) => (
+                <div key={item} className="flex items-start gap-3">
+                  <span className="mt-0.5 shrink-0 text-primary">{ICONS.check}</span>
+                  <p className="text-base leading-relaxed">{item}</p>
+                </div>
+              ))}
+              <p className="mt-3 rounded-[16px] bg-white p-5 text-base leading-relaxed">{t.results.note}</p>
+            </div>
+            <div className="rounded-[24px] border border-black/[.06] bg-white p-6 md:p-8">
+              <h3 className="mb-5 text-xl font-medium">{t.results.modulesHeading}</h3>
+              <ol className="divide-y divide-black/[.06]">
+                {t.results.modules.map((m, i) => (
+                  <li key={m} className="flex items-center gap-4 py-3">
+                    <span className="w-6 text-[15px] font-medium text-primary">{String(i + 1).padStart(2, '0')}</span>
+                    <span>{m}</span>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="py-20">
+        <div className="mx-auto max-w-container px-4">
+          <h2 className={`${H2} mb-12`}>{t.faq.heading}</h2>
+          <div className="max-w-[820px] space-y-3">
+            {t.faq.items.map((item) => (
+              <details key={item.q} className="group rounded-[16px] border border-black/[.06] bg-white px-6 py-5">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-lg font-medium [&::-webkit-details-marker]:hidden">
+                  {item.q}
+                  <svg className="h-5 w-5 shrink-0 text-primary transition group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="m6 9 6 6 6-6" />
+                  </svg>
+                </summary>
+                <p className="mt-3 text-base leading-relaxed text-[#757474]">{item.a}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="bg-primary py-20">
+        <div className="mx-auto grid max-w-container grid-cols-1 items-center gap-10 px-4 md:grid-cols-2">
+          <div>
+            <h2 className="mb-4 text-3xl font-bold leading-tight text-white md:text-4xl">{t.cta.heading}</h2>
+            <p className="text-lg text-white/80">{t.cta.text}</p>
+          </div>
+          <div className="flex flex-col items-start gap-5 md:items-end">
+            <a href={REGISTER_URL} className={`${BUTTON} bg-white text-primary`}>{t.cta.button}{ARROW}</a>
+            <div className="flex items-center gap-2 text-white/80">
+              <span className="text-xl font-bold text-white">{t.hero.price}</span>
+              <span className="h-4 w-px bg-white/40" />
+              <span className="text-base">{t.hero.priceNote}</span>
+            </div>
+          </div>
         </div>
       </section>
     </main>
