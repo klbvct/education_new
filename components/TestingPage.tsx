@@ -3,11 +3,15 @@ import type { ReactNode } from 'react'
 import Link from 'next/link'
 import type { Locale } from '../lib/locale'
 import { homeContentUk } from '../content/uk/home'
+import ReportGallery from './ReportGallery'
 
 // Based on the old academy landing (../academy/app/page.tsx), reworked for parents and the design system.
 // The test itself, payment and the report all live in the academy app; this page sends visitors to registration there.
 // Prices are written here by hand: change them together with the academy settings.
 const REGISTER_URL = 'https://academy.education-design.com.ua/register'
+
+// Pages of the report mockup with invented results (sample name «Анна Коваленко»), never a real client's report
+const REPORT_PAGES = Array.from({ length: 10 }, (_, i) => `/test/report-${String(i + 1).padStart(2, '0')}.webp`)
 
 // Inline icons, as in HomeIcons.tsx: no icon package
 const icon = (paths: ReactNode) => (
@@ -38,8 +42,7 @@ type TestingStrings = {
   problems: { heading: string; items: Item[] }
   advantages: { heading: string; items: Item[] }
   steps: { heading: string; items: string[] }
-  results: { heading: string; items: string[]; note: string; modulesHeading: string; modules: string[] }
-  faq: { heading: string; items: { q: string; a: string }[] }
+  results: { heading: string; items: string[]; note: string; galleryAlt: string; prev: string; next: string }
   cta: { heading: string; text: string; button: string }
 }
 
@@ -98,29 +101,14 @@ const UK: TestingStrings = {
       'Визначення її типу навчання та розвитку',
       'Розуміння, які напрями їй підходять, а які ні, і чому',
       'Основу для усвідомлених освітніх рішень',
+      'Індивідуальний профіль розвитку',
       'Природні схильності та потенційні зони росту',
+      'Розуміння, як будувати освітню траєкторію',
     ],
     note: 'Після тестування ви разом із дитиною зрозумієте, куди рухатися далі. Невизначеність перетвориться на стратегію.',
-    modulesHeading: '8 модулів тесту',
-    modules: [
-      'Професійна спрямованість',
-      'Інтереси та здібності в навчанні',
-      'Типи мислення',
-      'Цінності',
-      'Типи інтелекту',
-      'Мотивація',
-      'Професійні інтереси за Голландом',
-      'Тип сприйняття інформації',
-    ],
-  },
-  faq: {
-    heading: 'Часті запитання',
-    items: [
-      { q: 'Для якого віку тест?', a: 'Для підлітків від 14 років.' },
-      { q: 'Скільки триває тест?', a: 'Близько 60 хвилин. Прогрес зберігається, тож дитина може зробити паузу й продовжити пізніше.' },
-      { q: 'Чи можна пройти тест кілька разів?', a: 'Ні, у кожному кабінеті тест проходять один раз, щоб результати були точними.' },
-      { q: 'Як довго доступні результати?', a: 'Постійно. Звіт зберігається в кабінеті, його можна завантажити або роздрукувати.' },
-    ],
+    galleryAlt: 'Сторінка звіту',
+    prev: 'Попередня сторінка звіту',
+    next: 'Наступна сторінка звіту',
   },
   cta: {
     heading: 'Допоможіть дитині зробити свідомий вибір',
@@ -134,9 +122,10 @@ const STRINGS: Record<Locale, TestingStrings> = { uk: UK, ru: UK }
 
 const H2 = 'text-3xl font-bold leading-tight text-dark md:text-4xl'
 const BUTTON = 'inline-flex h-14 items-center justify-center gap-2 rounded-[32px] px-8 text-base transition hover:opacity-60 lg:h-12'
-const ARROW = (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-    <path d="M5 12h14M13 6l6 6-6 6" />
+// The same paper-plane icon as the homepage's main call-to-action button (ConsultationModal.tsx)
+const BUTTON_ICON = (
+  <svg viewBox="0 0 448 512" width="18" height="18" fill="currentColor" aria-hidden="true">
+    <path d="M446.7 98.6l-67.6 318.8c-5.1 22.5-18.4 28.1-37.3 17.5l-103-75.9-49.7 47.8c-5.5 5.5-10.1 10.1-20.6 10.1l7.4-104.9L367.5 151c8.3-7.4-1.8-11.5-12.9-4.1L117.8 284 16.2 252.2c-22.1-6.9-22.5-22.1 4.6-32.7L418.2 66.4c18.4-6.9 34.5 4.1 28.5 32.2z" />
   </svg>
 )
 
@@ -159,7 +148,7 @@ export default function TestingPage({ locale }: { locale: Locale }) {
           <div>
             <h1 className="mb-6 text-4xl font-bold leading-tight tracking-tight md:text-5xl">{t.hero.title}</h1>
             <p className="mb-10 text-lg text-[#757474]">{t.hero.lead}</p>
-            <a href={REGISTER_URL} className={`${BUTTON} bg-primary text-white`}>{t.hero.cta}{ARROW}</a>
+            <a href={REGISTER_URL} className={`${BUTTON} bg-primary text-white`}>{t.hero.cta}{BUTTON_ICON}</a>
             <div className="mt-4 flex flex-wrap items-center gap-3">
               <span className="text-2xl font-bold">{t.hero.price}</span>
               <span className="h-6 w-px bg-black/[.12]" />
@@ -243,11 +232,12 @@ export default function TestingPage({ locale }: { locale: Locale }) {
         <div className="mx-auto max-w-container px-4">
           <h2 className={`${H2} mb-12`}>{t.steps.heading}</h2>
           <div className="grid grid-cols-1 items-center gap-14 lg:grid-cols-2">
-            <ol className="space-y-3">
+            {/* Steps divided by thin grey lines, like the detailed lists in the report */}
+            <ol className="divide-y divide-black/[.08]">
               {t.steps.items.map((s, i) => (
-                <li key={s} className="flex items-center gap-4">
+                <li key={s} className="flex items-center gap-4 py-4 first:pt-0 last:pb-0">
                   <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary text-[13px] font-medium text-white">{i + 1}</span>
-                  <p className="flex-1 rounded-[16px] border border-black/[.06] bg-white px-4 py-3 text-base leading-relaxed">{s}</p>
+                  <p className="flex-1 text-base leading-relaxed">{s}</p>
                 </li>
               ))}
             </ol>
@@ -256,64 +246,34 @@ export default function TestingPage({ locale }: { locale: Locale }) {
         </div>
       </section>
 
-      {/* Results */}
+      {/* Results: list on the left, pages of a sample report on the right, as on the old landing */}
       <section className="bg-bg-base py-20">
         <div className="mx-auto max-w-container px-4">
           <h2 className={`${H2} mb-12`}>{t.results.heading}</h2>
-          <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-2">
+          <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
             <div className="flex flex-col gap-3">
               {t.results.items.map((item) => (
                 <div key={item} className="flex items-start gap-3">
-                  <span className="mt-0.5 shrink-0 text-primary">{ICONS.check}</span>
+                  <Image src="/images/check_circle_24px.svg" alt="" width={20} height={20} className="mt-1 shrink-0" />
                   <p className="text-base leading-relaxed">{item}</p>
                 </div>
               ))}
-              <p className="mt-3 rounded-[16px] bg-white p-5 text-base leading-relaxed">{t.results.note}</p>
+              <p className="mt-2 border-l-2 border-primary pl-4 text-base leading-relaxed text-[#757474]">{t.results.note}</p>
             </div>
-            <div className="rounded-[24px] border border-black/[.06] bg-white p-6 md:p-8">
-              <h3 className="mb-5 text-xl font-medium">{t.results.modulesHeading}</h3>
-              <ol className="divide-y divide-black/[.06]">
-                {t.results.modules.map((m, i) => (
-                  <li key={m} className="flex items-center gap-4 py-3">
-                    <span className="w-6 text-[15px] font-medium text-primary">{String(i + 1).padStart(2, '0')}</span>
-                    <span>{m}</span>
-                  </li>
-                ))}
-              </ol>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ */}
-      <section className="py-20">
-        <div className="mx-auto max-w-container px-4">
-          <h2 className={`${H2} mb-12`}>{t.faq.heading}</h2>
-          <div className="max-w-[820px] space-y-3">
-            {t.faq.items.map((item) => (
-              <details key={item.q} className="group rounded-[16px] border border-black/[.06] bg-white px-6 py-5">
-                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-lg font-medium [&::-webkit-details-marker]:hidden">
-                  {item.q}
-                  <svg className="h-5 w-5 shrink-0 text-primary transition group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                    <path d="m6 9 6 6 6-6" />
-                  </svg>
-                </summary>
-                <p className="mt-3 text-base leading-relaxed text-[#757474]">{item.a}</p>
-              </details>
-            ))}
+            <ReportGallery images={REPORT_PAGES} alt={t.results.galleryAlt} prevLabel={t.results.prev} nextLabel={t.results.next} />
           </div>
         </div>
       </section>
 
       {/* CTA */}
       <section className="bg-primary py-20">
-        <div className="mx-auto grid max-w-container grid-cols-1 items-center gap-10 px-4 md:grid-cols-2">
+        <div className="mx-auto flex max-w-3xl flex-col items-center gap-10 px-4 text-center">
           <div>
             <h2 className="mb-4 text-3xl font-bold leading-tight text-white md:text-4xl">{t.cta.heading}</h2>
             <p className="text-lg text-white/80">{t.cta.text}</p>
           </div>
-          <div className="flex flex-col items-start gap-5 md:items-end">
-            <a href={REGISTER_URL} className={`${BUTTON} bg-white text-primary`}>{t.cta.button}{ARROW}</a>
+          <div className="flex flex-col items-center gap-5">
+            <a href={REGISTER_URL} className={`${BUTTON} bg-white text-primary`}>{t.cta.button}{BUTTON_ICON}</a>
             <div className="flex items-center gap-2 text-white/80">
               <span className="text-xl font-bold text-white">{t.hero.price}</span>
               <span className="h-4 w-px bg-white/40" />
