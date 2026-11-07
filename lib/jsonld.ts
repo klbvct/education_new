@@ -8,8 +8,8 @@ const BRAND_NAME: Record<Locale, string> = {
 }
 
 const LEGAL_NAME: Record<Locale, string> = {
-  uk: 'ТОВ "ОТЦ "ЄВРОПА"',
-  ru: 'ООО "ОТЦ "ЕВРОПА"',
+  uk: "ФОП Калабухова Мар'яна Василівна",
+  ru: 'ФЛП Калабухова Марьяна Васильевна',
 }
 
 export const AUTHOR_NAME: Record<Locale, string> = {

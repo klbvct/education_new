@@ -37,31 +37,29 @@ const OFFER_URL = 'https://academy.education-design.com.ua/oferta'
 
 const STRINGS: Record<
   Locale,
-  { brand: string; tagline: string; menu: string; contacts: string; company: string; code: string; address: string[]; help: string; offer: string; rights: string }
+  { brand: string; tagline: string; menu: string; contacts: string; company: string; code: string; address: string[]; help: string; offer: string }
 > = {
   uk: {
     brand: 'Дизайн Освіти',
     tagline: 'Сучасна система освітнього проєктування',
     menu: 'Меню',
     contacts: 'Контакти',
-    company: 'ТОВ «ОТЦ ЄВРОПА»',
-    code: 'Код ЄДРПОУ: 39292789',
-    address: ['Україна, м. Запоріжжя,', 'вул. Олександрівська, оф. 84'],
+    company: "ФОП Калабухова Мар'яна Василівна",
+    code: 'РНОКПП: 3068920321',
+    address: ['Україна, м. Київ,', 'вул. Тираспольська, 54'],
     help: 'Допомога',
     offer: 'Договір оферти',
-    rights: 'Усі права захищені ТОВ «ОТЦ ЄВРОПА»',
   },
   ru: {
     brand: 'Дизайн Образования',
     tagline: 'Современная система образовательного проектирования',
     menu: 'Меню',
     contacts: 'Контакты',
-    company: 'ООО «ОТЦ ЕВРОПА»',
-    code: 'Код ЕГРПОУ: 39292789',
-    address: ['Украина, г. Запорожье,', 'ул. Александровская, оф. 84'],
+    company: 'ФЛП Калабухова Марьяна Васильевна',
+    code: 'РНУКПН: 3068920321',
+    address: ['Украина, г. Киев,', 'ул. Тираспольская, 54'],
     help: 'Помощь',
     offer: 'Договор оферты',
-    rights: 'Все права защищены ООО «ОТЦ ЕВРОПА»',
   },
 }
 
@@ -131,7 +129,7 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-white/10 pt-6 text-center text-[13px]">
-          © {new Date().getFullYear()} {t.brand}. {t.rights}
+          © {new Date().getFullYear()} {t.brand}. {t.company}
         </div>
       </div>
     </footer>
