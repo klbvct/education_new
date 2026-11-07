@@ -259,7 +259,8 @@ export default function TestingPage({ locale }: { locale: Locale }) {
                   <p className="text-base leading-relaxed">{item}</p>
                 </div>
               ))}
-              <p className="mt-2 border-l-2 border-primary pl-4 text-base leading-relaxed text-[#757474]">{t.results.note}</p>
+              {/* Blue notice from the design system («Стани й нотифікації»): 8% blue, radius 20, padding 20 */}
+              <p className="mt-2 rounded-[20px] bg-[rgba(38,106,246,0.08)] p-5 text-base leading-relaxed text-[#757474]">{t.results.note}</p>
             </div>
             <ReportGallery images={REPORT_PAGES} alt={t.results.galleryAlt} prevLabel={t.results.prev} nextLabel={t.results.next} />
           </div>
