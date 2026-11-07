@@ -236,7 +236,8 @@ export default function TestingPage({ locale }: { locale: Locale }) {
             <ol className="divide-y divide-black/[.08]">
               {t.steps.items.map((s, i) => (
                 <li key={s} className="flex items-center gap-4 py-4 first:pt-0 last:pb-0">
-                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary text-[13px] font-medium text-white">{i + 1}</span>
+                  {/* Same number style as the report sections: grey Surface circle, blue digits */}
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#F5F5F5] text-[14px] font-medium leading-none text-primary min-[992px]:h-12 min-[992px]:w-12 min-[992px]:text-[16px]">{String(i + 1).padStart(2, '0')}</span>
                   <p className="flex-1 text-base leading-relaxed">{s}</p>
                 </li>
               ))}
