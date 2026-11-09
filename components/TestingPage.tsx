@@ -214,12 +214,12 @@ export default function TestingPage({ locale }: { locale: Locale }) {
         <div className="mx-auto grid max-w-container grid-cols-1 items-center gap-12 px-4 lg:grid-cols-2">
           <div>
             <h1 className="mb-6 text-4xl font-bold leading-tight tracking-tight md:text-5xl">{t.hero.title}</h1>
-            <p className="mb-10 text-lg text-[#757474]">{t.hero.lead}</p>
+            <p className="mb-10 text-lg">{t.hero.lead}</p>
             <a href={REGISTER_URL} className={`${BUTTON} bg-primary text-white`}>{t.hero.cta}{BUTTON_ICON}</a>
             <div className="mt-4 flex flex-wrap items-center gap-3">
               <span className="text-2xl font-bold">{t.hero.price}</span>
               <span className="h-6 w-px bg-black/[.12]" />
-              <span className="text-base text-[#757474]">{t.hero.priceNote}</span>
+              <span className="text-base">{t.hero.priceNote}</span>
             </div>
           </div>
           <VideoFrame src="/test/report-preview.mp4" autoPlay />
@@ -285,7 +285,7 @@ export default function TestingPage({ locale }: { locale: Locale }) {
                 <Image src="/images/radio_button_checked_24px.svg" alt="" width={24} height={24} className="mt-1" />
                 <div>
                   <h3 className="mb-2 text-lg font-medium leading-snug">{a.title}</h3>
-                  <p className="text-base leading-6 text-[#757474]">{a.text}</p>
+                  <p className="text-base leading-6">{a.text}</p>
                 </div>
               </div>
             ))}
@@ -326,7 +326,7 @@ export default function TestingPage({ locale }: { locale: Locale }) {
                 </div>
               ))}
               {/* Blue notice from the design system («Стани й нотифікації»): 8% blue, radius 20, padding 20 */}
-              <p className="mt-2 rounded-[20px] bg-[rgba(38,106,246,0.08)] p-5 text-base leading-relaxed text-[#757474]">{t.results.note}</p>
+              <p className="mt-2 rounded-[20px] bg-[rgba(38,106,246,0.08)] p-5 text-base leading-relaxed">{t.results.note}</p>
             </div>
             <ReportGallery images={REPORT_PAGES} alt={t.results.galleryAlt} prevLabel={t.results.prev} nextLabel={t.results.next} />
           </div>
