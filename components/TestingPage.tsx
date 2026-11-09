@@ -198,8 +198,8 @@ const BUTTON_ICON = (
 
 function VideoFrame({ src, autoPlay }: { src: string; autoPlay?: boolean }) {
   return (
-    <div className="overflow-hidden rounded-[24px] border border-black/[.06] bg-white shadow-[0_38px_56px_rgba(191,204,225,0.39)]">
-      <video className="block aspect-video w-full object-cover" src={src} muted loop playsInline autoPlay={autoPlay} preload="metadata" />
+    <div className="isolate overflow-hidden [transform:translateZ(0)] rounded-[24px] border border-black/[.06] bg-white shadow-[0_38px_56px_rgba(191,204,225,0.39)]">
+      <video className="block aspect-video w-full bg-white object-cover" src={src} muted loop playsInline autoPlay={autoPlay} preload="metadata" />
     </div>
   )
 }
