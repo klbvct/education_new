@@ -2,8 +2,8 @@ import type { Metadata } from 'next'
 import TestingPage from '../../../../components/TestingPage'
 import { localizedAlternates, socialMeta } from '../../../../lib/seo'
 
-const title = 'Профориентационное тестирование — Дизайн Образования'
-const description = 'Пройдите тест самостоятельно и получите полный отчёт с персональными рекомендациями в собственном кабинете.'
+const title = 'Профильное тестирование для подростков — Дизайн Образования'
+const description = 'Тест для подростков от 14 лет: сильные стороны, способности и направления обучения. Подробный отчёт и персональные рекомендации в личном кабинете.'
 
 export const metadata: Metadata = {
   title,

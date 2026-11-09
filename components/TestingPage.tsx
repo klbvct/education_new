@@ -3,6 +3,7 @@ import type { ReactNode } from 'react'
 import Link from 'next/link'
 import type { Locale } from '../lib/locale'
 import { homeContentUk } from '../content/uk/home'
+import { homeContentRu } from '../content/ru/home'
 import ReportGallery from './ReportGallery'
 
 // Based on the old academy landing (../academy/app/page.tsx), reworked for parents and the design system.
@@ -38,7 +39,7 @@ type Item = { icon: ReactNode; title?: string; text: string }
 
 type TestingStrings = {
   hero: { title: string; lead: string; cta: string; price: string; priceNote: string }
-  author: { heading: string; items: string[]; reviewsCta: string }
+  author: { heading: string; name: string; items: string[]; reviewsCta: string }
   problems: { heading: string; items: Item[] }
   advantages: { heading: string; items: Item[] }
   steps: { heading: string; items: string[] }
@@ -56,6 +57,7 @@ const UK: TestingStrings = {
   },
   author: {
     heading: 'Автор методики',
+    name: homeContentUk.hero.authorName,
     items: homeContentUk.aboutMe.items,
     reviewsCta: homeContentUk.aboutMe.reviewsCta,
   },
@@ -117,8 +119,79 @@ const UK: TestingStrings = {
   },
 }
 
-// Russian copy follows once the Ukrainian page is approved
-const STRINGS: Record<Locale, TestingStrings> = { uk: UK, ru: UK }
+const RU: TestingStrings = {
+  hero: {
+    title: 'Помогите ребёнку определить направление обучения',
+    lead: 'Онлайн-тестирование и подробный отчёт с рекомендациями, чтобы вместе выстроить чёткую стратегию образования и выбора будущей профессии.',
+    cta: 'Начать тестирование',
+    price: '2 500 грн',
+    priceNote: 'полный доступ',
+  },
+  author: {
+    heading: 'Автор методики',
+    name: homeContentRu.hero.authorName,
+    items: homeContentRu.aboutMe.items,
+    reviewsCta: homeContentRu.aboutMe.reviewsCta,
+  },
+  problems: {
+    heading: 'Вам это знакомо?',
+    items: [
+      { icon: ICONS.target, text: 'Ребёнок не может определить свои таланты и способности' },
+      { icon: ICONS.trend, text: 'Не знает, в какой сфере сможет успешно развиваться' },
+      { icon: ICONS.question, text: 'Сомневается в своих силах и правильности выбора' },
+      { icon: ICONS.cap, text: 'Приближается поступление, а направление обучения не выбрано' },
+      { icon: ICONS.globe, text: 'Хотите выбрать актуальную отрасль для будущей карьеры ребёнка' },
+      { icon: ICONS.check, text: 'Хотите, чтобы выбор профессии и обучения был уверенным' },
+    ],
+  },
+  advantages: {
+    heading: 'Почему Дизайн Образования?',
+    items: [
+      { icon: ICONS.bolt, title: 'Быстро, доступно, самостоятельно', text: 'Ребёнок проходит тест в любой удобный момент, без лишних шагов.' },
+      { icon: ICONS.flask, title: 'Современная авторская методика', text: 'Тест сочетает проверенные международные методики с учётом глобальных тенденций в образовании.' },
+      { icon: ICONS.chip, title: 'Тренды рынка труда и искусственного интеллекта', text: 'Анализ учитывает влияние искусственного интеллекта и технологий на рынок труда, чтобы выбор был актуальным сегодня и завтра.' },
+      { icon: ICONS.box, title: 'Всё в одном кабинете', text: 'Личный кабинет, онлайн-тест, подробный отчёт и рекомендации в одном месте.' },
+      { icon: ICONS.brain, title: 'Способности, а не только интересы', text: 'Анализируем когнитивные способности, сильные и слабые стороны, на которые можно опираться при выборе.' },
+      { icon: ICONS.map, title: 'Индивидуальная образовательная карта', text: 'Не просто перечень профессий, а карта отраслей, в которых ребёнок может добиться успеха.' },
+    ],
+  },
+  steps: {
+    heading: 'Как это работает',
+    items: [
+      'Регистрация и создание личного кабинета.',
+      'Оплата доступа к тестированию картой через WayForPay.',
+      'Ребёнок проходит тест в удобное время, это около 60 минут. Честные ответы дают более точные результаты.',
+      'Тест состоит из 8 модулей. К каждому есть описание и инструкция, прогресс можно сохранить и продолжить позже.',
+      'Сразу после завершения вы получаете развёрнутый анализ: направленность, типы мышления, мотивацию, ценности, интересы и особенности восприятия.',
+      'Отчёт содержит рекомендации по выбору направлений обучения.',
+      'Результаты навсегда остаются в личном кабинете.',
+    ],
+  },
+  results: {
+    heading: 'Что вы получите после тестирования',
+    items: [
+      'Структурированное понимание сильных сторон, мышления и потенциала ребёнка',
+      'Чёткое видение, в каких сферах он сможет реализоваться наиболее эффективно',
+      'Определение его типа обучения и развития',
+      'Понимание, какие направления ему подходят, а какие нет, и почему',
+      'Основу для осознанных образовательных решений',
+      'Индивидуальный профиль развития',
+      'Природные склонности и потенциальные зоны роста',
+      'Понимание, как выстраивать образовательную траекторию',
+    ],
+    note: 'После тестирования вы вместе с ребёнком поймёте, куда двигаться дальше. Неопределённость превратится в стратегию.',
+    galleryAlt: 'Страница отчёта',
+    prev: 'Предыдущая страница отчёта',
+    next: 'Следующая страница отчёта',
+  },
+  cta: {
+    heading: 'Помогите ребёнку сделать осознанный выбор',
+    text: 'Пройдите тестирование и получите персональные рекомендации.',
+    button: 'Начать тестирование',
+  },
+}
+
+const STRINGS: Record<Locale, TestingStrings> = { uk: UK, ru: RU }
 
 const H2 = 'text-3xl font-bold leading-tight text-dark md:text-4xl'
 const BUTTON = 'inline-flex h-14 items-center justify-center gap-2 rounded-[32px] px-8 text-base transition hover:opacity-60 lg:h-12'
@@ -166,7 +239,7 @@ export default function TestingPage({ locale }: { locale: Locale }) {
           <div className="grid grid-cols-1 items-center gap-10 md:grid-cols-2">
             <Image
               src="/images/mariana.webp"
-              alt={homeContentUk.hero.authorName}
+              alt={t.author.name}
               width={480}
               height={560}
               className="mx-auto h-auto w-full max-w-[420px] rounded-2xl"
