@@ -27,12 +27,6 @@ const ICONS = {
   cap: icon(<><path d="M2 9l10-5 10 5-10 5z" /><path d="M6 11v5c0 1 3 3 6 3s6-2 6-3v-5" /></>),
   globe: icon(<><circle cx="12" cy="12" r="9" /><ellipse cx="12" cy="12" rx="4" ry="9" /><path d="M3 12h18" /></>),
   check: icon(<><circle cx="12" cy="12" r="9" /><path d="m8.5 12 2.5 2.5 4.5-5" /></>),
-  bolt: icon(<path d="M13 2 4 14h7l-1 8 9-12h-7z" />),
-  flask: icon(<><path d="M9 3h6" /><path d="M10 3v6L4 20a1 1 0 0 0 .9 1.5h14.2A1 1 0 0 0 20 20l-6-11V3" /><path d="M7 15h10" /></>),
-  chip: icon(<><rect x="6" y="6" width="12" height="12" rx="2" /><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4" /></>),
-  box: icon(<><path d="M21 8 12 3 3 8v8l9 5 9-5z" /><path d="M3 8l9 5 9-5M12 13v8" /></>),
-  brain: icon(<><path d="M9 4a3 3 0 0 0-3 3 3 3 0 0 0-2 5 3 3 0 0 0 2 5 3 3 0 0 0 6 1V5a2 2 0 0 0-3-1z" /><path d="M15 4a3 3 0 0 1 3 3 3 3 0 0 1 2 5 3 3 0 0 1-2 5 3 3 0 0 1-6 1" /></>),
-  map: icon(<><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2z" /><path d="M9 4v14M15 6v14" /></>),
 }
 
 type Item = { icon: ReactNode; title?: string; text: string }
@@ -41,7 +35,7 @@ type TestingStrings = {
   hero: { title: string; lead: string; cta: string; price: string; priceNote: string }
   author: { heading: string; name: string; items: string[]; reviewsCta: string }
   problems: { heading: string; items: Item[] }
-  advantages: { heading: string; items: Item[] }
+  advantages: { heading: string; items: { title: string; text: string }[] }
   steps: { heading: string; items: string[] }
   results: { heading: string; items: string[]; note: string; galleryAlt: string; prev: string; next: string }
   cta: { heading: string; text: string; button: string }
@@ -75,12 +69,12 @@ const UK: TestingStrings = {
   advantages: {
     heading: 'Чому Дизайн Освіти?',
     items: [
-      { icon: ICONS.bolt, title: 'Швидко, доступно, самостійно', text: 'Дитина проходить тест у будь-який зручний момент, без зайвих кроків.' },
-      { icon: ICONS.flask, title: 'Сучасна авторська методика', text: 'Тест поєднує перевірені міжнародні методики з урахуванням глобальних тенденцій в освіті.' },
-      { icon: ICONS.chip, title: 'Тренди ринку праці та штучного інтелекту', text: 'Аналіз враховує вплив штучного інтелекту й технологій на ринок праці, щоб вибір був актуальним сьогодні й завтра.' },
-      { icon: ICONS.box, title: 'Усе в одному кабінеті', text: 'Особистий кабінет, онлайн-тест, детальний звіт і рекомендації в одному місці.' },
-      { icon: ICONS.brain, title: 'Здібності, а не лише інтереси', text: 'Аналізуємо когнітивні здібності, сильні й слабкі сторони, на які можна спиратися у виборі.' },
-      { icon: ICONS.map, title: 'Індивідуальна освітня карта', text: 'Не просто перелік професій, а карта галузей, у яких дитина може досягти успіху.' },
+      { title: 'Швидко, доступно, самостійно', text: 'Дитина проходить тест у будь-який зручний момент, без зайвих кроків.' },
+      { title: 'Сучасна авторська методика', text: 'Тест поєднує перевірені міжнародні методики з урахуванням глобальних тенденцій в освіті.' },
+      { title: 'Тренди ринку праці та штучного інтелекту', text: 'Аналіз враховує вплив штучного інтелекту й технологій на ринок праці, щоб вибір був актуальним сьогодні й завтра.' },
+      { title: 'Усе в одному кабінеті', text: 'Особистий кабінет, онлайн-тест, детальний звіт і рекомендації в одному місці.' },
+      { title: 'Здібності, а не лише інтереси', text: 'Аналізуємо когнітивні здібності, сильні й слабкі сторони, на які можна спиратися у виборі.' },
+      { title: 'Індивідуальна освітня карта', text: 'Не просто перелік професій, а карта галузей, у яких дитина може досягти успіху.' },
     ],
   },
   steps: {
@@ -147,12 +141,12 @@ const RU: TestingStrings = {
   advantages: {
     heading: 'Почему Дизайн Образования?',
     items: [
-      { icon: ICONS.bolt, title: 'Быстро, доступно, самостоятельно', text: 'Ребёнок проходит тест в любой удобный момент, без лишних шагов.' },
-      { icon: ICONS.flask, title: 'Современная авторская методика', text: 'Тест сочетает проверенные международные методики с учётом глобальных тенденций в образовании.' },
-      { icon: ICONS.chip, title: 'Тренды рынка труда и искусственного интеллекта', text: 'Анализ учитывает влияние искусственного интеллекта и технологий на рынок труда, чтобы выбор был актуальным сегодня и завтра.' },
-      { icon: ICONS.box, title: 'Всё в одном кабинете', text: 'Личный кабинет, онлайн-тест, подробный отчёт и рекомендации в одном месте.' },
-      { icon: ICONS.brain, title: 'Способности, а не только интересы', text: 'Анализируем когнитивные способности, сильные и слабые стороны, на которые можно опираться при выборе.' },
-      { icon: ICONS.map, title: 'Индивидуальная образовательная карта', text: 'Не просто перечень профессий, а карта отраслей, в которых ребёнок может добиться успеха.' },
+      { title: 'Быстро, доступно, самостоятельно', text: 'Ребёнок проходит тест в любой удобный момент, без лишних шагов.' },
+      { title: 'Современная авторская методика', text: 'Тест сочетает проверенные международные методики с учётом глобальных тенденций в образовании.' },
+      { title: 'Тренды рынка труда и искусственного интеллекта', text: 'Анализ учитывает влияние искусственного интеллекта и технологий на рынок труда, чтобы выбор был актуальным сегодня и завтра.' },
+      { title: 'Всё в одном кабинете', text: 'Личный кабинет, онлайн-тест, подробный отчёт и рекомендации в одном месте.' },
+      { title: 'Способности, а не только интересы', text: 'Анализируем когнитивные способности, сильные и слабые стороны, на которые можно опираться при выборе.' },
+      { title: 'Индивидуальная образовательная карта', text: 'Не просто перечень профессий, а карта отраслей, в которых ребёнок может добиться успеха.' },
     ],
   },
   steps: {
@@ -281,18 +275,17 @@ export default function TestingPage({ locale }: { locale: Locale }) {
         </div>
       </section>
 
-      {/* Advantages */}
-      <section className="bg-bg-base py-20">
+      {/* Advantages, in the style of «Кому необхідно» on the homepage */}
+      <section className="bg-primary/[0.03] py-20">
         <div className="mx-auto max-w-container px-4">
           <h2 className={`${H2} mb-12`}>{t.advantages.heading}</h2>
-          <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-            {t.advantages.items.map((a, i) => (
-              <div key={a.title} className="flex items-start gap-4 rounded-[16px] border border-black/[.06] bg-white p-6">
-                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-[16px] bg-primary/[0.06] text-primary">{a.icon}</span>
+          <div className="grid grid-cols-1 gap-10 md:grid-cols-3">
+            {t.advantages.items.map((a) => (
+              <div key={a.title} className="grid grid-cols-[24px_1fr] gap-3">
+                <Image src="/images/radio_button_checked_24px.svg" alt="" width={24} height={24} className="mt-1" />
                 <div>
-                  <div className="mb-1 text-[13px] font-medium text-primary">{String(i + 1).padStart(2, '0')}</div>
                   <h3 className="mb-2 text-lg font-medium leading-snug">{a.title}</h3>
-                  <p className="text-base leading-relaxed text-[#757474]">{a.text}</p>
+                  <p className="text-base leading-6 text-[#757474]">{a.text}</p>
                 </div>
               </div>
             ))}
