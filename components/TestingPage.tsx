@@ -266,7 +266,7 @@ export default function TestingPage({ locale }: { locale: Locale }) {
           <h2 className={`${H2} mb-12`}>{t.problems.heading}</h2>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {t.problems.items.map((p) => (
-              <div key={p.text} className="flex items-start gap-4 rounded-[16px] border border-black/[.06] bg-white p-5">
+              <div key={p.text} className="flex items-start gap-4 rounded-[16px] bg-white p-5">
                 <span className="shrink-0 text-primary">{p.icon}</span>
                 <p className="text-base leading-relaxed">{p.text}</p>
               </div>
