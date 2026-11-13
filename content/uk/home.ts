@@ -162,6 +162,7 @@ export const homeContentUk: HomeContent = {
   pricing: {
     heading: 'Вартість',
     currency: 'гривень',
+    recommended: 'Рекомендуємо',
     plans: [
       {
         id: 'design',

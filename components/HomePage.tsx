@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import ConsultationModal from './ConsultationModal'
+import { IconCheck } from './HomeIcons'
 import JsonLd from './JsonLd'
 import LiteYouTube from './LiteYouTube'
 import PricingOrderButton from './PricingOrderButton'
@@ -13,11 +14,12 @@ function ChipRow({ items, connector }: { items: string[]; connector: string }) {
     <div className="mb-4 flex flex-wrap items-center gap-2">
       {items.map((label, i) => (
         <span key={label} className="flex items-center gap-2">
-          <span className="rounded-full bg-primary/[0.06] px-4 py-2 text-[18px] font-medium text-primary">
+          {/* Design system "category tag": 32px tall, 16px side padding, Surface background, black 14px text */}
+          <span className="inline-flex min-h-8 items-center rounded-2xl bg-[#F5F5F5] px-4 py-1.5 text-[14px] leading-tight text-black">
             {label}
           </span>
           {i < items.length - 1 && (
-            <span className="text-primary/40" aria-hidden="true">
+            <span className="text-[#9D9D9D]" aria-hidden="true">
               {connector}
             </span>
           )}
@@ -134,77 +136,79 @@ export default function HomePage({ content, locale }: { content: HomeContent; lo
       {/* Tasks */}
       <section className="mx-auto max-w-container px-4 py-16">
         <h2 className="py-8 text-3xl font-bold text-dark md:text-5xl">{content.tasks.heading}</h2>
-        <div className="grid grid-cols-1 gap-10 md:grid-cols-2">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
           {content.tasks.items.map((text) => (
             <div
               key={text}
-              className="mx-auto w-full max-w-[300px] rounded-lg bg-[#F9FAFC] p-4 shadow-[0_38px_56px_rgba(191,204,225,0.39)]"
+              className="h-full rounded-3xl border border-black/[0.04] bg-white p-6 shadow-[0_16px_29px_-8px_rgba(225,231,242,0.5)]"
             >
-              <p className="text-base leading-6 text-primary">{text}</p>
+              {/* Design system "Body L": black, 16px → 18px from 992px, line-height 1.5 */}
+              <p className="text-[16px] leading-[1.5] text-black min-[992px]:text-[18px]">{text}</p>
             </div>
           ))}
         </div>
       </section>
 
-      {/* Way */}
-      <section className="mx-auto max-w-container px-4 py-16">
+      {/* Way: full-width white band, like studyway.com.ua's "Що ви хочете вивчати?" section */}
+      <section className="bg-white">
+      <div className="mx-auto max-w-container px-4 py-16">
         <h2 className="mb-12 text-3xl font-bold text-dark md:text-5xl">{content.way.heading}</h2>
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
+        {/* No cards, no dividers: steps are separated by space only ("air instead of frames") */}
+        <div className="grid grid-cols-1 gap-x-16 gap-y-10 lg:grid-cols-2 lg:gap-y-20">
           {content.way.steps.map((step) => (
-            <div
-              key={step.number}
-              className="flex flex-col rounded-3xl border border-black/5 bg-white p-8 shadow-[0_38px_56px_rgba(191,204,225,0.2)]"
-            >
-              <div className="mb-5 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 text-2xl font-bold text-primary">
-                {step.number}
-              </div>
-              <h3 className="mb-2 text-2xl font-medium text-dark">{step.title}</h3>
-              <p className="mb-4 text-base leading-6">{step.intro}</p>
+            <div key={step.number} className="flex flex-col">
+              {/* Blue counter digits sit inline before the title, no circle */}
+              <h3 className="mb-2 flex items-baseline gap-3 text-2xl font-medium text-dark">
+                <span className="text-primary">{step.number}</span>
+                <span>{step.title}</span>
+              </h3>
+              <p className="mb-4 text-base leading-[1.5] min-[992px]:text-[18px]">{step.intro}</p>
 
               {step.combo && <ChipRow items={step.combo} connector="+" />}
 
               {step.quote && (
                 <div className="mb-4 flex flex-wrap items-center gap-3">
-                  <span className="rounded-full bg-primary/[0.06] px-4 py-2 text-[18px] text-gray-500">
+                  <span className="inline-flex min-h-8 items-center rounded-2xl bg-[#F5F5F5] px-4 py-1.5 text-[14px] leading-tight text-[#757474]">
                     «{step.quote.from}»
                   </span>
-                  <span className="text-primary" aria-hidden="true">
+                  <span className="text-[#9D9D9D]" aria-hidden="true">
                     →
                   </span>
-                  <span className="rounded-full bg-primary px-4 py-2 text-[18px] font-medium text-white">
+                  <span className="inline-flex min-h-8 items-center rounded-2xl bg-[#F5F5F5] px-4 py-1.5 text-[14px] font-medium leading-tight text-black">
                     «{step.quote.to}»
                   </span>
                 </div>
               )}
 
               {step.listIntro && (
-                <p className="mb-3 font-medium text-dark">{step.listIntro}</p>
+                <p className="mb-3 font-medium text-dark text-base leading-[1.5] min-[992px]:text-[18px]">{step.listIntro}</p>
               )}
 
               {step.items && (
-                <div className="space-y-2.5">
+                <div className="space-y-2">
                   {step.items.map((item) => (
                     <div key={item} className="flex items-start gap-3">
                       <span
-                        className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-primary"
+                        className="mt-[9px] h-1.5 w-1.5 shrink-0 rounded-full bg-primary min-[992px]:mt-[11px]"
                         aria-hidden="true"
                       />
-                      <p className="text-[18px] leading-6">{item}</p>
+                      <p className="text-base leading-[1.5] min-[992px]:text-[18px]">{item}</p>
                     </div>
                   ))}
                 </div>
               )}
 
               {step.flowIntro && (
-                <p className="mb-3 font-medium text-dark">{step.flowIntro}</p>
+                <p className="mb-3 font-medium text-dark text-base leading-[1.5] min-[992px]:text-[18px]">{step.flowIntro}</p>
               )}
 
               {step.flow && <ChipRow items={step.flow} connector="→" />}
 
-              {step.note && <p className="mt-4 text-base leading-6">{step.note}</p>}
+              {step.note && <p className="mt-4 text-base leading-[1.5] min-[992px]:text-[18px]">{step.note}</p>}
             </div>
           ))}
         </div>
+      </div>
       </section>
 
       {/* About me */}
@@ -251,64 +255,54 @@ export default function HomePage({ content, locale }: { content: HomeContent; lo
       </section>
 
       {/* Pricing */}
-      <section className="bg-primary/[0.03] py-16">
+      {/* Design system: white section, no shadows, both plans on Surface #F5F5F5 24px-radius cards (blue is
+          never a large-block background). The main plan stands out only by a blue border, a "recommended"
+          badge and the Primary button; the other plan gets a Bordered button. */}
+      <section className="bg-white py-16">
         <div className="mx-auto max-w-container px-4">
           <h2 className="mb-12 text-3xl font-bold text-dark md:text-5xl">{content.pricing.heading}</h2>
-          <div className="mx-auto grid max-w-[920px] grid-cols-1 gap-10 md:grid-cols-2 md:gap-20">
+          <div className="mx-auto grid max-w-[920px] grid-cols-1 gap-4 md:grid-cols-2 md:gap-8">
             {content.pricing.plans.map((plan) => {
               const isAccent = plan.variant === 'accent'
               return (
                 <div
                   key={plan.title}
-                  className={`flex flex-col rounded-2xl p-10 shadow-[4px_8px_40px_rgba(8,24,111,0.2)] ${
-                    isAccent ? 'bg-primary text-white' : 'bg-white'
+                  className={`relative flex flex-col rounded-3xl border-2 bg-[#F5F5F5] p-6 text-black md:p-10 ${
+                    isAccent ? 'border-primary' : 'border-transparent'
                   }`}
                 >
-                  <div
-                    className={`mb-6 border-b pb-6 ${
-                      isAccent ? 'border-white/20' : 'border-black/10'
-                    }`}
-                  >
+                  {isAccent && (
+                    <span className="absolute -top-3.5 left-6 inline-flex h-7 items-center rounded-lg bg-black px-3 text-[13px] font-medium leading-none text-white md:left-10">
+                      {content.pricing.recommended}
+                    </span>
+                  )}
+                  <div className="mb-6 border-b border-black/[0.06] pb-6">
                     <div className="mb-1 text-4xl font-medium">
                       {plan.price}
                       <span className="ml-2 text-base font-normal">{content.pricing.currency}</span>
                     </div>
-                    <h3
-                      className={`text-2xl font-medium ${
-                        isAccent ? 'text-white' : 'text-primary'
-                      }`}
-                    >
-                      {plan.title}
-                    </h3>
+                    <h3 className="text-2xl font-medium">{plan.title}</h3>
                     {plan.tag && (
-                      <p
-                        className={`mt-5 text-base leading-6 ${
-                          isAccent ? 'text-white/90' : 'text-gray-500'
-                        }`}
-                      >
+                      <p className="mt-5 text-base leading-[1.5] text-[#757474] min-[992px]:text-[18px]">
                         {plan.tag}
                       </p>
                     )}
                   </div>
-                  <ul className="flex-1 space-y-6">
+                  <ul className="flex-1 space-y-3">
                     {plan.items.map((item) => (
-                      <li key={item} className="grid grid-cols-[24px_1fr] gap-3">
-                        <Image
-                          src={isAccent ? '/images/check-circle-2.svg' : '/images/check-circle-1.svg'}
-                          alt=""
-                          width={20}
-                          height={20}
-                          className="mt-0.5"
-                        />
-                        <p className="text-[18px] leading-6">{item}</p>
+                      <li key={item} className="flex items-start gap-3">
+                        <IconCheck className="mt-[2px] h-5 w-5 shrink-0 text-black min-[992px]:mt-[3.5px]" />
+                        <p className="text-base leading-[1.5] min-[992px]:text-[18px]">{item}</p>
                       </li>
                     ))}
                   </ul>
                   <PricingOrderButton
                     service={plan.id}
                     label={plan.cta}
-                    className={`mt-8 flex h-14 items-center justify-center rounded-[32px] text-base transition hover:opacity-60 lg:h-12 ${
-                      isAccent ? 'bg-white text-primary' : 'bg-primary text-white'
+                    className={`mt-8 flex h-14 items-center justify-center rounded-[32px] px-6 text-base transition lg:h-12 ${
+                      isAccent
+                        ? 'bg-primary text-white hover:opacity-60'
+                        : 'border border-black/[0.12] text-black hover:border-black'
                     }`}
                   />
                 </div>

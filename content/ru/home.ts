@@ -161,6 +161,7 @@ export const homeContentRu: HomeContent = {
   pricing: {
     heading: 'Стоимость',
     currency: 'гривен',
+    recommended: 'Рекомендуем',
     plans: [
       {
         id: 'design',
