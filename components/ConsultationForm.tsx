@@ -91,14 +91,16 @@ export function ServicePicker({
           type="button"
           onClick={() => onChange(s.id)}
           aria-pressed={value === s.id}
-          className={`flex flex-col items-start rounded-2xl border p-3 text-left transition sm:p-4 ${
+          // Design system: both tiles are Surface #F5F5F5; the selected one differs only by
+          // the blue border as its status marker; prices stay black (blue is only for action/status)
+          className={`flex flex-col items-start rounded-2xl border p-3 text-left text-black transition sm:p-4 ${
             value === s.id
-              ? 'border-primary bg-primary/5'
-              : 'border-black/10 hover:border-primary/40'
+              ? 'border-primary bg-[#F5F5F5]'
+              : 'border-black/[0.04] bg-[#F5F5F5] hover:border-black'
           }`}
         >
           <span className="text-[18px] font-medium">{SERVICE_TITLES[locale][s.id]}</span>
-          <span className="font-semibold text-primary">{s.price} грн</span>
+          <span>{s.price} грн</span>
         </button>
       ))}
     </div>
@@ -196,7 +198,7 @@ export default function ConsultationForm({
           <span className="mr-2 text-[18px] font-medium">
             {SERVICE_TITLES[locale][selectedService.id]}
           </span>
-          <span className="font-semibold text-primary">
+          <span>
             {selectedService.price} грн
           </span>
         </div>

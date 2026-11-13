@@ -342,7 +342,7 @@ export default function HomePage({ content, locale }: { content: HomeContent; lo
             </h2>
             <p className="max-w-[390px] text-base leading-6 text-white">{content.cta.text}</p>
           </div>
-          <div className="rounded-2xl bg-white p-6 md:p-10">
+          <div className="rounded-[40px] bg-white p-6 md:p-10">
             <ConsultationModal />
           </div>
         </div>

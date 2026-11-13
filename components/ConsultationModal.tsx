@@ -31,7 +31,7 @@ export default function ConsultationModal() {
       <h2 className="mb-2 text-2xl font-medium">{t.heading}</h2>
       <p className="mb-6 leading-6">{t.subheading}</p>
 
-      <div className="mb-14">
+      <div className="mb-8">
         <ServicePicker value={service} onChange={setService} locale={locale} />
       </div>
 
