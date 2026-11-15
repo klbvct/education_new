@@ -666,26 +666,28 @@ export default function CoursePage({ locale }: { locale: Locale }) {
         </div>
       </section>
 
-      {/* Why classic career guidance is not enough */}
-      <section className={`${blueBand} py-16 text-white md:py-20`}>
+      {/* Why classic career guidance is not enough: a plain white section like the rest (blue fill and the dark
+          variant both stood out too much). Black text (the "now" line in medium weight), blue counter digits, 0.06 hairlines, grey card.
+          Section backgrounds from here down alternate white / Surface #F5F5F5. */}
+      <section className="bg-white py-16 md:py-20">
         <div className="mx-auto flex max-w-container flex-col gap-14 px-4">
           <div className="flex flex-col gap-5">
-            <h2 className="max-w-[900px] text-3xl font-semibold md:text-[52px] md:leading-[1.15]">{t.whyHeading}</h2>
-            <p className="text-[18px] font-medium leading-[1.25] text-white/90 md:text-[24px]">{t.whySubheading}</p>
-            <p className="text-base leading-[1.5] min-[992px]:text-[18px] text-white/80">{t.whyText}</p>
+            <h2 className={`max-w-[900px] ${sectionHeading}`}>{t.whyHeading}</h2>
+            <p className="text-[18px] font-medium leading-[1.25] md:text-[24px]">{t.whySubheading}</p>
+            <p className="text-base leading-[1.5] min-[992px]:text-[18px]">{t.whyText}</p>
           </div>
           <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
             {t.whyItems.map((item, i) => (
-              <div key={item.before} className="flex flex-col gap-4 border-t-2 border-white/35 pt-6">
-                <span className="text-[40px] font-semibold leading-none text-white/55">
+              <div key={item.before} className="flex flex-col gap-4 border-t border-black/[0.06] pt-6">
+                <span className="text-2xl font-medium leading-none text-primary">
                   {String(i + 1).padStart(2, '0')}
                 </span>
-                <p className="text-base leading-[1.5] min-[992px]:text-[18px] text-white/75">{item.before}</p>
+                <p className="text-base leading-[1.5] min-[992px]:text-[18px]">{item.before}</p>
                 <p className="text-base font-medium leading-[1.5] min-[992px]:text-[18px]">{item.after}</p>
               </div>
             ))}
           </div>
-          <div className="flex flex-col gap-6 rounded-3xl bg-white p-8 md:flex-row md:items-center md:gap-12 md:p-12">
+          <div className="flex flex-col gap-6 rounded-3xl bg-[#F5F5F5] p-8 md:flex-row md:items-center md:gap-12 md:p-12">
             <h3 className="text-[26px] font-semibold leading-[1.15] text-black md:w-[360px] md:shrink-0 md:text-[36px]">
               {t.whyBrand}
             </h3>
@@ -695,7 +697,8 @@ export default function CoursePage({ locale }: { locale: Locale }) {
       </section>
 
       {/* Author */}
-      <section className="mx-auto max-w-container px-4 py-16">
+      <section className="bg-[#F5F5F5] py-16">
+      <div className="mx-auto max-w-container px-4">
         <h2 className={`mb-8 ${sectionHeading}`}>{t.authorHeading}</h2>
         <div className="flex flex-col items-center gap-10 md:flex-row md:justify-center md:gap-16 lg:gap-28 lg:pl-[72px]">
           <Image
@@ -723,11 +726,11 @@ export default function CoursePage({ locale }: { locale: Locale }) {
             ))}
           </div>
         </div>
+      </div>
       </section>
 
-      {/* How the learning works: on a full-width Surface #F5F5F5 band so it doesn't merge with the white
-          author and results sections around it */}
-      <section className="bg-[#F5F5F5] py-16">
+      {/* How the learning works */}
+      <section className="bg-white py-16">
       <div className="mx-auto max-w-container px-4">
         <h2 className={`pb-8 ${sectionHeading}`}>{t.howHeading}</h2>
         {/* Same as the homepage's way steps: blue digits inline before the title, no circles or dashed
@@ -750,7 +753,8 @@ export default function CoursePage({ locale }: { locale: Locale }) {
       </section>
 
       {/* Results */}
-      <section className="mx-auto max-w-container px-4 py-16">
+      <section className="bg-[#F5F5F5] py-16">
+      <div className="mx-auto max-w-container px-4">
         <h2 className="pb-8 text-3xl font-semibold md:pt-8 md:text-[44px] md:leading-[50px]">
           {t.resultsHeading}
         </h2>
@@ -766,17 +770,18 @@ export default function CoursePage({ locale }: { locale: Locale }) {
             </div>
           ))}
         </div>
+      </div>
       </section>
 
       {/* What will and won't be on the course */}
-      <section className="bg-[#F5F5F5] py-16 md:py-32">
+      <section className="bg-white py-16 md:py-32">
         <div className="mx-auto flex max-w-container flex-col gap-12 px-4">
           <h2 className="text-3xl font-semibold md:text-[45px] md:leading-[50px]">{t.willHeading}</h2>
           <div className="mx-auto flex w-full max-w-[1040px] flex-col gap-10">
             <div className="grid grid-cols-1 gap-10 md:grid-cols-2">
-              {/* Like the homepage pricing: no blue-filled block; both cards white on the grey section, the "will" card
-                  accented only by a 2px blue border, titles black */}
-              <div className="rounded-3xl border-2 border-primary bg-white p-8 pb-12 md:p-10 md:pb-16">
+              {/* Like the homepage pricing: no blue-filled block; both cards Surface #F5F5F5 on the white section,
+                  the "will" card accented only by a 2px blue border, titles black */}
+              <div className="rounded-3xl border-2 border-primary bg-[#F5F5F5] p-8 pb-12 md:p-10 md:pb-16">
                 <h3 className="mb-6 border-b border-black/[0.06] pb-6 text-[30px] font-medium leading-[1.1] md:text-[36px]">
                   {t.willTitle}
                 </h3>
@@ -792,7 +797,7 @@ export default function CoursePage({ locale }: { locale: Locale }) {
                   ))}
                 </ul>
               </div>
-              <div className="rounded-3xl border-2 border-transparent bg-white p-8 md:p-10">
+              <div className="rounded-3xl border-2 border-transparent bg-[#F5F5F5] p-8 md:p-10">
                 <h3 className="mb-6 border-b border-black/[0.06] pb-6 text-[30px] font-medium leading-[1.1] md:text-[36px]">
                   {t.wontTitle}
                 </h3>
@@ -814,7 +819,8 @@ export default function CoursePage({ locale }: { locale: Locale }) {
       </section>
 
       {/* Program */}
-      <section className="mx-auto max-w-container px-4 py-16">
+      <section className="bg-[#F5F5F5] py-16">
+      <div className="mx-auto max-w-container px-4">
         <h2 className={`mb-10 ${sectionHeading}`}>{t.programHeading}</h2>
         {/* Module titles only — the per-module topic lists were removed on
             purpose so the detailed syllabus isn't public. */}
@@ -838,10 +844,11 @@ export default function CoursePage({ locale }: { locale: Locale }) {
         <div className="mt-10 flex justify-center">
           <CourseProgramButton label={t.programButton} submitLabel={t.programSubmit} />
         </div>
+      </div>
       </section>
 
       {/* FAQ */}
-      <section className="bg-[#F5F5F5] py-16">
+      <section className="bg-white py-16">
         <div className="mx-auto max-w-container px-4">
           <h2 className={`mb-10 ${sectionHeading}`}>{t.faqHeading}</h2>
           <CourseAccordion
