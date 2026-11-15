@@ -109,7 +109,7 @@ const UK: TestingStrings = {
   },
   cta: {
     heading: 'Допоможіть дитині зробити свідомий вибір',
-    text: 'Пройдіть тестування й отримайте персональні рекомендації.',
+    text: 'Пройдіть тестування й отримайте персональні рекомендації',
     button: 'Розпочати тестування',
   },
 }
@@ -181,7 +181,7 @@ const RU: TestingStrings = {
   },
   cta: {
     heading: 'Помогите ребенку сделать осознанный выбор',
-    text: 'Пройдите тестирование и получите персональные рекомендации.',
+    text: 'Пройдите тестирование и получите персональные рекомендации',
     button: 'Начать тестирование',
   },
 }
@@ -221,7 +221,8 @@ export default function TestingPage({ locale }: { locale: Locale }) {
         <div className="mx-auto grid max-w-container grid-cols-1 items-center gap-12 px-4 lg:grid-cols-2">
           <div>
             <h1 className="mb-6 text-4xl font-bold leading-tight tracking-tight md:text-5xl">{t.hero.title}</h1>
-            <p className={`mb-10 ${BODY}`}>{t.hero.lead}</p>
+            {/* Lead in the homepage hero's subtitle size (24px) */}
+            <p className="mb-10 text-2xl">{t.hero.lead}</p>
             <a href={REGISTER_URL} className={`${BUTTON} bg-primary text-white`}>{t.hero.cta}{BUTTON_ICON}</a>
             <div className="mt-4 flex flex-wrap items-center gap-3">
               <span className="text-2xl font-bold">{t.hero.price}</span>
@@ -351,7 +352,7 @@ export default function TestingPage({ locale }: { locale: Locale }) {
           <div className="mx-auto flex max-w-3xl flex-col items-center gap-10 text-center">
             <div>
               <h2 className={`${H2} mb-4`}>{t.cta.heading}</h2>
-              <p className={`text-[#757474] ${BODY}`}>{t.cta.text}</p>
+              <p className={BODY}>{t.cta.text}</p>
             </div>
             <div className="flex flex-col items-center gap-5">
               <a href={REGISTER_URL} className={`${BUTTON} bg-primary text-white`}>{t.cta.button}{BUTTON_ICON}</a>
