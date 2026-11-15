@@ -73,7 +73,8 @@ export default function HomePage({ content, locale }: { content: HomeContent; lo
       </section>
 
       {/* Profits */}
-      <section className="bg-gradient-to-br from-[#0a4fc4] to-primary py-12">
+      {/* Flat primary like the CTA section: no gradient through the off-palette #0a4fc4 shade */}
+      <section className="bg-primary py-12">
         <div className="mx-auto grid max-w-container grid-cols-1 gap-10 px-4 sm:grid-cols-2 lg:grid-cols-4">
           {content.profits.map((item) => (
             <div key={item.text} className="flex flex-col items-center">
