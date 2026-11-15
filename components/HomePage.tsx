@@ -14,8 +14,8 @@ function ChipRow({ items, connector }: { items: string[]; connector: string }) {
     <div className="mb-4 flex flex-wrap items-center gap-2">
       {items.map((label, i) => (
         <span key={label} className="flex items-center gap-2">
-          {/* Design system "category tag": 32px tall, 16px side padding, Surface background, black 14px text */}
-          <span className="inline-flex min-h-8 items-center rounded-2xl bg-[#F5F5F5] px-4 py-1.5 text-[14px] leading-tight text-black">
+          {/* Surface chip at body size (16px) so it reads like the surrounding text; 40px tall like design system tabs */}
+          <span className="inline-flex min-h-10 items-center rounded-[20px] bg-[#F5F5F5] px-4 py-2 text-base leading-tight text-black">
             {label}
           </span>
           {i < items.length - 1 && (
@@ -153,10 +153,16 @@ export default function HomePage({ content, locale }: { content: HomeContent; lo
       <section className="bg-white">
       <div className="mx-auto max-w-container px-4 py-16">
         <h2 className="mb-12 text-3xl font-bold text-dark md:text-5xl">{content.way.heading}</h2>
-        {/* No cards, no dividers: steps are separated by space only ("air instead of frames") */}
-        <div className="grid grid-cols-1 gap-x-16 gap-y-10 lg:grid-cols-2 lg:gap-y-20">
-          {content.way.steps.map((step) => (
-            <div key={step.number} className="flex flex-col">
+        {/* No cards: steps are separated by space plus a hairline divider (the design system's table-row
+            line, 1px rgba(0,0,0,.06)) — between every step on one column, only between the rows on two */}
+        <div className="grid grid-cols-1 gap-x-16 gap-y-10 lg:grid-cols-2">
+          {content.way.steps.map((step, i) => (
+            <div
+              key={step.number}
+              className={`flex flex-col ${i > 0 ? 'border-t border-black/[0.06] pt-10' : ''} ${
+                i === 1 ? 'lg:border-t-0 lg:pt-0' : ''
+              }`}
+            >
               {/* Blue counter digits sit inline before the title, no circle */}
               <h3 className="mb-2 flex items-baseline gap-3 text-2xl font-medium text-dark">
                 <span className="text-primary">{step.number}</span>
@@ -168,13 +174,13 @@ export default function HomePage({ content, locale }: { content: HomeContent; lo
 
               {step.quote && (
                 <div className="mb-4 flex flex-wrap items-center gap-3">
-                  <span className="inline-flex min-h-8 items-center rounded-2xl bg-[#F5F5F5] px-4 py-1.5 text-[14px] leading-tight text-[#757474]">
+                  <span className="inline-flex min-h-10 items-center rounded-[20px] bg-[#F5F5F5] px-4 py-2 text-base leading-tight text-[#757474]">
                     «{step.quote.from}»
                   </span>
                   <span className="text-[#9D9D9D]" aria-hidden="true">
                     →
                   </span>
-                  <span className="inline-flex min-h-8 items-center rounded-2xl bg-[#F5F5F5] px-4 py-1.5 text-[14px] font-medium leading-tight text-black">
+                  <span className="inline-flex min-h-10 items-center rounded-[20px] bg-[#F5F5F5] px-4 py-2 text-base font-medium leading-tight text-black">
                     «{step.quote.to}»
                   </span>
                 </div>
@@ -185,7 +191,7 @@ export default function HomePage({ content, locale }: { content: HomeContent; lo
               )}
 
               {step.items && (
-                <div className="space-y-2">
+                <div className="space-y-1">
                   {step.items.map((item) => (
                     <div key={item} className="flex items-start gap-3">
                       <span
@@ -254,10 +260,10 @@ export default function HomePage({ content, locale }: { content: HomeContent; lo
         </div>
       </section>
 
-      {/* Pricing */}
-      {/* Design system: white section, no shadows, both plans on Surface #F5F5F5 24px-radius cards (blue is
-          never a large-block background). The main plan stands out only by a blue border, a "recommended"
-          badge and the Primary button; the other plan gets a Bordered button. */}
+      {/* Pricing. Design system: white section, no shadows, both plans on Surface #F5F5F5 24px-radius cards
+          (blue is never a large-block background). The main plan is accented only with blue where the system
+          allows it (border as a status marker, list markers, the Primary button); the other plan stays black,
+          with the design system's Black button (a Bordered one was too faint on the grey card). */}
       <section className="bg-white py-16">
         <div className="mx-auto max-w-container px-4">
           <h2 className="mb-12 text-3xl font-bold text-dark md:text-5xl">{content.pricing.heading}</h2>
@@ -267,15 +273,10 @@ export default function HomePage({ content, locale }: { content: HomeContent; lo
               return (
                 <div
                   key={plan.title}
-                  className={`relative flex flex-col rounded-3xl border-2 bg-[#F5F5F5] p-6 text-black md:p-10 ${
+                  className={`flex flex-col rounded-3xl border-2 bg-[#F5F5F5] p-6 text-black md:p-10 ${
                     isAccent ? 'border-primary' : 'border-transparent'
                   }`}
                 >
-                  {isAccent && (
-                    <span className="absolute -top-3.5 left-6 inline-flex h-7 items-center rounded-lg bg-black px-3 text-[13px] font-medium leading-none text-white md:left-10">
-                      {content.pricing.recommended}
-                    </span>
-                  )}
                   <div className="mb-6 border-b border-black/[0.06] pb-6">
                     <div className="mb-1 text-4xl font-medium">
                       {plan.price}
@@ -291,7 +292,11 @@ export default function HomePage({ content, locale }: { content: HomeContent; lo
                   <ul className="flex-1 space-y-3">
                     {plan.items.map((item) => (
                       <li key={item} className="flex items-start gap-3">
-                        <IconCheck className="mt-[2px] h-5 w-5 shrink-0 text-black min-[992px]:mt-[3.5px]" />
+                        <IconCheck
+                          className={`mt-[2px] h-5 w-5 shrink-0 min-[992px]:mt-[3.5px] ${
+                            isAccent ? 'text-primary' : 'text-black'
+                          }`}
+                        />
                         <p className="text-base leading-[1.5] min-[992px]:text-[18px]">{item}</p>
                       </li>
                     ))}
@@ -302,7 +307,7 @@ export default function HomePage({ content, locale }: { content: HomeContent; lo
                     className={`mt-8 flex h-14 items-center justify-center rounded-[32px] px-6 text-base transition lg:h-12 ${
                       isAccent
                         ? 'bg-primary text-white hover:opacity-60'
-                        : 'border border-black/[0.12] text-black hover:border-black'
+                        : 'border-2 border-black bg-black text-white hover:bg-white hover:text-black'
                     }`}
                   />
                 </div>

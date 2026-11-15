@@ -62,8 +62,6 @@ export type HomeContent = {
   pricing: {
     heading: string
     currency: string
-    /** Badge on the accent (recommended) plan */
-    recommended: string
     plans: PricingPlan[]
   }
   basics: {
