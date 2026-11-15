@@ -544,7 +544,11 @@ const STRINGS: Record<
 }
 
 const sectionHeading = 'text-3xl font-semibold text-dark md:text-[48px] md:leading-[1.05]'
-const blueGradient = 'bg-[linear-gradient(150deg,#0a4fc4_0%,#266af6_100%)]'
+// Blue sections stay as a deliberate exception (like the homepage), but flat primary: no gradient through the
+// off-palette #0a4fc4 shade
+const blueBand = 'bg-primary'
+// Design system "Body L": 16px → 18px from 992px, line-height 1.5 (same as the homepage and /test)
+const BODY = 'text-base leading-[1.5] min-[992px]:text-[18px]'
 
 export default function CoursePage({ locale }: { locale: Locale }) {
   const t = STRINGS[locale]
@@ -558,7 +562,7 @@ export default function CoursePage({ locale }: { locale: Locale }) {
   const aboutCards: Card[] = t.aboutCards.map((c, i) => ({ ...c, icon: ABOUT_ICONS[i] }))
 
   return (
-    <main className="bg-bg-base text-dark">
+    <main className="bg-white text-dark">
       <JsonLd
         data={courseJsonLd({
           locale,
@@ -579,7 +583,7 @@ export default function CoursePage({ locale }: { locale: Locale }) {
             <br />
             <span className="text-primary">{t.heroTitleAccent}</span>
           </h1>
-          <div className="flex flex-col gap-3 text-[18px] leading-7">
+          <div className="flex flex-col gap-3 text-base leading-[1.5] min-[992px]:text-[18px]">
             <p>{t.heroLead}</p>
             <p className="font-medium text-primary">{t.heroGet}</p>
             <p>{t.heroDisciplines}</p>
@@ -602,7 +606,7 @@ export default function CoursePage({ locale }: { locale: Locale }) {
 
       {/* Key facts */}
       <section className="mx-auto max-w-container px-4 pb-12">
-        <div className="grid grid-cols-1 gap-6 rounded-3xl bg-primary px-6 py-8 shadow-[4px_8px_20px_rgba(8,24,111,0.2)] sm:grid-cols-2 lg:grid-cols-3 lg:px-10 lg:py-10 xl:flex xl:items-center xl:justify-between xl:gap-6">
+        <div className="grid grid-cols-1 gap-6 rounded-3xl bg-primary px-6 py-8 sm:grid-cols-2 lg:grid-cols-3 lg:px-10 lg:py-10 xl:flex xl:items-center xl:justify-between xl:gap-6">
           {heroFacts.map((fact, i) => (
             <div
               key={fact.label}
@@ -627,7 +631,7 @@ export default function CoursePage({ locale }: { locale: Locale }) {
           <div className="flex flex-col gap-3.5 lg:w-[468px] lg:shrink-0">
             <h3 className="text-[22px] font-semibold leading-8 md:text-[24px]">{t.aboutSubheading}</h3>
             {t.aboutParagraphs.map((p) => (
-              <p key={p} className="text-[18px] leading-6">
+              <p key={p} className="text-base leading-[1.5] min-[992px]:text-[18px]">
                 {p}
               </p>
             ))}
@@ -636,13 +640,13 @@ export default function CoursePage({ locale }: { locale: Locale }) {
             {aboutCards.map((card) => (
               <div
                 key={card.title}
-                className="flex flex-col gap-3 rounded-3xl border border-black/5 bg-white p-6 shadow-[0_38px_28px_rgba(191,204,225,0.2)]"
+                className="flex flex-col gap-3 rounded-3xl border border-black/[0.04] bg-white p-6 shadow-[0_16px_29px_-8px_rgba(225,231,242,0.5)]"
               >
                 <span className="mb-1 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
                   <Image src={card.icon} width={22} height={22} alt="" />
                 </span>
                 <h3 className="text-[18px] font-medium leading-6">{card.title}</h3>
-                <p className="text-[18px] leading-[26px] text-dark">{card.text}</p>
+                <p className="text-base leading-[1.5] min-[992px]:text-[18px] text-dark">{card.text}</p>
               </div>
             ))}
           </div>
@@ -650,7 +654,7 @@ export default function CoursePage({ locale }: { locale: Locale }) {
       </section>
 
       {/* Audience */}
-      <section className="bg-primary/[0.03] py-16 md:py-28">
+      <section className="bg-[#F5F5F5] py-16 md:py-28">
         <div className="mx-auto flex max-w-container flex-col gap-8 px-4">
           <h2 className="text-3xl font-semibold md:text-[44px] md:leading-[48px]">
             {t.audienceHeading}
@@ -661,7 +665,7 @@ export default function CoursePage({ locale }: { locale: Locale }) {
                 <Image src="/images/course/audience-bullet.svg" width={24} height={24} alt="" className="mt-1 shrink-0" />
                 <div className="flex flex-col gap-2.5">
                   <h3 className="text-[18px] font-semibold leading-6">{item.title}</h3>
-                  <p className="text-[18px] leading-6">{item.text}</p>
+                  <p className="text-base leading-[1.5] min-[992px]:text-[18px]">{item.text}</p>
                 </div>
               </div>
             ))}
@@ -670,12 +674,12 @@ export default function CoursePage({ locale }: { locale: Locale }) {
       </section>
 
       {/* Why classic career guidance is not enough */}
-      <section className={`${blueGradient} py-16 text-white md:py-20`}>
+      <section className={`${blueBand} py-16 text-white md:py-20`}>
         <div className="mx-auto flex max-w-container flex-col gap-14 px-4">
           <div className="flex flex-col gap-5">
             <h2 className="max-w-[900px] text-3xl font-semibold md:text-[52px] md:leading-[1.15]">{t.whyHeading}</h2>
             <p className="text-[18px] font-medium leading-[1.25] text-white/90 md:text-[24px]">{t.whySubheading}</p>
-            <p className="text-[18px] leading-[1.55] text-white/80">{t.whyText}</p>
+            <p className="text-base leading-[1.5] min-[992px]:text-[18px] text-white/80">{t.whyText}</p>
           </div>
           <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
             {t.whyItems.map((item, i) => (
@@ -683,8 +687,8 @@ export default function CoursePage({ locale }: { locale: Locale }) {
                 <span className="text-[40px] font-semibold leading-none text-white/55">
                   {String(i + 1).padStart(2, '0')}
                 </span>
-                <p className="text-[18px] leading-[1.5] text-white/75">{item.before}</p>
-                <p className="text-[18px] font-medium leading-[1.45]">{item.after}</p>
+                <p className="text-base leading-[1.5] min-[992px]:text-[18px] text-white/75">{item.before}</p>
+                <p className="text-base font-medium leading-[1.5] min-[992px]:text-[18px]">{item.after}</p>
               </div>
             ))}
           </div>
@@ -692,7 +696,7 @@ export default function CoursePage({ locale }: { locale: Locale }) {
             <h3 className="text-[26px] font-semibold leading-[1.15] text-primary md:w-[360px] md:shrink-0 md:text-[36px]">
               {t.whyBrand}
             </h3>
-            <p className="text-[18px] leading-[1.45] text-dark">{t.whyBrandText}</p>
+            <p className="text-base leading-[1.5] min-[992px]:text-[18px] text-dark">{t.whyBrandText}</p>
           </div>
         </div>
       </section>
@@ -709,18 +713,18 @@ export default function CoursePage({ locale }: { locale: Locale }) {
             className="h-auto w-full max-w-[320px] md:max-w-[420px]"
           />
           <div className="flex max-w-[564px] flex-col gap-4">
-            <p className="text-[18px] leading-6">
+            <p className="text-base leading-[1.5] min-[992px]:text-[18px]">
               <span className="text-[22px] font-semibold leading-8">{t.authorName}</span>
               {t.authorIntro}
             </p>
             {t.authorFacts.map((fact) => (
               <div key={fact} className="flex items-start gap-4">
                 <Image src="/images/course/check-circle.svg" width={20} height={19} alt="" className="mt-1 shrink-0" />
-                <p className="text-[18px] leading-6">{fact}</p>
+                <p className="text-base leading-[1.5] min-[992px]:text-[18px]">{fact}</p>
               </div>
             ))}
             {t.authorQuote.map((p) => (
-              <p key={p} className="text-[18px] leading-6">
+              <p key={p} className="text-base leading-[1.5] min-[992px]:text-[18px]">
                 {p}
               </p>
             ))}
@@ -743,7 +747,7 @@ export default function CoursePage({ locale }: { locale: Locale }) {
                 )}
               </div>
               <h3 className="mb-4 text-[22px] font-semibold leading-[30px]">{step.title}</h3>
-              <p className="text-[18px] leading-[27px] md:pr-8">{step.text}</p>
+              <p className="text-base leading-[1.5] min-[992px]:text-[18px] md:pr-8">{step.text}</p>
             </div>
           ))}
         </div>
@@ -758,7 +762,7 @@ export default function CoursePage({ locale }: { locale: Locale }) {
           {t.results.map((text) => (
             <div
               key={text}
-              className="rounded-lg bg-[#f9fafc] px-5 pb-8 pt-5 text-[18px] leading-[26px] text-primary shadow-[0_38px_56px_rgba(191,204,225,0.39)]"
+              className="rounded-lg bg-[#f9fafc] px-5 pb-8 pt-5 text-base leading-[1.5] min-[992px]:text-[18px] text-primary shadow-[0_38px_56px_rgba(191,204,225,0.39)]"
             >
               {text}
             </div>
@@ -767,12 +771,12 @@ export default function CoursePage({ locale }: { locale: Locale }) {
       </section>
 
       {/* What will and won't be on the course */}
-      <section className="bg-[#f2f4f8] py-16 md:py-32">
+      <section className="bg-[#F5F5F5] py-16 md:py-32">
         <div className="mx-auto flex max-w-container flex-col gap-12 px-4">
           <h2 className="text-3xl font-semibold md:text-[45px] md:leading-[50px]">{t.willHeading}</h2>
           <div className="mx-auto flex w-full max-w-[1040px] flex-col gap-10">
             <div className="grid grid-cols-1 gap-10 md:grid-cols-2">
-              <div className="rounded-2xl bg-primary p-8 pb-12 text-white shadow-[4px_8px_20px_rgba(8,24,111,0.2)] md:p-10 md:pb-16">
+              <div className="rounded-2xl bg-primary p-8 pb-12 text-white md:p-10 md:pb-16">
                 <h3 className="mb-6 border-b border-white/20 pb-6 text-[30px] font-medium leading-[1.1] md:text-[36px]">
                   {t.willTitle}
                 </h3>
@@ -780,7 +784,7 @@ export default function CoursePage({ locale }: { locale: Locale }) {
                   {t.will.map((item) => (
                     <li key={item.title} className="flex items-start gap-3.5">
                       <Image src="/images/course/will-check.svg" width={22} height={22} alt="" className="mt-0.5 shrink-0" />
-                      <p className="text-[18px] leading-[26px]">
+                      <p className="text-base leading-[1.5] min-[992px]:text-[18px]">
                         <span className="block font-semibold">{item.title}</span>
                         <span className="text-white/90">{item.text}</span>
                       </p>
@@ -788,7 +792,7 @@ export default function CoursePage({ locale }: { locale: Locale }) {
                   ))}
                 </ul>
               </div>
-              <div className="rounded-2xl bg-white p-8 shadow-[4px_8px_20px_rgba(8,24,111,0.2)] md:p-10">
+              <div className="rounded-2xl bg-white p-8 md:p-10">
                 <h3 className="mb-6 border-b border-black/10 pb-6 text-[30px] font-medium leading-[1.1] text-primary md:text-[36px]">
                   {t.wontTitle}
                 </h3>
@@ -796,7 +800,7 @@ export default function CoursePage({ locale }: { locale: Locale }) {
                   {t.wont.map((item) => (
                     <li key={item.title} className="flex items-start gap-3.5">
                       <Image src="/images/course/wont-x.svg" width={22} height={22} alt="" className="mt-0.5 shrink-0" />
-                      <p className="text-[18px] leading-[26px]">
+                      <p className="text-base leading-[1.5] min-[992px]:text-[18px]">
                         <span className="block font-semibold">{item.title}</span>
                         {item.text}
                       </p>
@@ -805,7 +809,7 @@ export default function CoursePage({ locale }: { locale: Locale }) {
                 </ul>
               </div>
             </div>
-            <div className="flex flex-col gap-6 rounded-2xl bg-white p-8 shadow-[4px_8px_20px_rgba(8,24,111,0.2)] md:flex-row md:items-center md:gap-10 md:p-10">
+            <div className="flex flex-col gap-6 rounded-2xl bg-white p-8 md:flex-row md:items-center md:gap-10 md:p-10">
               <div className="flex items-center gap-4 md:w-[380px] md:shrink-0">
                 <span className="relative h-11 w-11 shrink-0">
                   <Image src="/images/course/fee-bg.svg" width={44} height={44} alt="" className="absolute inset-0" />
@@ -819,7 +823,7 @@ export default function CoursePage({ locale }: { locale: Locale }) {
                 </span>
                 <h3 className="text-[18px] font-medium leading-10 text-primary md:text-[24px]">{t.feeTitle}</h3>
               </div>
-              <p className="text-[18px] leading-[30px]">{t.feeText}</p>
+              <p className="text-base leading-[1.5] min-[992px]:text-[18px]">{t.feeText}</p>
             </div>
           </div>
         </div>
@@ -861,20 +865,20 @@ export default function CoursePage({ locale }: { locale: Locale }) {
       </section>
 
       {/* FAQ */}
-      <section className="bg-[#f2f4f8] py-16">
+      <section className="bg-[#F5F5F5] py-16">
         <div className="mx-auto max-w-container px-4">
           <h2 className={`mb-10 ${sectionHeading}`}>{t.faqHeading}</h2>
           <CourseAccordion
             items={t.faq.map((item) => ({
               title: item.question,
-              body: <p className="max-w-[900px] text-[18px] leading-[1.6] md:pr-18">{item.answer}</p>,
+              body: <p className="max-w-[900px] text-base leading-[1.5] min-[992px]:text-[18px] md:pr-18">{item.answer}</p>,
             }))}
           />
         </div>
       </section>
 
       {/* Price + form */}
-      <section id="course-form" className={`${blueGradient} scroll-mt-20 py-12 md:py-14`}>
+      <section id="course-form" className={`${blueBand} scroll-mt-20 py-12 md:py-14`}>
         <div className="mx-auto flex max-w-container flex-col items-center gap-10 px-4 lg:flex-row lg:gap-16">
           <div className="flex w-full flex-1 flex-col gap-6 text-white">
             <h2 className="whitespace-pre-line text-[24px] font-semibold leading-[1.1] md:text-[32px]">{t.formSectionTitle}</h2>
@@ -895,7 +899,7 @@ export default function CoursePage({ locale }: { locale: Locale }) {
               </div>
             </dl>
           </div>
-          <div className="w-full flex-1 rounded-2xl bg-white p-6 shadow-[0_38px_28px_rgba(8,23,111,0.25)] md:px-8 md:py-7">
+          <div className="w-full flex-1 rounded-[40px] bg-white p-6 md:px-10 md:py-10">
             <h2 className="mb-3 text-2xl font-medium">{t.formHeading}</h2>
             <CourseRequestForm />
           </div>

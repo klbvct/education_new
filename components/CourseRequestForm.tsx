@@ -16,7 +16,7 @@ const SERVICE_LABEL: Record<Locale, string> = {
 }
 
 const inputClass =
-  'h-11 w-full rounded-[32px] border border-transparent bg-bg-secondary px-5 text-[18px] outline-none transition focus:border-primary focus:bg-white'
+  'h-12 w-full rounded-[32px] border border-black/[0.04] bg-[#F5F5F5] px-6 text-base outline-none transition placeholder:text-[#757474] focus:border-primary focus:bg-white'
 
 const STRINGS: Record<
   Locale,
@@ -157,7 +157,7 @@ export default function CourseRequestForm({
     >
       <div className="grid grid-cols-2 gap-3">
         <div>
-          <label className="mb-1.5 block text-[18px] font-medium" htmlFor={`${idPrefix}-firstName`}>
+          <label className="mb-2 block text-[14px] font-medium" htmlFor={`${idPrefix}-firstName`}>
             {t.firstName} <span className="text-primary">*</span>
           </label>
           <input
@@ -169,7 +169,7 @@ export default function CourseRequestForm({
           />
         </div>
         <div>
-          <label className="mb-1.5 block text-[18px] font-medium" htmlFor={`${idPrefix}-lastName`}>
+          <label className="mb-2 block text-[14px] font-medium" htmlFor={`${idPrefix}-lastName`}>
             {t.lastName} <span className="text-primary">*</span>
           </label>
           <input
@@ -184,7 +184,7 @@ export default function CourseRequestForm({
 
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
         <div>
-          <label className="mb-1.5 block text-[18px] font-medium" htmlFor={`${idPrefix}-email`}>
+          <label className="mb-2 block text-[14px] font-medium" htmlFor={`${idPrefix}-email`}>
             Email <span className="text-primary">*</span>
           </label>
           <input
@@ -197,7 +197,7 @@ export default function CourseRequestForm({
           />
         </div>
         <div>
-          <label className="mb-1.5 block text-[18px] font-medium" htmlFor={`${idPrefix}-phone`}>
+          <label className="mb-2 block text-[14px] font-medium" htmlFor={`${idPrefix}-phone`}>
             Телефон <span className="text-primary">*</span>
           </label>
           <input
@@ -212,7 +212,7 @@ export default function CourseRequestForm({
       </div>
 
       <div>
-        <span className="mb-1.5 block text-[18px] font-medium">
+        <span className="mb-2 block text-[14px] font-medium">
           {t.messenger} <span className="text-primary">*</span>
         </span>
         <div className="flex flex-wrap gap-2">
@@ -222,10 +222,11 @@ export default function CourseRequestForm({
               type="button"
               onClick={() => setMessenger(m)}
               aria-pressed={messenger === m}
-              className={`h-9 rounded-full px-4 text-[18px] transition ${
+              // Design system tabs: 40px, 20px radius, 15px; active = accent, inactive = Surface + black
+              className={`h-10 rounded-[20px] px-4 text-[15px] transition ${
                 messenger === m
                   ? 'bg-primary text-white'
-                  : 'bg-bg-secondary text-dark hover:bg-primary/10'
+                  : 'bg-[#F5F5F5] text-black hover:opacity-60'
               }`}
             >
               {m}
@@ -236,13 +237,13 @@ export default function CourseRequestForm({
 
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
         <div>
-          <label className="mb-1.5 block text-[18px] font-medium" htmlFor={`${idPrefix}-city`}>
+          <label className="mb-2 block text-[14px] font-medium" htmlFor={`${idPrefix}-city`}>
             {t.city} <span className="text-primary">*</span>
           </label>
           <input id={`${idPrefix}-city`} name="city" required className={inputClass} placeholder={t.cityPlaceholder} />
         </div>
         <div>
-          <label className="mb-1.5 block text-[18px] font-medium" htmlFor={`${idPrefix}-organization`}>
+          <label className="mb-2 block text-[14px] font-medium" htmlFor={`${idPrefix}-organization`}>
             {t.organization} <span className="text-primary">*</span>
           </label>
           <input
@@ -255,7 +256,7 @@ export default function CourseRequestForm({
         </div>
       </div>
 
-      {error && <p className="text-[18px] text-red-600">{error}</p>}
+      {error && <p className="text-[13px] text-[#E5484D]">{error}</p>}
 
       <button
         type="submit"
