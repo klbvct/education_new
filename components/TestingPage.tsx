@@ -291,11 +291,8 @@ export default function TestingPage({ locale }: { locale: Locale }) {
           <div className="grid grid-cols-1 gap-10 md:grid-cols-3">
             {t.advantages.items.map((a) => (
               <div key={a.title} className="grid grid-cols-[24px_1fr] gap-3">
-                {/* Radio-style marker drawn inline in the site blue (replaces the off-palette #5D71DD image) */}
-                <svg viewBox="0 0 24 24" className="mt-0.5 h-6 w-6 text-primary" fill="none" aria-hidden="true">
-                  <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.5" />
-                  <circle cx="12" cy="12" r="4.5" fill="currentColor" />
-                </svg>
+                {/* The same radio marker image as «Кому необхідно» on the homepage */}
+                <Image src="/images/radio_button_checked_24px.svg" alt="" width={24} height={24} className="mt-1" />
                 <div>
                   <h3 className="mb-2 text-lg font-medium leading-snug">{a.title}</h3>
                   <p className={BODY}>{a.text}</p>
