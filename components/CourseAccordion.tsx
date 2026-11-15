@@ -15,11 +15,11 @@ export default function CourseAccordion({ items }: { items: CourseAccordionItem[
   const [openIndex, setOpenIndex] = useState<number | null>(0)
 
   return (
-    <div className="border-t border-black/10">
+    <div className="border-t border-black/[0.06]">
       {items.map((item, i) => {
         const isOpen = openIndex === i
         return (
-          <div key={item.title} className="border-b border-dark/10">
+          <div key={item.title} className="border-b border-black/[0.06]">
             <button
               type="button"
               onClick={() => setOpenIndex(isOpen ? null : i)}
@@ -28,7 +28,7 @@ export default function CourseAccordion({ items }: { items: CourseAccordionItem[
             >
               <span className="flex flex-col gap-2 md:flex-row md:items-center md:gap-6">
                 {item.label && (
-                  <span className="w-[110px] shrink-0 text-[18px] font-medium uppercase tracking-[0.06em] text-primary">
+                  <span className="w-[110px] shrink-0 text-[13px] uppercase leading-none tracking-[0.12em] text-[#9D9D9D]">
                     {item.label}
                   </span>
                 )}
@@ -38,7 +38,7 @@ export default function CourseAccordion({ items }: { items: CourseAccordionItem[
               </span>
               <span
                 className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-full transition ${
-                  isOpen ? 'bg-primary' : 'border border-black/15'
+                  isOpen ? 'bg-primary' : 'border border-black/[0.12]'
                 }`}
                 aria-hidden="true"
               >

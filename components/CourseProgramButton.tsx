@@ -68,7 +68,7 @@ export default function CourseProgramButton({ label, submitLabel }: { label: str
                 type="button"
                 onClick={close}
                 aria-label={CLOSE_LABEL[locale]}
-                className="absolute right-5 top-5 flex h-8 w-8 items-center justify-center rounded-full text-dark/60 transition hover:bg-bg-secondary hover:text-dark"
+                className="absolute right-5 top-5 flex h-8 w-8 items-center justify-center rounded-full text-dark/60 transition hover:bg-[#F5F5F5] hover:text-dark"
               >
                 <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
                   <path d="M6 6l12 12M18 6L6 18" />

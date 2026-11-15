@@ -69,8 +69,6 @@ const STRINGS: Record<
     will: TitledText[]
     wontTitle: string
     wont: TitledText[]
-    feeTitle: string
-    feeText: string
     programHeading: string
     programButton: string
     programSubmit: string
@@ -255,9 +253,6 @@ const STRINGS: Record<
         text: 'Базовою ідеєю методу є насамперед академічність. Ви вчитесь допомагати клієнту побачити його задатки і таланти і посилити їх, а не продаєте освіту.',
       },
     ],
-    feeTitle: 'Абонплати за систему',
-    feeText:
-      'Ніяких витрат на користування системою або методикою після проходження курсу. Витрати виникають лише при покупці тестування.',
     programHeading: 'Програма курсу',
     programButton: 'Отримати програму курсу',
     programSubmit: 'Надіслати заявку',
@@ -484,9 +479,6 @@ const STRINGS: Record<
         text: 'Базовая идея метода – прежде всего академичность. Вы учитесь помогать клиенту увидеть его задатки и таланты и усилить их, а не продаёте образование.',
       },
     ],
-    feeTitle: 'Абонплаты за систему',
-    feeText:
-      'Никаких расходов на пользование системой или методикой после прохождения курса. Расходы возникают только при покупке тестирования.',
     programHeading: 'Программа курса',
     programButton: 'Получить программу курса',
     programSubmit: 'Отправить заявку',
@@ -585,7 +577,7 @@ export default function CoursePage({ locale }: { locale: Locale }) {
           </h1>
           <div className="flex flex-col gap-3 text-base leading-[1.5] min-[992px]:text-[18px]">
             <p>{t.heroLead}</p>
-            <p className="font-medium text-primary">{t.heroGet}</p>
+            <p className="font-medium">{t.heroGet}</p>
             <p>{t.heroDisciplines}</p>
           </div>
           <a href="#course-about" className="mx-auto hidden pt-5 transition md:block hover:opacity-60" aria-label={t.aboutHeading}>
@@ -612,11 +604,11 @@ export default function CoursePage({ locale }: { locale: Locale }) {
               key={fact.label}
               className={`flex items-center gap-4 py-1 ${i > 0 ? 'xl:border-l xl:border-white/20 xl:pl-6' : ''}`}
             >
-              <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-white/[0.14]">
-                <Image src={fact.icon} width={26} height={26} alt="" />
-              </span>
+              {/* Bare icon, no circle behind it (like the homepage basics icons) */}
+              <Image src={fact.icon} width={28} height={28} alt="" className="shrink-0" />
               <span className="flex flex-col gap-1.5">
-                <span className="text-[18px] uppercase leading-none tracking-[0.12em] text-white/70">{fact.label}</span>
+                {/* Design system label style: 13px uppercase, .12em tracking */}
+                <span className="text-[13px] uppercase leading-none tracking-[0.12em] text-white/70">{fact.label}</span>
                 <span className="whitespace-pre-line text-[20px] font-medium leading-[26px] text-white">{fact.value}</span>
               </span>
             </div>
@@ -642,10 +634,11 @@ export default function CoursePage({ locale }: { locale: Locale }) {
                 key={card.title}
                 className="flex flex-col gap-3 rounded-3xl border border-black/[0.04] bg-white p-6 shadow-[0_16px_29px_-8px_rgba(225,231,242,0.5)]"
               >
-                <span className="mb-1 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
-                  <Image src={card.icon} width={22} height={22} alt="" />
-                </span>
-                <h3 className="text-[18px] font-medium leading-6">{card.title}</h3>
+                {/* Icon inline before the title, no circle (like the homepage basics block) */}
+                <h3 className="flex items-start gap-3 text-[18px] font-medium leading-6">
+                  <Image src={card.icon} width={24} height={24} alt="" className="shrink-0" />
+                  <span>{card.title}</span>
+                </h3>
                 <p className="text-base leading-[1.5] min-[992px]:text-[18px] text-dark">{card.text}</p>
               </div>
             ))}
@@ -693,7 +686,7 @@ export default function CoursePage({ locale }: { locale: Locale }) {
             ))}
           </div>
           <div className="flex flex-col gap-6 rounded-3xl bg-white p-8 md:flex-row md:items-center md:gap-12 md:p-12">
-            <h3 className="text-[26px] font-semibold leading-[1.15] text-primary md:w-[360px] md:shrink-0 md:text-[36px]">
+            <h3 className="text-[26px] font-semibold leading-[1.15] text-black md:w-[360px] md:shrink-0 md:text-[36px]">
               {t.whyBrand}
             </h3>
             <p className="text-base leading-[1.5] min-[992px]:text-[18px] text-dark">{t.whyBrandText}</p>
@@ -732,37 +725,42 @@ export default function CoursePage({ locale }: { locale: Locale }) {
         </div>
       </section>
 
-      {/* How the learning works */}
-      <section className="mx-auto max-w-container px-4 pb-16">
-        <h2 className={`pb-8 md:pt-8 ${sectionHeading}`}>{t.howHeading}</h2>
+      {/* How the learning works: on a full-width Surface #F5F5F5 band so it doesn't merge with the white
+          author and results sections around it */}
+      <section className="bg-[#F5F5F5] py-16">
+      <div className="mx-auto max-w-container px-4">
+        <h2 className={`pb-8 ${sectionHeading}`}>{t.howHeading}</h2>
+        {/* Same as the homepage's way steps: blue digits inline before the title, no circles or dashed
+            connectors; on one column steps are split by the 0.06 hairline */}
         <div className="grid grid-cols-1 gap-10 md:grid-cols-3 md:gap-12">
           {t.howSteps.map((step, i) => (
-            <div key={step.title} className="flex flex-col">
-              <div className="mb-5 flex items-center">
-                <span className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-primary text-[22px] font-semibold text-white">
-                  {String(i + 1).padStart(2, '0')}
-                </span>
-                {i < t.howSteps.length - 1 && (
-                  <span className="mx-6 hidden flex-1 border-t-2 border-dashed border-primary/30 md:block" />
-                )}
-              </div>
-              <h3 className="mb-4 text-[22px] font-semibold leading-[30px]">{step.title}</h3>
+            <div
+              key={step.title}
+              className={`flex flex-col ${i > 0 ? 'border-t border-black/[0.06] pt-10 md:border-t-0 md:pt-0' : ''}`}
+            >
+              <h3 className="mb-4 flex items-baseline gap-3 text-[22px] font-semibold leading-[30px]">
+                <span className="text-primary">{String(i + 1).padStart(2, '0')}</span>
+                <span>{step.title}</span>
+              </h3>
               <p className="text-base leading-[1.5] min-[992px]:text-[18px] md:pr-8">{step.text}</p>
             </div>
           ))}
         </div>
+      </div>
       </section>
 
       {/* Results */}
-      <section className="mx-auto max-w-container px-4 pb-16">
+      <section className="mx-auto max-w-container px-4 py-16">
         <h2 className="pb-8 text-3xl font-semibold md:pt-8 md:text-[44px] md:leading-[50px]">
           {t.resultsHeading}
         </h2>
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-10">
+        {/* Same cards as "Вирішує низку комплексних завдань" on the homepage: white, 24px radius, near-invisible
+            border, soft studyway shadow, black Body L text */}
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {t.results.map((text) => (
             <div
               key={text}
-              className="rounded-lg bg-[#f9fafc] px-5 pb-8 pt-5 text-base leading-[1.5] min-[992px]:text-[18px] text-primary shadow-[0_38px_56px_rgba(191,204,225,0.39)]"
+              className={`h-full rounded-3xl border border-black/[0.04] bg-white p-6 text-black shadow-[0_16px_29px_-8px_rgba(225,231,242,0.5)] ${BODY}`}
             >
               {text}
             </div>
@@ -776,30 +774,16 @@ export default function CoursePage({ locale }: { locale: Locale }) {
           <h2 className="text-3xl font-semibold md:text-[45px] md:leading-[50px]">{t.willHeading}</h2>
           <div className="mx-auto flex w-full max-w-[1040px] flex-col gap-10">
             <div className="grid grid-cols-1 gap-10 md:grid-cols-2">
-              <div className="rounded-2xl bg-primary p-8 pb-12 text-white md:p-10 md:pb-16">
-                <h3 className="mb-6 border-b border-white/20 pb-6 text-[30px] font-medium leading-[1.1] md:text-[36px]">
+              {/* Like the homepage pricing: no blue-filled block; both cards white on the grey section, the "will" card
+                  accented only by a 2px blue border, titles black */}
+              <div className="rounded-3xl border-2 border-primary bg-white p-8 pb-12 md:p-10 md:pb-16">
+                <h3 className="mb-6 border-b border-black/[0.06] pb-6 text-[30px] font-medium leading-[1.1] md:text-[36px]">
                   {t.willTitle}
                 </h3>
                 <ul className="flex flex-col gap-6">
                   {t.will.map((item) => (
-                    <li key={item.title} className="flex items-start gap-3.5">
-                      <Image src="/images/course/will-check.svg" width={22} height={22} alt="" className="mt-0.5 shrink-0" />
-                      <p className="text-base leading-[1.5] min-[992px]:text-[18px]">
-                        <span className="block font-semibold">{item.title}</span>
-                        <span className="text-white/90">{item.text}</span>
-                      </p>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div className="rounded-2xl bg-white p-8 md:p-10">
-                <h3 className="mb-6 border-b border-black/10 pb-6 text-[30px] font-medium leading-[1.1] text-primary md:text-[36px]">
-                  {t.wontTitle}
-                </h3>
-                <ul className="flex flex-col gap-6">
-                  {t.wont.map((item) => (
-                    <li key={item.title} className="flex items-start gap-3.5">
-                      <Image src="/images/course/wont-x.svg" width={22} height={22} alt="" className="mt-0.5 shrink-0" />
+                    // No check / cross icons: the card titles «Що БУДЕ» / «Чого НЕ БУДЕ» already say it
+                    <li key={item.title}>
                       <p className="text-base leading-[1.5] min-[992px]:text-[18px]">
                         <span className="block font-semibold">{item.title}</span>
                         {item.text}
@@ -808,22 +792,22 @@ export default function CoursePage({ locale }: { locale: Locale }) {
                   ))}
                 </ul>
               </div>
-            </div>
-            <div className="flex flex-col gap-6 rounded-2xl bg-white p-8 md:flex-row md:items-center md:gap-10 md:p-10">
-              <div className="flex items-center gap-4 md:w-[380px] md:shrink-0">
-                <span className="relative h-11 w-11 shrink-0">
-                  <Image src="/images/course/fee-bg.svg" width={44} height={44} alt="" className="absolute inset-0" />
-                  <Image
-                    src="/images/course/fee-x.svg"
-                    width={19}
-                    height={19}
-                    alt=""
-                    className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
-                  />
-                </span>
-                <h3 className="text-[18px] font-medium leading-10 text-primary md:text-[24px]">{t.feeTitle}</h3>
+              <div className="rounded-3xl border-2 border-transparent bg-white p-8 md:p-10">
+                <h3 className="mb-6 border-b border-black/[0.06] pb-6 text-[30px] font-medium leading-[1.1] md:text-[36px]">
+                  {t.wontTitle}
+                </h3>
+                <ul className="flex flex-col gap-6">
+                  {t.wont.map((item) => (
+                    // No check / cross icons: the card titles «Що БУДЕ» / «Чого НЕ БУДЕ» already say it
+                    <li key={item.title}>
+                      <p className="text-base leading-[1.5] min-[992px]:text-[18px]">
+                        <span className="block font-semibold">{item.title}</span>
+                        {item.text}
+                      </p>
+                    </li>
+                  ))}
+                </ul>
               </div>
-              <p className="text-base leading-[1.5] min-[992px]:text-[18px]">{t.feeText}</p>
             </div>
           </div>
         </div>
@@ -834,28 +818,20 @@ export default function CoursePage({ locale }: { locale: Locale }) {
         <h2 className={`mb-10 ${sectionHeading}`}>{t.programHeading}</h2>
         {/* Module titles only — the per-module topic lists were removed on
             purpose so the detailed syllabus isn't public. */}
-        {/* Same step style as "Як проходить навчання": the module number in
-            a circle with the "Модуль" word beside it. Below lg modules are
-            separated by a dashed blue bottom border; on desktop they are
-            joined by dashed connectors instead. */}
+        {/* Same style as "Як проходить навчання": a grey "Модуль" label (design system Secondary,
+            13px uppercase), then the blue module number inline before the title. No circles or dashed
+            connectors; below lg modules are split by the 0.06 hairline. */}
         <ol className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
           {t.modules.map((mod, i) => (
             <li
               key={mod.label}
-              className="flex flex-col border-b-2 border-dashed border-primary/40 pb-6 last:border-b-0 last:pb-0 lg:border-b-0 lg:pb-0"
+              className="flex flex-col border-b border-black/[0.06] pb-6 last:border-b-0 last:pb-0 lg:border-b-0 lg:pb-0"
             >
-              <div className="mb-5 flex items-center">
-                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-primary text-[20px] font-semibold text-white">
-                  {i + 1}
-                </span>
-                <span className="ml-4 text-[18px] font-semibold uppercase tracking-[0.06em] text-primary">
-                  {mod.label.replace(/\s*\d+$/, '')}
-                </span>
-                {i < t.modules.length - 1 && (
-                  <span className="ml-6 hidden flex-1 border-t-2 border-dashed border-primary/30 lg:block" />
-                )}
-              </div>
-              <h3 className="text-[20px] font-semibold leading-[28px] lg:pr-6">{mod.title}</h3>
+              <span className="mb-3 text-[13px] uppercase leading-none tracking-[0.12em] text-[#9D9D9D]">{mod.label.replace(/\s*\d+$/, '')}</span>
+              <h3 className="flex items-baseline gap-3 text-[20px] font-semibold leading-[28px] lg:pr-6">
+                <span className="text-primary">{String(i + 1).padStart(2, '0')}</span>
+                <span>{mod.title}</span>
+              </h3>
             </li>
           ))}
         </ol>
@@ -885,14 +861,14 @@ export default function CoursePage({ locale }: { locale: Locale }) {
             <dl className="flex flex-col">
               {facts.map((fact) => (
                 <div key={fact.label} className="flex flex-col gap-1.5 border-b border-white/25 py-3.5">
-                  <dt className="text-[18px] uppercase leading-none tracking-[0.12em] text-white/70">
+                  <dt className="text-[13px] uppercase leading-none tracking-[0.12em] text-white/70">
                     {fact.label}
                   </dt>
                   <dd className="whitespace-pre-line text-[18px] font-medium leading-[1.3]">{fact.value}</dd>
                 </div>
               ))}
               <div className="flex flex-col gap-1.5 py-3.5">
-                <dt className="text-[18px] uppercase leading-none tracking-[0.12em] text-white/70">
+                <dt className="text-[13px] uppercase leading-none tracking-[0.12em] text-white/70">
                   {t.priceLabel}
                 </dt>
                 <dd className="text-4xl font-medium leading-[1.1]">{t.priceValue}</dd>
