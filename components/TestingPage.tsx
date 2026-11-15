@@ -346,19 +346,23 @@ export default function TestingPage({ locale }: { locale: Locale }) {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="bg-primary py-20">
-        <div className="mx-auto flex max-w-3xl flex-col items-center gap-10 px-4 text-center">
-          <div>
-            <h2 className="mb-4 text-3xl font-bold leading-tight text-white md:text-4xl">{t.cta.heading}</h2>
-            <p className={`text-white/80 ${BODY}`}>{t.cta.text}</p>
-          </div>
-          <div className="flex flex-col items-center gap-5">
-            <a href={REGISTER_URL} className={`${BUTTON} bg-white text-primary`}>{t.cta.button}{BUTTON_ICON}</a>
-            <div className="flex items-center gap-2 text-white/80">
-              <span className="text-xl font-bold text-white">{t.hero.price}</span>
-              <span className="h-4 w-px bg-white/40" />
-              <span className="text-base">{t.hero.priceNote}</span>
+      {/* CTA: solid full-width grey band. #E5E5E5 is the design system's neutral fill (its chart bars), one step
+          darker than the Surface #F5F5F5 of the results section above so the two don't merge; the Primary
+          button is its one blue accent */}
+      <section className="bg-[#E5E5E5] py-20">
+        <div className="mx-auto max-w-container px-4">
+          <div className="mx-auto flex max-w-3xl flex-col items-center gap-10 text-center">
+            <div>
+              <h2 className={`${H2} mb-4`}>{t.cta.heading}</h2>
+              <p className={`text-[#757474] ${BODY}`}>{t.cta.text}</p>
+            </div>
+            <div className="flex flex-col items-center gap-5">
+              <a href={REGISTER_URL} className={`${BUTTON} bg-primary text-white`}>{t.cta.button}{BUTTON_ICON}</a>
+              <div className="flex items-center gap-2 text-[#757474]">
+                <span className="text-xl font-bold text-black">{t.hero.price}</span>
+                <span className="h-4 w-px bg-black/[.12]" />
+                <span className="text-base">{t.hero.priceNote}</span>
+              </div>
             </div>
           </div>
         </div>
