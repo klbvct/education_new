@@ -335,7 +335,9 @@ export default function HomePage({ content, locale }: { content: HomeContent; lo
       </section>
 
       {/* CTA */}
-      <section className="bg-gradient-to-br from-[#0a4fc4] to-primary py-16">
+      {/* Deliberate exception kept by request: a blue section background. Flat primary, no gradient, so it
+          doesn't add the off-palette #0a4fc4 shade; the form card inside uses the 40px form radius. */}
+      <section className="bg-primary py-16">
         <div className="mx-auto grid max-w-container grid-cols-1 items-center gap-10 px-4 md:grid-cols-2">
           <div>
             <h2 className="mb-4 text-3xl font-medium leading-tight text-white md:text-4xl">
@@ -346,7 +348,7 @@ export default function HomePage({ content, locale }: { content: HomeContent; lo
                 </span>
               ))}
             </h2>
-            <p className="max-w-[390px] text-base leading-6 text-white">{content.cta.text}</p>
+            <p className="max-w-[390px] text-base leading-[1.5] text-white min-[992px]:text-[18px]">{content.cta.text}</p>
           </div>
           <div className="rounded-[40px] bg-white p-6 md:p-10">
             <ConsultationModal />

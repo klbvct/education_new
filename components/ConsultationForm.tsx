@@ -94,7 +94,7 @@ export function ServicePicker({
           aria-pressed={value === s.id}
           // Design system: both tiles are Surface #F5F5F5; the selected one differs only by
           // the blue border as its status marker; prices stay black (blue is only for action/status)
-          className={`flex flex-col items-start rounded-2xl border p-3 text-left text-black transition sm:p-4 ${
+          className={`flex flex-col items-start rounded-2xl border-2 p-3 text-left text-black transition sm:p-4 ${
             value === s.id
               ? 'border-primary bg-[#F5F5F5]'
               : 'border-black/[0.04] bg-[#F5F5F5] hover:border-black'
