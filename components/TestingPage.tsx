@@ -5,6 +5,7 @@ import type { Locale } from '../lib/locale'
 import { homeContentUk } from '../content/uk/home'
 import { homeContentRu } from '../content/ru/home'
 import ReportGallery from './ReportGallery'
+import { IconCheck } from './HomeIcons'
 
 // Based on the old academy landing (../academy/app/page.tsx), reworked for parents and the design system.
 // The test itself, payment and the report all live in the academy app; this page sends visitors to registration there.
@@ -188,6 +189,12 @@ const RU: TestingStrings = {
 const STRINGS: Record<Locale, TestingStrings> = { uk: UK, ru: RU }
 
 const H2 = 'text-3xl font-bold leading-tight text-dark md:text-4xl'
+// Design system "Body L", the same body text as the homepage: 16px → 18px from 992px, line-height 1.5
+const BODY = 'text-base leading-[1.5] min-[992px]:text-[18px]'
+// Soft studyway card shadow, the same one the homepage uses (no off-palette bluish shadow)
+const SOFT_SHADOW = 'shadow-[0_16px_29px_-8px_rgba(225,231,242,0.5)]'
+// Blue check marker in the site colour (replaces the off-palette #5D71DD check_circle image)
+const CHECK = <IconCheck className="mt-[2px] h-5 w-5 shrink-0 text-primary min-[992px]:mt-[3.5px]" />
 const BUTTON = 'inline-flex h-14 items-center justify-center gap-2 rounded-[32px] px-8 text-base transition hover:opacity-60 lg:h-12'
 // The same paper-plane icon as the homepage's main call-to-action button (ConsultationModal.tsx)
 const BUTTON_ICON = (
@@ -198,7 +205,7 @@ const BUTTON_ICON = (
 
 function VideoFrame({ src, autoPlay }: { src: string; autoPlay?: boolean }) {
   return (
-    <div className="isolate overflow-hidden [transform:translateZ(0)] rounded-[24px] border border-black/[.06] bg-white shadow-[0_38px_56px_rgba(191,204,225,0.39)]">
+    <div className={`isolate overflow-hidden [transform:translateZ(0)] rounded-[24px] border border-black/[.06] bg-white ${SOFT_SHADOW}`}>
       <video className="block aspect-video w-full bg-white object-cover" src={src} muted loop playsInline autoPlay={autoPlay} preload="metadata" />
     </div>
   )
@@ -214,7 +221,7 @@ export default function TestingPage({ locale }: { locale: Locale }) {
         <div className="mx-auto grid max-w-container grid-cols-1 items-center gap-12 px-4 lg:grid-cols-2">
           <div>
             <h1 className="mb-6 text-4xl font-bold leading-tight tracking-tight md:text-5xl">{t.hero.title}</h1>
-            <p className="mb-10 text-lg">{t.hero.lead}</p>
+            <p className={`mb-10 ${BODY}`}>{t.hero.lead}</p>
             <a href={REGISTER_URL} className={`${BUTTON} bg-primary text-white`}>{t.hero.cta}{BUTTON_ICON}</a>
             <div className="mt-4 flex flex-wrap items-center gap-3">
               <span className="text-2xl font-bold">{t.hero.price}</span>
@@ -226,8 +233,8 @@ export default function TestingPage({ locale }: { locale: Locale }) {
         </div>
       </section>
 
-      {/* Author, the same block as «Про мене» on the homepage */}
-      <section className="bg-bg-base py-20">
+      {/* Author, the same block as «Про мене» on the homepage. Sections alternate white / Surface #F5F5F5 */}
+      <section className="bg-[#F5F5F5] py-20">
         <div className="mx-auto max-w-container px-4">
           <h2 className={`${H2} mb-12`}>{t.author.heading}</h2>
           <div className="grid grid-cols-1 items-center gap-10 md:grid-cols-2">
@@ -236,14 +243,15 @@ export default function TestingPage({ locale }: { locale: Locale }) {
               alt={t.author.name}
               width={480}
               height={560}
-              className="mx-auto h-auto w-full max-w-[420px] rounded-2xl"
+              className="mx-auto h-auto w-full max-w-[420px] rounded-[24px]"
             />
             <div>
               <div className="space-y-4">
                 {t.author.items.map((text) => (
                   <div key={text} className="grid grid-cols-[24px_1fr] gap-3">
+                    {/* Kept by request: the original circled-check image, as in «Про мене» on the homepage */}
                     <Image src="/images/check_circle_24px.svg" alt="" width={20} height={20} className="mt-1" />
-                    <p className="text-base leading-6">{text}</p>
+                    <p className={BODY}>{text}</p>
                   </div>
                 ))}
               </div>
@@ -266,9 +274,10 @@ export default function TestingPage({ locale }: { locale: Locale }) {
           <h2 className={`${H2} mb-12`}>{t.problems.heading}</h2>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {t.problems.items.map((p) => (
-              <div key={p.text} className="flex items-start gap-4 rounded-[16px] bg-white p-5">
+              // Design system card: Surface #F5F5F5, 24px radius and padding, no border or shadow
+              <div key={p.text} className="flex items-start gap-4 rounded-[24px] bg-[#F5F5F5] p-6">
                 <span className="shrink-0 text-primary">{p.icon}</span>
-                <p className="text-base leading-relaxed">{p.text}</p>
+                <p className={BODY}>{p.text}</p>
               </div>
             ))}
           </div>
@@ -276,16 +285,20 @@ export default function TestingPage({ locale }: { locale: Locale }) {
       </section>
 
       {/* Advantages, in the style of «Кому необхідно» on the homepage */}
-      <section className="bg-primary/[0.03] py-20">
+      <section className="bg-[#F5F5F5] py-20">
         <div className="mx-auto max-w-container px-4">
           <h2 className={`${H2} mb-12`}>{t.advantages.heading}</h2>
           <div className="grid grid-cols-1 gap-10 md:grid-cols-3">
             {t.advantages.items.map((a) => (
               <div key={a.title} className="grid grid-cols-[24px_1fr] gap-3">
-                <Image src="/images/radio_button_checked_24px.svg" alt="" width={24} height={24} className="mt-1" />
+                {/* Radio-style marker drawn inline in the site blue (replaces the off-palette #5D71DD image) */}
+                <svg viewBox="0 0 24 24" className="mt-0.5 h-6 w-6 text-primary" fill="none" aria-hidden="true">
+                  <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.5" />
+                  <circle cx="12" cy="12" r="4.5" fill="currentColor" />
+                </svg>
                 <div>
                   <h3 className="mb-2 text-lg font-medium leading-snug">{a.title}</h3>
-                  <p className="text-base leading-6">{a.text}</p>
+                  <p className={BODY}>{a.text}</p>
                 </div>
               </div>
             ))}
@@ -298,13 +311,13 @@ export default function TestingPage({ locale }: { locale: Locale }) {
         <div className="mx-auto max-w-container px-4">
           <h2 className={`${H2} mb-12`}>{t.steps.heading}</h2>
           <div className="grid grid-cols-1 items-center gap-14 lg:grid-cols-2">
-            {/* Steps divided by thin grey lines, like the detailed lists in the report */}
-            <ol className="divide-y divide-black/[.08]">
+            {/* Steps divided by the same hairline as the homepage's way steps (1px rgba(0,0,0,.06)) */}
+            <ol className="divide-y divide-black/[.06]">
               {t.steps.items.map((s, i) => (
-                <li key={s} className="flex items-center gap-4 py-4 first:pt-0 last:pb-0">
-                  {/* Same number style as the report sections: grey Surface circle, blue digits */}
-                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#F5F5F5] text-[14px] font-medium leading-none text-primary min-[992px]:h-12 min-[992px]:w-12 min-[992px]:text-[16px]">{String(i + 1).padStart(2, '0')}</span>
-                  <p className="flex-1 text-base leading-relaxed">{s}</p>
+                <li key={s} className="flex items-start gap-4 py-4 first:pt-0 last:pb-0">
+                  {/* Same as the homepage's way steps: blue digits inline before the text, no circle */}
+                  <span className={`w-7 shrink-0 font-medium text-primary min-[992px]:w-8 ${BODY}`}>{String(i + 1).padStart(2, '0')}</span>
+                  <p className={`flex-1 ${BODY}`}>{s}</p>
                 </li>
               ))}
             </ol>
@@ -314,19 +327,19 @@ export default function TestingPage({ locale }: { locale: Locale }) {
       </section>
 
       {/* Results: list on the left, pages of a sample report on the right, as on the old landing */}
-      <section className="bg-bg-base py-20">
+      <section className="bg-[#F5F5F5] py-20">
         <div className="mx-auto max-w-container px-4">
           <h2 className={`${H2} mb-12`}>{t.results.heading}</h2>
           <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
             <div className="flex flex-col gap-3">
               {t.results.items.map((item) => (
                 <div key={item} className="flex items-start gap-3">
-                  <Image src="/images/check_circle_24px.svg" alt="" width={20} height={20} className="mt-1 shrink-0" />
-                  <p className="text-base leading-relaxed">{item}</p>
+                  {CHECK}
+                  <p className={BODY}>{item}</p>
                 </div>
               ))}
               {/* Blue notice from the design system («Стани й нотифікації»): 8% blue, radius 20, padding 20 */}
-              <p className="mt-2 rounded-[20px] bg-[rgba(38,106,246,0.08)] p-5 text-base leading-relaxed">{t.results.note}</p>
+              <p className={`mt-2 rounded-[20px] bg-[rgba(38,106,246,0.08)] p-5 ${BODY}`}>{t.results.note}</p>
             </div>
             <ReportGallery images={REPORT_PAGES} alt={t.results.galleryAlt} prevLabel={t.results.prev} nextLabel={t.results.next} />
           </div>
@@ -338,7 +351,7 @@ export default function TestingPage({ locale }: { locale: Locale }) {
         <div className="mx-auto flex max-w-3xl flex-col items-center gap-10 px-4 text-center">
           <div>
             <h2 className="mb-4 text-3xl font-bold leading-tight text-white md:text-4xl">{t.cta.heading}</h2>
-            <p className="text-lg text-white/80">{t.cta.text}</p>
+            <p className={`text-white/80 ${BODY}`}>{t.cta.text}</p>
           </div>
           <div className="flex flex-col items-center gap-5">
             <a href={REGISTER_URL} className={`${BUTTON} bg-white text-primary`}>{t.cta.button}{BUTTON_ICON}</a>

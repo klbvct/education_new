@@ -47,7 +47,7 @@ export default function ReportGallery({ images, alt, prevLabel, nextLabel }: { i
             <div
               key={src}
               aria-hidden={depth !== 0}
-              className="absolute inset-0 overflow-hidden rounded-[16px] border border-black/[.06] bg-white shadow-[0_20px_40px_rgba(191,204,225,0.45)] transition-[transform,opacity] duration-500 ease-out"
+              className="absolute inset-0 overflow-hidden rounded-[16px] border border-black/[.06] bg-white shadow-[0_16px_29px_-8px_rgba(225,231,242,0.5)] transition-[transform,opacity] duration-500 ease-out"
               style={{
                 zIndex: count - depth,
                 opacity: shown ? 1 : 0,
