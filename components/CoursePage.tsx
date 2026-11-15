@@ -575,14 +575,14 @@ export default function CoursePage({ locale }: { locale: Locale }) {
             <br />
             <span className="text-primary">{t.heroTitleAccent}</span>
           </h1>
+          {/* Lead in the homepage hero's subtitle size (24px) */}
+          <p className="text-2xl">{t.heroLead}</p>
           <div className="flex flex-col gap-3 text-base leading-[1.5] min-[992px]:text-[18px]">
-            <p>{t.heroLead}</p>
             <p className="font-medium">{t.heroGet}</p>
             <p>{t.heroDisciplines}</p>
           </div>
-          <a href="#course-about" className="mx-auto hidden pt-5 transition md:block hover:opacity-60" aria-label={t.aboutHeading}>
-            <Image src="/images/course/hero-arrow.svg" width={33} height={33} alt="" className="rotate-90" />
-          </a>
+          {/* The same decorative round down-arrow as the homepage hero: left-aligned, not a link */}
+          <Image src="/images/subtract.svg" width={64} height={64} alt="" />
         </div>
         <div className="flex flex-1 justify-center md:justify-end">
           <Image
