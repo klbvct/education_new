@@ -322,12 +322,13 @@ export default function HomePage({ content, locale }: { content: HomeContent; lo
         <h2 className="mb-12 text-3xl font-bold text-dark md:text-5xl">{content.basics.heading}</h2>
         <div className="grid grid-cols-1 gap-16 md:grid-cols-2">
           {content.basics.items.map((item) => (
-            <div key={item.title} className="flex flex-col items-center gap-4 text-left md:flex-row md:items-start md:text-left">
-              <item.icon className="h-14 w-14 shrink-0 text-primary" />
-              <div>
-                <h3 className="mb-2 text-2xl font-medium text-primary">{item.title}</h3>
-                <p className="text-base leading-6">{item.text}</p>
-              </div>
+            <div key={item.title}>
+              {/* Icon sits inline before the title (like the way-step numbers): blue icon as the accent, black title */}
+              <h3 className="mb-3 flex items-center gap-3 text-2xl font-medium text-dark">
+                <item.icon className="h-10 w-10 shrink-0 text-primary min-[992px]:h-12 min-[992px]:w-12" />
+                <span>{item.title}</span>
+              </h3>
+              <p className="text-base leading-[1.5] min-[992px]:text-[18px]">{item.text}</p>
             </div>
           ))}
         </div>
