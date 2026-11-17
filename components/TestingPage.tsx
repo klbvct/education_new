@@ -43,7 +43,7 @@ type TestingStrings = {
   problems: { heading: string; items: Item[] }
   advantages: { heading: string; items: { title: string; text: string }[] }
   steps: { heading: string; items: string[] }
-  results: { heading: string; items: string[]; note: string; galleryAlt: string; prev: string; next: string }
+  results: { heading: string; items: string[]; note: string; galleryAlt: string; next: string }
   cta: { heading: string; text: string; button: string }
 }
 
@@ -113,7 +113,6 @@ const UK: TestingStrings = {
     ],
     note: 'Після тестування ви разом із дитиною зрозумієте, куди рухатися далі. Невизначеність перетвориться на стратегію.',
     galleryAlt: 'Сторінка звіту',
-    prev: 'Попередня сторінка звіту',
     next: 'Наступна сторінка звіту',
   },
   cta: {
@@ -189,7 +188,6 @@ const RU: TestingStrings = {
     ],
     note: 'После тестирования вы вместе с ребенком поймете, куда двигаться дальше. Неопределенность превратится в стратегию.',
     galleryAlt: 'Страница отчета',
-    prev: 'Предыдущая страница отчета',
     next: 'Следующая страница отчета',
   },
   cta: {
@@ -382,7 +380,7 @@ export default function TestingPage({ locale }: { locale: Locale }) {
               {/* Blue notice from the design system («Стани й нотифікації»): 8% blue, radius 20, padding 20 */}
               <p className={`mt-2 rounded-[20px] bg-[rgba(38,106,246,0.08)] p-5 ${BODY}`}>{t.results.note}</p>
             </div>
-            <ReportGallery images={REPORT_PAGES} alt={t.results.galleryAlt} prevLabel={t.results.prev} nextLabel={t.results.next} />
+            <ReportGallery images={REPORT_PAGES} alt={t.results.galleryAlt} nextLabel={t.results.next} />
           </div>
         </div>
       </section>
