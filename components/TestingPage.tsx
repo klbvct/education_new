@@ -17,8 +17,8 @@ const REGISTER_URL = 'https://academy.education-design.com.ua/register'
 // settings has to be switched back by hand
 const PROMO_ENDS = new Date('2026-12-01T00:00:00+02:00').getTime()
 
-// Pages of the report mockup with invented results (sample name «Анна Коваленко»), never a real client's report
-const REPORT_PAGES = Array.from({ length: 10 }, (_, i) => `/test/report-${String(i + 1).padStart(2, '0')}.webp`)
+// ?v=2 busts the Cloudflare cache after the 17 Nov reshoot. Pages of the report mockup with invented results (sample name «Анна Коваленко»), never a real client's report
+const REPORT_PAGES = Array.from({ length: 10 }, (_, i) => `/test/report-${String(i + 1).padStart(2, '0')}.webp?v=2`)
 
 // Inline icons, as in HomeIcons.tsx: no icon package
 const icon = (paths: ReactNode) => (
