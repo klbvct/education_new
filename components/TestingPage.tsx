@@ -12,6 +12,11 @@ import { IconCheck } from './HomeIcons'
 // Prices are written here by hand: change them together with the academy settings.
 const REGISTER_URL = 'https://academy.education-design.com.ua/register'
 
+// Black Friday promo: until 30 November 2026 inclusive, Kyiv time (UTC+2 in winter). After this moment the page
+// shows the regular price again on its own (the routes revalidate every minute), but the price in the academy
+// settings has to be switched back by hand
+const PROMO_ENDS = new Date('2026-12-01T00:00:00+02:00').getTime()
+
 // Pages of the report mockup with invented results (sample name «Анна Коваленко»), never a real client's report
 const REPORT_PAGES = Array.from({ length: 10 }, (_, i) => `/test/report-${String(i + 1).padStart(2, '0')}.webp`)
 
@@ -33,7 +38,7 @@ const ICONS = {
 type Item = { icon: ReactNode; title?: string; text: string }
 
 type TestingStrings = {
-  hero: { title: string; lead: string; cta: string; price: string; priceNote: string }
+  hero: { title: string; lead: string; cta: string; price: string; priceNote: string; promoPrice: string; promoDiscount: string; promoName: string; promoUntil: string }
   author: { heading: string; name: string; items: string[]; reviewsCta: string }
   problems: { heading: string; items: Item[] }
   advantages: { heading: string; items: { title: string; text: string }[] }
@@ -49,6 +54,10 @@ const UK: TestingStrings = {
     cta: 'Розпочати тестування',
     price: '2 500 грн',
     priceNote: 'повний доступ',
+    promoPrice: '1 990 грн',
+    promoDiscount: '−20%',
+    promoName: 'Чорна п’ятниця',
+    promoUntil: 'до 30 листопада',
   },
   author: {
     heading: 'Автор методики',
@@ -121,6 +130,10 @@ const RU: TestingStrings = {
     cta: 'Начать тестирование',
     price: '2 500 грн',
     priceNote: 'полный доступ',
+    promoPrice: '1 990 грн',
+    promoDiscount: '−20%',
+    promoName: 'Черная пятница',
+    promoUntil: 'до 30 ноября',
   },
   author: {
     heading: 'Автор методики',
@@ -203,6 +216,38 @@ const BUTTON_ICON = (
   </svg>
 )
 
+// Black Friday price tag, after the references: a yellow tag with a pointed left edge and a string hole, tilted a
+// little. Yellow is a temporary promo accent, gone with the promo
+function PromoTag({ hero }: { hero: TestingStrings['hero'] }) {
+  return (
+    <span className="relative inline-flex h-12 -rotate-3 items-center gap-3 bg-[#FFD600] pl-9 pr-5 text-[#1A1A1A] [clip-path:polygon(20px_0,100%_0,100%_100%,20px_100%,0_50%)]">
+      <span className="absolute left-[14px] top-1/2 h-2 w-2 -translate-y-1/2 rounded-full bg-white ring-1 ring-black/25" aria-hidden="true" />
+      <span className="relative text-2xl font-bold leading-none">{hero.promoDiscount}</span>
+      <span className="relative h-8 w-px bg-black/25" aria-hidden="true" />
+      <span className="relative flex flex-col text-left leading-tight">
+        <span className="text-sm font-bold uppercase tracking-wide">{hero.promoName}</span>
+        <span className="text-xs text-black/70">{hero.promoUntil}</span>
+      </span>
+    </span>
+  )
+}
+
+// Price under the hero and CTA buttons. During the promo: the new price, the old one struck through and the tag
+function PriceLine({ hero, large, center }: { hero: TestingStrings['hero']; large?: boolean; center?: boolean }) {
+  const promo = Date.now() < PROMO_ENDS
+  return (
+    <div className={`flex flex-col gap-4 ${center ? 'items-center' : 'items-start'}`}>
+      <div className="flex flex-wrap items-center gap-3 text-[#757474]">
+        <span className={`${large ? 'text-2xl' : 'text-xl'} font-bold text-dark`}>{promo ? hero.promoPrice : hero.price}</span>
+        {promo && <s className="text-lg">{hero.price}</s>}
+        <span className={`${large ? 'h-6' : 'h-4'} w-px bg-black/[.12]`} />
+        <span className="text-base">{hero.priceNote}</span>
+      </div>
+      {promo && <PromoTag hero={hero} />}
+    </div>
+  )
+}
+
 function VideoFrame({ src, autoPlay }: { src: string; autoPlay?: boolean }) {
   return (
     <div className={`isolate overflow-hidden [transform:translateZ(0)] rounded-[24px] border border-black/[.06] bg-white ${SOFT_SHADOW}`}>
@@ -224,10 +269,8 @@ export default function TestingPage({ locale }: { locale: Locale }) {
             {/* Lead in the homepage hero's subtitle size (24px) */}
             <p className="mb-10 text-2xl">{t.hero.lead}</p>
             <a href={REGISTER_URL} className={`${BUTTON} bg-primary text-white`}>{t.hero.cta}{BUTTON_ICON}</a>
-            <div className="mt-4 flex flex-wrap items-center gap-3">
-              <span className="text-2xl font-bold">{t.hero.price}</span>
-              <span className="h-6 w-px bg-black/[.12]" />
-              <span className="text-base">{t.hero.priceNote}</span>
+            <div className="mt-4">
+              <PriceLine hero={t.hero} large />
             </div>
           </div>
           <VideoFrame src="/test/report-preview.mp4" autoPlay />
@@ -356,11 +399,7 @@ export default function TestingPage({ locale }: { locale: Locale }) {
             </div>
             <div className="flex flex-col items-center gap-5">
               <a href={REGISTER_URL} className={`${BUTTON} bg-primary text-white`}>{t.cta.button}{BUTTON_ICON}</a>
-              <div className="flex items-center gap-2 text-[#757474]">
-                <span className="text-xl font-bold text-black">{t.hero.price}</span>
-                <span className="h-4 w-px bg-black/[.12]" />
-                <span className="text-base">{t.hero.priceNote}</span>
-              </div>
+              <PriceLine hero={t.hero} center />
             </div>
           </div>
         </div>

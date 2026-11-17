@@ -12,6 +12,9 @@ export const metadata: Metadata = {
   ...socialMeta({ title, description, path: '/ru/test', locale: 'ru' }),
 }
 
+// Re-render every minute so the promo price in TestingPage switches off on time without a redeploy
+export const revalidate = 60
+
 export default function Page() {
   return <TestingPage locale="ru" />
 }
