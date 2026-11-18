@@ -4,35 +4,32 @@ declare global {
   }
 }
 
-export type PurchaseItem = {
-  itemId: string
-  itemName: string
-  price: number
-}
-
-export type PurchaseUserData = {
+export type LeadUserData = {
   firstName: string
   lastName: string
   email: string
   phone: string
 }
 
-// GA4 Enhanced Ecommerce "purchase" event, read by GTM's GA4 Event tag.
-export function pushPurchaseEvent(params: {
-  transactionId: string
+// GA4 "generate_lead": a form submission, not a payment. Per the GA4 events
+// reference it takes flat params (value, currency, lead_source) and no items,
+// so it is pushed without an ecommerce object. value is the full service price.
+// Ecommerce events (begin_checkout, purchase) go inside "ecommerce" and are
+// sent only by the academy app, for confirmed WayForPay payments.
+export function pushLeadEvent(params: {
+  value: number
   currency?: string
-  items: PurchaseItem[]
-  userData?: PurchaseUserData
+  leadSource: string
+  userData?: LeadUserData
 }) {
   if (typeof window === 'undefined') return
 
   window.dataLayer = window.dataLayer || []
-  const value = params.items.reduce((sum, item) => sum + item.price, 0)
-
-  // Clears any previous ecommerce object so it isn't merged into this push.
-  window.dataLayer.push({ ecommerce: null })
   window.dataLayer.push({
-    event: 'purchase',
+    event: 'generate_lead',
+    value: params.value,
+    currency: params.currency ?? 'UAH',
+    lead_source: params.leadSource,
     // Google's standard "user-provided data" shape — read by GTM's Google
     // tag for GA4 user-provided data / Google Ads Enhanced Conversions.
     // Never map these fields into plain GA4 event params/custom
@@ -47,16 +44,5 @@ export function pushPurchaseEvent(params: {
         },
       },
     }),
-    ecommerce: {
-      transaction_id: params.transactionId,
-      value,
-      currency: params.currency ?? 'UAH',
-      items: params.items.map((item) => ({
-        item_id: item.itemId,
-        item_name: item.itemName,
-        price: item.price,
-        quantity: 1,
-      })),
-    },
   })
 }

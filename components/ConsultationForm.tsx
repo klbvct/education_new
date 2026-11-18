@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { usePathname } from 'next/navigation'
 import { localeFromPathname, type Locale } from '../lib/locale'
-import { pushPurchaseEvent } from '../lib/analytics'
+import { pushLeadEvent } from '../lib/analytics'
 
 const MESSENGERS = ['Telegram', 'WhatsApp', 'Viber'] as const
 
@@ -173,15 +173,9 @@ export default function ConsultationForm({
           if (!res.ok) throw new Error()
           const data: { id?: string } = await res.json()
           if (selectedService && data.id) {
-            pushPurchaseEvent({
-              transactionId: data.id,
-              items: [
-                {
-                  itemId: selectedService.id,
-                  itemName: SERVICE_TITLES[locale][selectedService.id],
-                  price: parsePrice(selectedService.price),
-                },
-              ],
+            pushLeadEvent({
+              value: parsePrice(selectedService.price),
+              leadSource: selectedService.id,
               userData: { firstName, lastName, email, phone },
             })
           }

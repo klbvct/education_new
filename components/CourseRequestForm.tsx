@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { usePathname } from 'next/navigation'
 import { localeFromPathname, type Locale } from '../lib/locale'
-import { pushPurchaseEvent } from '../lib/analytics'
+import { pushLeadEvent } from '../lib/analytics'
 
 const MESSENGERS = ['Telegram', 'WhatsApp', 'Viber'] as const
 type Messenger = (typeof MESSENGERS)[number]
@@ -140,9 +140,9 @@ export default function CourseRequestForm({
           if (!res.ok) throw new Error()
           const data: { id?: string } = await res.json()
           if (data.id) {
-            pushPurchaseEvent({
-              transactionId: data.id,
-              items: [{ itemId: 'course', itemName: serviceLabel, price: COURSE_PRICE }],
+            pushLeadEvent({
+              value: COURSE_PRICE,
+              leadSource: 'course',
               userData: { firstName, lastName, email, phone },
             })
           }
